@@ -1,6 +1,6 @@
 #include <iostream>
 #include "util/common.h"
-#include "util/tuple.h"
+#include "util/math/tuple.h"
 
 int main()
 {
