@@ -1,4 +1,4 @@
-#include "tuple.h"
+#include "util/math/tuple.h"
 
 // arithmetic overloads
 Tuple Tuple::operator-() const
@@ -67,6 +67,20 @@ Tuple cross(const Tuple &t1, const Tuple &t2)
 		  t1.m_x * t2.m_y - t1.m_y * t2.m_x);
 }
 
+Tuple hadamard_product(const Tuple &t1, const Tuple &t2)
+{
+    return vector(t1.m_x * t2.m_x,
+		  t1.m_y * t2.m_y,
+		  t1.m_z * t2.m_z);
+}
+
+// print overload
+std::ostream& operator<<(std::ostream& out, const Tuple& tuple)
+{
+    out <<  tuple.m_x << ' ' << tuple.m_y << ' ' << tuple.m_z << ' ';
+    return out;
+}
+
 // convenience functions
 Tuple point(double x, double y, double z)
 {
@@ -77,11 +91,3 @@ Tuple vector(double x, double y, double z)
 {
     return Tuple(x, y, z, 0.0);
 }
-
-#ifdef DEBUG
-std::ostream& operator<<(std::ostream& out, const Tuple& tuple)
-{
-    out << "Tuple(" << tuple.m_x << ", " << tuple.m_y << ", " << tuple.m_z << ", " << tuple.m_w << ")";
-    return out;
-}
-#endif

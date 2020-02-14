@@ -11,6 +11,13 @@ private:
     double m_x, m_y, m_z, m_w;
 
 public:
+    Tuple() :
+	m_x{0.0},
+	m_y{0.0},
+	m_z{0.0},
+	m_w{0.0}
+    {};
+
     Tuple(double x, double y, double z, double w) :
 	m_x{x},
 	m_y{y},
@@ -30,10 +37,10 @@ public:
     friend Tuple normalize(const Tuple &t);
     friend double dot(const Tuple &t1, const Tuple &t2);
     friend Tuple cross(const Tuple &t1, const Tuple &t2);
+    friend Tuple hadamard_product(const Tuple &t1, const Tuple &t2);
 
-#ifdef DEBUG
+    // print overload
     friend std::ostream& operator<<(std::ostream& out, const Tuple& tuple);
-#endif
 };
 
 // convenience functions

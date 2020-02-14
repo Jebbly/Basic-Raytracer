@@ -1,17 +1,20 @@
 #include <iostream>
 #include "util/common.h"
 #include "util/math/tuple.h"
+#include "util/image/framebuffer.h"
 
 int main()
 {
-    Tuple p = point(3.0, 4.0, 5.0);
-    Tuple v = vector(7.0, 5.0, 2.0);
-    std::cout << p << "\n";
-    std::cout << p + v << "\n";
-    std::cout << -p << "\n";
-    std::cout << p - v << "\n";
-    std::cout << v << "\n";
-    std::cout << magnitude(v) << "\n";
-    std::cout << normalize(v) << "\n";
+    Framebuffer c{100, 100};
+    Tuple white = vector(255.0, 255.0, 255.0);
+    for (int x = 0; x < 100; x++)
+    {
+	for (int y = 0; y < 100; y++)
+	{
+	    Tuple color = vector(2 * x, 2 * y, 255);
+	    c.write_pixel(x, y, color);
+	}
+    }
+    c.save_buffer("output.ppm");
     return 1;
 }
