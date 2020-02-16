@@ -1,7 +1,7 @@
 #include "util/image/framebuffer.h"
 
 // utility functions
-void Framebuffer::write_pixel(int x, int y, const Tuple &color)
+void Framebuffer::write_pixel(int x, int y, Tuple &color)
 {
     assert(x >= 0 && x < m_width &&
 	   y >= 0 && y < m_height &&

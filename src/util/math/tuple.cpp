@@ -1,50 +1,88 @@
 #include "util/math/tuple.h"
 
+// accessor methods
+double Tuple::get(int index) const
+{
+    assert(index >= 0 && index < m_size &&
+	   "index out of bounds");
+
+    return m_buffer[index];
+}
+
+void Tuple::set(int index, double value)
+{
+    assert(index >= 0 && index < m_size &&
+	   "index out of bounds");
+
+    m_buffer[index] = value;
+}
+
 // arithmetic overloads
 Tuple Tuple::operator-() const
 {
-    return Tuple(-m_x, -m_y, -m_z, -m_w);
+    Tuple ret{m_size};
+    for (int i = 0; i < m_size; i++)
+    {
+	ret.set(i, -get(i));
+    }
+    return ret;
 }
 
 Tuple operator+(const Tuple &t1, const Tuple &t2)
 {
-    return Tuple(t1.m_x + t2.m_x, 
-		 t1.m_y + t2.m_y, 
-		 t1.m_z + t2.m_z, 
-		 t1.m_w + t2.m_w);
+    assert(t1.m_size == t2.m_size &&
+	   "cannot add differently sized tuples");
+
+    Tuple ret{t1.m_size};
+    for (int i = 0; i < t1.m_size; i++)
+    {
+	ret.set(i, t1.get(i) + t2.get(i));
+    }
+    return ret;
 }
 
 Tuple operator-(const Tuple &t1, const Tuple &t2)
 {
-    return Tuple(t1.m_x - t2.m_x, 
-		 t1.m_y - t2.m_y, 
-		 t1.m_z - t2.m_z, 
-		 t1.m_w - t2.m_w);
+    assert(t1.m_size == t2.m_size &&
+	"cannot subtract differently sized tuples");
+
+    Tuple ret{t1.m_size};
+    for (int i = 0; i < t1.m_size; i++)
+    {
+	ret.set(i, t1.get(i) - t2.get(i));
+    }
+    return ret;
 }
 
 Tuple operator*(const Tuple &t, float s)
 {
-    return Tuple(s * t.m_x, 
-		 s * t.m_y, 
-		 s * t.m_z, 
-		 s * t.m_w);
+    Tuple ret{t.m_size};
+    for (int i = 0; i < t.m_size; i++)
+    {
+	ret.set(i, t.get(i) * s);
+    }
+    return ret;
 }
 
 Tuple operator/(const Tuple &t, float s)
 {
-    return Tuple(t.m_x / s, 
-		 t.m_y / s, 
-		 t.m_z / s, 
-		 t.m_w / s);
+    Tuple ret{t.m_size};
+    for (int i = 0; i < t.m_size; i++)
+    {
+	ret.set(i, t.get(i) / s);
+    }
+    return ret;
 }
 
 // utility functions
 double magnitude(const Tuple &t)
 {
-    return sqrt(pow(t.m_x, 2) + 
-		pow(t.m_y, 2) + 
-		pow(t.m_z, 2) + 
-		pow(t.m_w, 2));
+    double total = 0;
+    for (int i = 0; i < t.m_size; i++)
+    {
+	total += pow(t.get(i), 2);
+    }
+    return sqrt(total);
 }
 
 Tuple normalize(const Tuple &t)
@@ -54,40 +92,79 @@ Tuple normalize(const Tuple &t)
 
 double dot(const Tuple &t1, const Tuple &t2)
 {
-    return t1.m_x * t2.m_x + 
-	   t1.m_y * t2.m_y + 
-	   t1.m_z * t2.m_z + 
-	   t1.m_w * t2.m_w;
+    assert(t1.m_size == t2.m_size &&
+	   "cannot dot differently sized tuples");
+
+    double total = 0;
+    for (int i = 0; i < t1.m_size; i++)
+    {
+	total += t1.get(i) * t2.get(i);
+    }
+    return total;
 }
 
 Tuple cross(const Tuple &t1, const Tuple &t2)
 {
-    return vector(t1.m_y * t2.m_z - t1.m_z * t2.m_y,
-		  t1.m_z * t2.m_x - t1.m_x * t2.m_z,
-		  t1.m_x * t2.m_y - t1.m_y * t2.m_x);
+    assert(t1.m_size == 4 && t2.m_size == 4 &&
+	   "cannot cross non-vectors");
+
+    return vector(t1.get(1) * t2.get(2) - t1.get(2) * t2.get(1),
+		  t1.get(2) * t2.get(0) - t1.get(0) * t2.get(2),
+		  t1.get(0) * t2.get(1) - t1.get(1) * t2.get(0));
 }
 
 Tuple hadamard_product(const Tuple &t1, const Tuple &t2)
 {
-    return vector(t1.m_x * t2.m_x,
-		  t1.m_y * t2.m_y,
-		  t1.m_z * t2.m_z);
+    assert(t1.m_size == 3 &&
+	   "cannot take hadamard product of noncolor");
+
+    return color(t1.get(0) * t2.get(0),
+		 t1.get(1) * t2.get(1),
+		 t1.get(2) * t2.get(2));
 }
 
 // print overload
-std::ostream& operator<<(std::ostream& out, const Tuple& tuple)
+std::ostream& operator<<(std::ostream& out, const Tuple& t)
 {
-    out <<  tuple.m_x << ' ' << tuple.m_y << ' ' << tuple.m_z << ' ';
+    for (int i = 0; i < t.m_size; i++)
+    {
+	out << t.get(i) << ' ';
+    }
     return out;
 }
 
 // convenience functions
 Tuple point(double x, double y, double z)
 {
-    return Tuple(x, y, z, 1.0);
+    Tuple ret{4};
+
+    ret.set(0, x);
+    ret.set(1, y);
+    ret.set(2, z);
+    ret.set(3, 1.0);
+
+    return ret;
 }
 
 Tuple vector(double x, double y, double z)
 {
-    return Tuple(x, y, z, 0.0);
+    Tuple ret{4};
+
+    ret.set(0, x);
+    ret.set(1, y);
+    ret.set(2, z);
+    ret.set(3, 0.0);
+
+    return ret;
+}
+
+Tuple color(double r, double g, double b)
+{
+    Tuple ret{3};
+
+    ret.set(0, r);
+    ret.set(1, g);
+    ret.set(2, b);
+
+    return ret;
 }

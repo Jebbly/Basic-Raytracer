@@ -29,7 +29,7 @@ public:
     }
 
     // utility functions
-    void write_pixel(int x, int y, const Tuple &color);
+    void write_pixel(int x, int y, Tuple &color);
     void save_buffer(const std::string name);
 };
 
