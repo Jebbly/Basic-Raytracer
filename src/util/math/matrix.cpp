@@ -1,23 +1,5 @@
 #include "util/math/matrix.h"
 
-// move semantics
-Matrix& Matrix::operator=(Matrix&& m)
-{
-    if (&m == this)
-	return *this;
-
-    for (int i = 0; i < m_rows; i++)
-	delete[] m_buffer[i];
-    delete[] m_buffer;
-
-    m_rows = m.m_rows;
-    m_columns = m.m_columns;
-    m_buffer = m.m_buffer;
-    m.m_buffer = nullptr;
-
-    return *this;
-}
-
 // accessor methods
 double Matrix::get(int x, int y) const
 {

@@ -31,7 +31,7 @@ public:
     }
 
     // move semantics
-    Matrix(Matrix&& m) :
+    Matrix(Matrix &&m) :
 	m_rows{m.m_rows},
 	m_columns{m.m_columns},
 	m_buffer{m.m_buffer}
@@ -39,7 +39,22 @@ public:
 	m.m_buffer = nullptr;
     }
 
-    Matrix& operator=(Matrix &&m);
+    Matrix& operator=(Matrix &&m)
+    {
+	if (&m == this)
+	    return *this;
+
+	for (int i = 0; i < m_rows; i++)
+	    delete[] m_buffer[i];
+	delete[] m_buffer;
+
+	m_rows = m.m_rows;
+	m_columns = m.m_columns;
+	m_buffer = m.m_buffer;
+	m.m_buffer = nullptr;
+
+	return *this;
+    }
 
     // accessor methods
     double get(int x, int y) const;
