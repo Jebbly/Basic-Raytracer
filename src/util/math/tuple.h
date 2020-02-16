@@ -35,7 +35,7 @@ public:
 	if (&t == this)
 	    return *this;
 
-	delete m_buffer;
+	delete[] m_buffer;
 
 	m_size = t.m_size;
 	m_buffer = new double[m_size];
