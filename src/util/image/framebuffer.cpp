@@ -3,9 +3,11 @@
 // utility functions
 void Framebuffer::write_pixel(int x, int y, const Tuple &color)
 {
-    if (x >= 0 && x < m_width &&
-	y >= 0 && y < m_height)
-	m_buffer[y][x] = color;
+    assert(x >= 0 && x < m_width &&
+	   y >= 0 && y < m_height &&
+	   "pixel outside of buffer");
+    
+    m_buffer[y][x] = color;
 }
 
 void Framebuffer::save_buffer(const std::string name)
@@ -19,7 +21,9 @@ void Framebuffer::save_buffer(const std::string name)
     for (int y = 0; y < m_height; y++)
     {
 	for (int x = 0; x < m_width; x++)
+	{
 	    output << m_buffer[y][x];
+	}
 	output << '\n';
     }
 

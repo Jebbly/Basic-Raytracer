@@ -1,6 +1,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <cassert>
 #include <cmath>
 
 #define EPSILON 0.00001
