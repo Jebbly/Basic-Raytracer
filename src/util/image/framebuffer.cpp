@@ -7,7 +7,7 @@ void Framebuffer::write_pixel(int x, int y, Tuple &color)
 	   y >= 0 && y < m_height &&
 	   "pixel outside of buffer");
     
-    m_buffer[y][x] = color;
+    m_buffer[y][x] = std::move(color);
 }
 
 void Framebuffer::save_buffer(const std::string name)

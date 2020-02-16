@@ -30,21 +30,6 @@ public:
 	    delete[] m_buffer;
     }
 
-    Tuple& operator=(const Tuple &t)
-    {
-	if (&t == this)
-	    return *this;
-
-	delete[] m_buffer;
-
-	m_size = t.m_size;
-	m_buffer = new double[m_size];
-	for (int i = 0; i < m_size; i++)
-	    m_buffer[i] = t.m_buffer[i];
-
-	return *this;
-    }
-
     // move semantics
     Tuple(Tuple &&t) :
 	m_size{t.m_size},
