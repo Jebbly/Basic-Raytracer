@@ -6,46 +6,18 @@
 
 int main()
 {
-    Matrix m{ 4, 4 };
-    m.set(0, 0, 8);
-    m.set(0, 1, -5);
-    m.set(0, 2, 9);
-    m.set(0, 3, 2);
-    m.set(1, 0, 7);
-    m.set(1, 1, 5);
-    m.set(1, 2, 6);
-    m.set(1, 3, 1);
-    m.set(2, 0, -6);
-    m.set(2, 1, 0);
-    m.set(2, 2, 9);
-    m.set(2, 3, 6);
-    m.set(3, 0, -3);
-    m.set(3, 1, 0);
-    m.set(3, 2, -9);
-    m.set(3, 3, -4);
-    std::cout << m;
-    std::cout << m.inverse();
-    std::cout << multiply(m, m.inverse());
+    Matrix transform = identity().rotate_x(PI / 2).scale(5, 5, 5).translate(10, 5, 7);
+    Tuple p1 = point(1.0, 0.0, 1.0);
+    std::cout << "P: " << multiply(transform, p1) << "\n";
 
-    Tuple p = point(3.0, 4.0, 5.0);
-    Tuple v = vector(7.0, 5.0, 2.0);
-    std::cout << p << "\n";
-    std::cout << p + v << "\n";
-    std::cout << -p << "\n";
-    std::cout << p - v << "\n";
-    std::cout << v << "\n";
-    std::cout << magnitude(v) << "\n";
-    std::cout << normalize(v) << "\n";
-
-    Framebuffer c{100, 100};
-    Tuple white = color(255.0, 255.0, 255.0);
-    for (double x = 0; x < 100; x++)
+    Framebuffer c{101, 101};
+    Tuple dot = point(0.0, 0.0, 1.0);
+    for (double i = 0; i < 12; i++)
     {
-	for (double y = 0; y < 100; y++)
-	{
-	    Tuple col = color(2 * x, 2 * y, 255);
-	    c.write_pixel(x, y, col);
-	}
+	Matrix rotation = identity().rotate_y(i * PI / 6).scale(25, 25, 25);
+	Tuple white = color(255.0, 255.0, 255.0);
+	Tuple end = multiply(rotation, dot);
+	c.write_pixel(end.get(0) + 50, end.get(2) + 50, white);
     }
     c.save_buffer("output.ppm");
     return 1;

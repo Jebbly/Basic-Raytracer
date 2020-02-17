@@ -2,4 +2,6 @@
 A basic raytracer implemented with C++
 
 ## To-do List
-- Store tuples with a pointer
+
+## Known Issues
+- Move semantics with tuples may cause issues down the line (original tuple buffers are assigned to nullptr)

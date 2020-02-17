@@ -26,7 +26,7 @@ public:
 
     ~Tuple()
     {
-	if (m_buffer != nullptr)
+	if (m_buffer)
 	    delete[] m_buffer;
     }
 

@@ -94,6 +94,80 @@ Matrix Matrix::inverse() const
     return ret.transpose();
 }
 
+// transformations
+Matrix Matrix::translate(double x, double y, double z)
+{
+    Matrix ret = identity();
+
+    ret.set(0, 3, x);
+    ret.set(1, 3, y);
+    ret.set(2, 3, z);
+
+    return multiply(ret, *this);
+}
+
+Matrix Matrix::scale(double x, double y, double z)
+{
+    Matrix ret = identity();
+
+    ret.set(0, 0, x);
+    ret.set(1, 1, y);
+    ret.set(2, 2, z);
+
+    return multiply(ret, *this);
+}
+
+Matrix Matrix::rotate_x(double r)
+{
+    Matrix ret = identity();
+
+    ret.set(1, 1, std::cos(r));
+    ret.set(1, 2, -std::sin(r));
+    ret.set(2, 1, std::sin(r));
+    ret.set(2, 2, std::cos(r));
+
+    return multiply(ret, *this);
+}
+
+Matrix Matrix::rotate_y(double r)
+{
+    Matrix ret = identity();
+
+    ret.set(0, 0, std::cos(r));
+    ret.set(0, 2, std::sin(r));
+    ret.set(2, 0, -std::sin(r));
+    ret.set(2, 2, std::cos(r));
+
+    return multiply(ret, *this);
+}
+
+Matrix Matrix::rotate_z(double r)
+{
+    Matrix ret = identity();
+
+    ret.set(0, 0, std::cos(r));
+    ret.set(0, 1, -std::sin(r));
+    ret.set(1, 0, std::sin(r));
+    ret.set(1, 1, std::cos(r));
+
+    return multiply(ret, *this);
+}
+
+Matrix Matrix::shear(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y)
+{
+    Matrix ret = identity();
+
+    ret.set(0, 1, x_y);
+    ret.set(0, 2, x_z);
+    ret.set(1, 0, y_x);
+    ret.set(1, 2, y_z);
+    ret.set(2, 0, z_x);
+    ret.set(2, 1, z_y);
+
+    return multiply(ret, *this);
+}
+
+// utility functions
 bool compare(const Matrix &m1, const Matrix &m2)
 {
     if (m1.rows() != m2.rows() ||
@@ -128,6 +202,24 @@ Matrix multiply(const Matrix &m1, const Matrix &m2)
 	    }
 	    ret.set(i, j, total);
 	}
+    }
+    return ret;
+}
+
+Tuple multiply(const Matrix &m, const Tuple &t)
+{
+    assert(m.rows() == t.size() &&
+	   "incompatible matrix and tuple multiplication");
+
+    Tuple ret{t.size()};
+    for (int i = 0; i < m.rows(); i++)
+    {
+	double total = 0;
+	for (int j = 0; j < m.columns(); j++)
+	{
+	    total += m.get(i, j) * t.get(j);
+	}
+	ret.set(i, total);
     }
     return ret;
 }

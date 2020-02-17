@@ -18,7 +18,9 @@ public:
     {
 	m_buffer = new double*[m_rows];
 	for (int i = 0; i < m_rows; i++)
+	{
 	    m_buffer[i] = new double[m_columns];
+	}
     }
 
     ~Matrix()
@@ -26,7 +28,9 @@ public:
 	if (m_buffer)
 	{
 	    for (int i = 0; i < m_rows; i++)
+	    {
 		delete[] m_buffer[i];
+	    }
 	    delete[] m_buffer;
 	}
     }
@@ -46,7 +50,9 @@ public:
 	    return *this;
 
 	for (int i = 0; i < m_rows; i++)
+	{
 	    delete[] m_buffer[i];
+	}
 	delete[] m_buffer;
 
 	m_rows = m.m_rows;
@@ -70,6 +76,17 @@ public:
     double cofactor(int row, int column) const;
     double determinant() const;
     Matrix inverse() const;
+
+    // transformations
+    Matrix translate(double x, double y, double z);
+
+    Matrix scale(double x, double y, double z);
+
+    Matrix rotate_x(double r);
+    Matrix rotate_y(double r);
+    Matrix rotate_z(double r);
+
+    Matrix shear(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y);
 
     // print overload
     friend std::ostream& operator<<(std::ostream& out, const Matrix &m);
