@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "util/common.h"
+#include "util/math/tuple.h"
 
 class Matrix
 {
@@ -57,12 +58,13 @@ public:
     }
 
     // accessor methods
+    int rows() const {return m_rows;}
+    int columns() const {return m_columns;}
+
     double get(int x, int y) const;
     void set(int x, int y, double value);
 
     // matrix operations
-    friend bool compare(const Matrix &m1, const Matrix &m2);
-    friend Matrix multiply(const Matrix &m1, const Matrix &m2);
     Matrix transpose() const;
     Matrix submatrix(int row, int column) const;
     double cofactor(int row, int column) const;
@@ -72,6 +74,11 @@ public:
     // print overload
     friend std::ostream& operator<<(std::ostream& out, const Matrix &m);
 };
+
+// utility functions
+bool compare(const Matrix &m1, const Matrix &m2);
+Matrix multiply(const Matrix &m1, const Matrix &m2);
+Tuple multiply(const Matrix &m, const Tuple &t);
 
 // convenience functions
 Matrix identity(int size = 4);

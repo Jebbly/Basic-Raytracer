@@ -53,6 +53,8 @@ public:
     }
 
     // accessor methods
+    int size() const {return m_size;}
+
     double get(int index) const;
     void set(int index, double value);
 
@@ -62,17 +64,17 @@ public:
     friend Tuple operator-(const Tuple &t1, const Tuple &t2);
     friend Tuple operator*(const Tuple &t, float s);
     friend Tuple operator/(const Tuple &t, float s);
-    
-    // utility functions
-    friend double magnitude(const Tuple &t);
-    friend Tuple normalize(const Tuple &t);
-    friend double dot(const Tuple &t1, const Tuple &t2);
-    friend Tuple cross(const Tuple &t1, const Tuple &t2);
-    friend Tuple hadamard_product(const Tuple &t1, const Tuple &t2);
 
     // print overload
     friend std::ostream& operator<<(std::ostream& out, const Tuple& t);
 };
+
+// utility functions
+double magnitude(const Tuple &t);
+Tuple normalize(const Tuple &t);
+double dot(const Tuple &t1, const Tuple &t2);
+Tuple cross(const Tuple &t1, const Tuple &t2);
+Tuple hadamard_product(const Tuple &t1, const Tuple &t2);
 
 // convenience functions
 Tuple point(double x, double y, double z);

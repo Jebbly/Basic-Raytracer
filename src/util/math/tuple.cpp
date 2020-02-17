@@ -3,7 +3,7 @@
 // accessor methods
 double Tuple::get(int index) const
 {
-    assert(index >= 0 && index < m_size &&
+    assert(index >= 0 && index < size() &&
 	   "index out of bounds");
 
     return m_buffer[index];
@@ -11,7 +11,7 @@ double Tuple::get(int index) const
 
 void Tuple::set(int index, double value)
 {
-    assert(index >= 0 && index < m_size &&
+    assert(index >= 0 && index < size() &&
 	   "index out of bounds");
 
     m_buffer[index] = value;
@@ -20,8 +20,8 @@ void Tuple::set(int index, double value)
 // arithmetic overloads
 Tuple Tuple::operator-() const
 {
-    Tuple ret{m_size};
-    for (int i = 0; i < m_size; i++)
+    Tuple ret{size()};
+    for (int i = 0; i < size(); i++)
     {
 	ret.set(i, -get(i));
     }
@@ -30,11 +30,11 @@ Tuple Tuple::operator-() const
 
 Tuple operator+(const Tuple &t1, const Tuple &t2)
 {
-    assert(t1.m_size == t2.m_size &&
+    assert(t1.size() == t2.size() &&
 	   "cannot add differently sized tuples");
 
-    Tuple ret{t1.m_size};
-    for (int i = 0; i < t1.m_size; i++)
+    Tuple ret{t1.size()};
+    for (int i = 0; i < t1.size(); i++)
     {
 	ret.set(i, t1.get(i) + t2.get(i));
     }
@@ -43,11 +43,11 @@ Tuple operator+(const Tuple &t1, const Tuple &t2)
 
 Tuple operator-(const Tuple &t1, const Tuple &t2)
 {
-    assert(t1.m_size == t2.m_size &&
-	"cannot subtract differently sized tuples");
+    assert(t1.size() == t2.size() &&
+	   "cannot subtract differently sized tuples");
 
-    Tuple ret{t1.m_size};
-    for (int i = 0; i < t1.m_size; i++)
+    Tuple ret{t1.size()};
+    for (int i = 0; i < t1.size(); i++)
     {
 	ret.set(i, t1.get(i) - t2.get(i));
     }
@@ -56,8 +56,8 @@ Tuple operator-(const Tuple &t1, const Tuple &t2)
 
 Tuple operator*(const Tuple &t, float s)
 {
-    Tuple ret{t.m_size};
-    for (int i = 0; i < t.m_size; i++)
+    Tuple ret{t.size()};
+    for (int i = 0; i < t.size(); i++)
     {
 	ret.set(i, t.get(i) * s);
     }
@@ -66,8 +66,8 @@ Tuple operator*(const Tuple &t, float s)
 
 Tuple operator/(const Tuple &t, float s)
 {
-    Tuple ret{t.m_size};
-    for (int i = 0; i < t.m_size; i++)
+    Tuple ret{t.size()};
+    for (int i = 0; i < t.size(); i++)
     {
 	ret.set(i, t.get(i) / s);
     }
@@ -78,7 +78,7 @@ Tuple operator/(const Tuple &t, float s)
 double magnitude(const Tuple &t)
 {
     double total = 0;
-    for (int i = 0; i < t.m_size; i++)
+    for (int i = 0; i < t.size(); i++)
     {
 	total += pow(t.get(i), 2);
     }
@@ -92,11 +92,11 @@ Tuple normalize(const Tuple &t)
 
 double dot(const Tuple &t1, const Tuple &t2)
 {
-    assert(t1.m_size == t2.m_size &&
+    assert(t1.size() == t2.size() &&
 	   "cannot dot differently sized tuples");
 
     double total = 0;
-    for (int i = 0; i < t1.m_size; i++)
+    for (int i = 0; i < t1.size(); i++)
     {
 	total += t1.get(i) * t2.get(i);
     }
@@ -105,7 +105,7 @@ double dot(const Tuple &t1, const Tuple &t2)
 
 Tuple cross(const Tuple &t1, const Tuple &t2)
 {
-    assert(t1.m_size == 4 && t2.m_size == 4 &&
+    assert(t1.size() == 4 && t2.size() == 4 &&
 	   "cannot cross non-vectors");
 
     return vector(t1.get(1) * t2.get(2) - t1.get(2) * t2.get(1),
@@ -115,7 +115,7 @@ Tuple cross(const Tuple &t1, const Tuple &t2)
 
 Tuple hadamard_product(const Tuple &t1, const Tuple &t2)
 {
-    assert(t1.m_size == 3 &&
+    assert(t1.size() == 3 &&
 	   "cannot take hadamard product of noncolor");
 
     return color(t1.get(0) * t2.get(0),
@@ -126,7 +126,7 @@ Tuple hadamard_product(const Tuple &t1, const Tuple &t2)
 // print overload
 std::ostream& operator<<(std::ostream& out, const Tuple& t)
 {
-    for (int i = 0; i < t.m_size; i++)
+    for (int i = 0; i < t.size(); i++)
     {
 	out << t.get(i) << ' ';
     }
