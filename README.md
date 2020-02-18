@@ -2,6 +2,6 @@
 A basic raytracer implemented with C++
 
 ## To-do List
+- Implement smart pointer and init/destroy for framebuffer class
 
 ## Known Issues
-- Move semantics with tuples may cause issues down the line (original tuple buffers are assigned to nullptr)
