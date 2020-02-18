@@ -10,6 +10,7 @@ class Matrix
 private:
     int m_rows, m_columns;
     double **m_buffer;
+    int *m_resources;
 
 public:
     Matrix(int rows, int columns) :
@@ -21,17 +22,22 @@ public:
 	{
 	    m_buffer[i] = new double[m_columns];
 	}
+
+	m_resources = new int;
+	*m_resources = 1;
     }
 
     ~Matrix()
     {
-	if (m_buffer)
+	(*m_resources)--;
+	if (*m_resources == 0)
 	{
 	    for (int i = 0; i < m_rows; i++)
 	    {
 		delete[] m_buffer[i];
 	    }
 	    delete[] m_buffer;
+	    delete m_resources;
 	}
     }
 
@@ -39,9 +45,10 @@ public:
     Matrix(Matrix &&m) :
 	m_rows{m.m_rows},
 	m_columns{m.m_columns},
-	m_buffer{m.m_buffer}
+	m_buffer{m.m_buffer},
+	m_resources(m.m_resources)
     {
-	m.m_buffer = nullptr;
+	(*m_resources)++;
     }
 
     Matrix& operator=(Matrix &&m)
@@ -49,16 +56,21 @@ public:
 	if (&m == this)
 	    return *this;
 
-	for (int i = 0; i < m_rows; i++)
+	if (*m_resources == 1)
 	{
-	    delete[] m_buffer[i];
+	    for (int i = 0; i < m_rows; i++)
+	    {
+		delete[] m_buffer[i];
+	    }
+	    delete[] m_buffer;
+	    delete m_resources;
 	}
-	delete[] m_buffer;
 
 	m_rows = m.m_rows;
 	m_columns = m.m_columns;
 	m_buffer = m.m_buffer;
-	m.m_buffer = nullptr;
+	m_resources = m.m_resources;
+	(*m_resources)++;
 
 	return *this;
     }

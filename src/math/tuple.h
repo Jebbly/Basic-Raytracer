@@ -10,32 +10,44 @@ class Tuple
 private:
     int m_size;
     double *m_buffer;
+    int *m_resources;
 
 public:
     Tuple() :
 	m_size{3}
     {
 	m_buffer = new double[m_size];
+
+	m_resources = new int;
+	*m_resources = 1;
     }
 
     Tuple(int size) :
 	m_size{size}
     {
 	m_buffer = new double[m_size];
+
+	m_resources = new int;
+	*m_resources = 1;
     };
 
     ~Tuple()
     {
-	if (m_buffer)
+	(*m_resources)--;
+	if (*m_resources == 0)
+	{
 	    delete[] m_buffer;
+	    delete m_resources;
+	}
     }
 
     // move semantics
     Tuple(Tuple &&t) :
 	m_size{t.m_size},
-	m_buffer{t.m_buffer}
+	m_buffer{t.m_buffer},
+	m_resources{t.m_resources}
     {
-	t.m_buffer = nullptr;
+	(*m_resources)++;
     }
 
     Tuple& operator=(Tuple &&t)
@@ -43,11 +55,16 @@ public:
 	if (&t == this)
 	    return *this;
 
-	delete[] m_buffer;
+	if (*m_resources == 1)
+	{
+	    delete[] m_buffer;
+	    delete m_resources;
+	}
 
 	m_size = t.m_size;
 	m_buffer = t.m_buffer;
-	t.m_buffer = nullptr;
+	m_resources = t.m_resources;
+	(*m_resources)++;
 
 	return *this;
     }

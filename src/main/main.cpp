@@ -14,16 +14,17 @@ int main()
     for (int i = -1; i < 2; i++)
 	std::cout << "P: " << r.position(i) << "\n";
     std::cout << "P: " << r.position(2.5) << "\n";
+    std::cout << p;
 
-    Framebuffer c{101, 101};
-    Tuple dot = point(0.0, 0.0, 1.0);
+    // Framebuffer c{101, 101};
+    /*Tuple dot = point(0.0, 0.0, 1.0);
+    Tuple white = color(255.0, 255.0, 255.0);
     for (double i = 0; i < 12; i++)
     {
 	Matrix rotation = identity().rotate_y(i * PI / 6).scale(25, 25, 25);
-	Tuple white = color(255.0, 255.0, 255.0);
 	Tuple end = multiply(rotation, dot);
 	c.write_pixel(end.get(0) + 50, end.get(2) + 50, white);
     }
-    c.save_buffer("output.ppm");
+    c.save_buffer("output.ppm");*/
     return 1;
 }
