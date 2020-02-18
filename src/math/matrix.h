@@ -2,8 +2,8 @@
 #define MATRIX_H
 
 #include <iostream>
-#include "util/common.h"
-#include "util/math/tuple.h"
+#include "common.h"
+#include "math/tuple.h"
 
 class Matrix
 {

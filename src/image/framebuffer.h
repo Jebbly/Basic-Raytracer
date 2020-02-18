@@ -3,7 +3,7 @@
 
 #include <fstream>
 #include <string>
-#include "util/math/tuple.h"
+#include "math/tuple.h"
 
 class Framebuffer
 {

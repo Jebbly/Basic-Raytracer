@@ -1,4 +1,4 @@
-#include "util/math/matrix.h"
+#include "math/matrix.h"
 
 // accessor methods
 double Matrix::get(int x, int y) const

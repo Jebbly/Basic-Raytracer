@@ -1,4 +1,4 @@
-#include "util/common.h"
+#include "common.h"
 
 bool equals(double a, double b)
 {

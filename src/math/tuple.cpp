@@ -1,4 +1,4 @@
-#include "util/math/tuple.h"
+#include "math/tuple.h"
 
 // accessor methods
 double Tuple::get(int index) const

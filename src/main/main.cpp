@@ -1,8 +1,8 @@
 #include <iostream>
-#include "util/common.h"
-#include "util/math/tuple.h"
-#include "util/math/matrix.h"
-#include "util/image/framebuffer.h"
+#include "common.h"
+#include "math/tuple.h"
+#include "math/matrix.h"
+#include "image/framebuffer.h"
 
 int main()
 {

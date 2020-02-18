@@ -1,4 +1,4 @@
-#include "util/image/framebuffer.h"
+#include "image/framebuffer.h"
 
 // utility functions
 void Framebuffer::write_pixel(int x, int y, Tuple &color)
