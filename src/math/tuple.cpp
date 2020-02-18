@@ -1,5 +1,20 @@
 #include "math/tuple.h"
 
+// initialize and destroy methods
+void Tuple::init()
+{
+    m_buffer = new double[m_size];
+
+    m_resources = new int;
+    *m_resources = 1;
+}
+
+void Tuple::destroy()
+{
+    delete[] m_buffer;
+    delete m_resources;
+}
+
 // accessor methods
 double Tuple::get(int index) const
 {

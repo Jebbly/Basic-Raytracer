@@ -8,37 +8,33 @@
 class Tuple
 {
 private:
+    // attributes
     int m_size;
     double *m_buffer;
     int *m_resources;
+
+    // initialize and destroy methods
+    void init();
+    void destroy();
 
 public:
     Tuple() :
 	m_size{3}
     {
-	m_buffer = new double[m_size];
-
-	m_resources = new int;
-	*m_resources = 1;
+	init();
     }
 
     Tuple(int size) :
 	m_size{size}
     {
-	m_buffer = new double[m_size];
-
-	m_resources = new int;
-	*m_resources = 1;
+	init();
     };
 
     ~Tuple()
     {
 	(*m_resources)--;
 	if (*m_resources == 0)
-	{
-	    delete[] m_buffer;
-	    delete m_resources;
-	}
+	    destroy();
     }
 
     // move semantics
@@ -55,11 +51,9 @@ public:
 	if (&t == this)
 	    return *this;
 
-	if (*m_resources == 1)
-	{
-	    delete[] m_buffer;
-	    delete m_resources;
-	}
+	(*m_resources)--;
+	if (*m_resources == 0)
+	    destroy();
 
 	m_size = t.m_size;
 	m_buffer = t.m_buffer;

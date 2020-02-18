@@ -8,37 +8,28 @@
 class Matrix
 {
 private:
+    // attributes
     int m_rows, m_columns;
     double **m_buffer;
     int *m_resources;
+
+    // initialize and destroy methods
+    void init();
+    void destroy();
 
 public:
     Matrix(int rows, int columns) :
 	m_rows{rows},
 	m_columns{columns}
     {
-	m_buffer = new double*[m_rows];
-	for (int i = 0; i < m_rows; i++)
-	{
-	    m_buffer[i] = new double[m_columns];
-	}
-
-	m_resources = new int;
-	*m_resources = 1;
+	init();
     }
 
     ~Matrix()
     {
 	(*m_resources)--;
 	if (*m_resources == 0)
-	{
-	    for (int i = 0; i < m_rows; i++)
-	    {
-		delete[] m_buffer[i];
-	    }
-	    delete[] m_buffer;
-	    delete m_resources;
-	}
+	    destroy();
     }
 
     // move semantics
@@ -56,15 +47,9 @@ public:
 	if (&m == this)
 	    return *this;
 
-	if (*m_resources == 1)
-	{
-	    for (int i = 0; i < m_rows; i++)
-	    {
-		delete[] m_buffer[i];
-	    }
-	    delete[] m_buffer;
-	    delete m_resources;
-	}
+	(*m_resources)--;
+	if (*m_resources == 0)
+	    destroy();
 
 	m_rows = m.m_rows;
 	m_columns = m.m_columns;

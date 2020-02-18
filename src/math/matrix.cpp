@@ -1,5 +1,28 @@
 #include "math/matrix.h"
 
+// initialize and destroy methods
+void Matrix::init()
+{
+    m_buffer = new double*[m_rows];
+    for (int i = 0; i < m_rows; i++)
+    {
+	m_buffer[i] = new double[m_columns];
+    }
+
+    m_resources = new int;
+    *m_resources = 1;
+}
+
+void Matrix::destroy()
+{
+    for (int i = 0; i < m_rows; i++)
+    {
+	delete[] m_buffer[i];
+    }
+    delete[] m_buffer;
+    delete m_resources;
+}
+
 // accessor methods
 double Matrix::get(int x, int y) const
 {
