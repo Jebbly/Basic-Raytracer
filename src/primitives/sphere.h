@@ -1,7 +1,6 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include <vector>
 #include "main/common.h"
 #include "core/ray.h"
 
@@ -19,7 +18,7 @@ public:
     }
 
     // line-sphere intersection
-    std::vector<double> intersect(Ray &r) const;
+    Tuple intersect(const Ray &r) const;
 };
 
 #endif SPHERE_H
