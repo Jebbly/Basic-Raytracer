@@ -20,6 +20,7 @@ void Matrix::destroy()
 	delete[] m_buffer[i];
     }
     delete[] m_buffer;
+
     delete m_resources;
 }
 

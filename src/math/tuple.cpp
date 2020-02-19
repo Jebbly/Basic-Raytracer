@@ -12,6 +12,7 @@ void Tuple::init()
 void Tuple::destroy()
 {
     delete[] m_buffer;
+
     delete m_resources;
 }
 
