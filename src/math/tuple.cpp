@@ -153,34 +153,28 @@ std::ostream& operator<<(std::ostream& out, const Tuple& t)
 Tuple point(double x, double y, double z)
 {
     Tuple ret{4};
-
     ret.set(0, x);
     ret.set(1, y);
     ret.set(2, z);
     ret.set(3, 1.0);
-
     return ret;
 }
 
 Tuple vector(double x, double y, double z)
 {
     Tuple ret{4};
-
     ret.set(0, x);
     ret.set(1, y);
     ret.set(2, z);
     ret.set(3, 0.0);
-
     return ret;
 }
 
 Tuple color(double r, double g, double b)
 {
     Tuple ret{3};
-
     ret.set(0, r);
     ret.set(1, g);
     ret.set(2, b);
-
     return ret;
 }
