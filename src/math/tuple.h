@@ -37,8 +37,8 @@ public:
 	    destroy();
     }
 
-    // move semantics
-    Tuple(Tuple &&t) :
+    // copy overloads
+    Tuple(const Tuple &t) :
 	m_size{t.m_size},
 	m_buffer{t.m_buffer},
 	m_resources{t.m_resources}
@@ -46,7 +46,7 @@ public:
 	(*m_resources)++;
     }
 
-    Tuple& operator=(Tuple &&t)
+    Tuple& operator=(const Tuple &t)
     {
 	if (&t == this)
 	    return *this;

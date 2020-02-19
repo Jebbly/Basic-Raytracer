@@ -32,8 +32,8 @@ public:
 	    destroy();
     }
 
-    // move semantics
-    Matrix(Matrix &&m) :
+    // copy overloads
+    Matrix(const Matrix &m) :
 	m_rows{m.m_rows},
 	m_columns{m.m_columns},
 	m_buffer{m.m_buffer},
@@ -42,7 +42,7 @@ public:
 	(*m_resources)++;
     }
 
-    Matrix& operator=(Matrix &&m)
+    Matrix& operator=(const Matrix &m)
     {
 	if (&m == this)
 	    return *this;
