@@ -28,8 +28,12 @@ public:
 	delete[] m_buffer;
     }
 
+    // accessor methods
+    int width() const {return m_width;}
+    int height() const {return m_height;}
+
     // utility functions
-    void write_pixel(int x, int y, Tuple &color);
+    void write_pixel(int x, int y, const Tuple &color);
     void save_buffer(const std::string name);
 };
 
