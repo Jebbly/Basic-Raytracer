@@ -2,6 +2,6 @@
 A basic raytracer implemented with C++
 
 ## To-do List
-- Implement smart pointer and init/destroy for framebuffer class
+- Rewrite classes using STL containers
 
 ## Known Issues
