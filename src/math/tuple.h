@@ -18,13 +18,7 @@ private:
     void destroy();
 
 public:
-    Tuple() :
-	m_size{3}
-    {
-	init();
-    }
-
-    Tuple(int size) :
+    Tuple(int size = 3) :
 	m_size{size}
     {
 	init();
@@ -77,7 +71,7 @@ public:
     friend Tuple operator/(const Tuple &t, float s);
 
     // print overload
-    friend std::ostream& operator<<(std::ostream& out, const Tuple& t);
+    friend std::ostream& operator<<(std::ostream &out, const Tuple &t);
 };
 
 // utility functions

@@ -86,7 +86,7 @@ public:
     Matrix shear(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y);
 
     // print overload
-    friend std::ostream& operator<<(std::ostream& out, const Matrix &m);
+    friend std::ostream& operator<<(std::ostream &out, const Matrix &m);
 };
 
 // utility functions
