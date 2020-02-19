@@ -14,6 +14,10 @@ public:
 	m_direction{std::move(direction)}
     {};
 
+    // accessor methods
+    Tuple& origin() {return m_origin;}
+    Tuple& direction() {return m_direction;}
+
     // ray operations
     Tuple position(double t) const;
 };
