@@ -17,6 +17,9 @@ public:
 	m_id = ++id;
     }
 
+    // accessor methods
+    int id() const {return m_id;}
+
     // line-sphere intersection
     Tuple intersect(const Ray &r) const;
 };
