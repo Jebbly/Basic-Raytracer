@@ -131,7 +131,7 @@ Tuple cross(const Tuple &t1, const Tuple &t2)
 Tuple hadamard_product(const Tuple &t1, const Tuple &t2)
 {
     assert(t1.size() == 3 &&
-	   "cannot take hadamard product of noncolor");
+	   "cannot take hadamard product of non-color");
 
     return color(t1.get(0) * t2.get(0),
 		 t1.get(1) * t2.get(1),
