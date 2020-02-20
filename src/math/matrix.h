@@ -18,47 +18,12 @@ private:
     void destroy();
 
 public:
-    Matrix(int rows, int columns) :
-	m_rows{rows},
-	m_columns{columns}
-    {
-	init();
-    }
-
-    ~Matrix()
-    {
-	(*m_resources)--;
-	if (*m_resources == 0)
-	    destroy();
-    }
+    Matrix(int rows, int columns);
+    ~Matrix();
 
     // copy overloads
-    Matrix(const Matrix &m) :
-	m_rows{m.m_rows},
-	m_columns{m.m_columns},
-	m_buffer{m.m_buffer},
-	m_resources(m.m_resources)
-    {
-	(*m_resources)++;
-    }
-
-    Matrix& operator=(const Matrix &m)
-    {
-	if (&m == this)
-	    return *this;
-
-	(*m_resources)--;
-	if (*m_resources == 0)
-	    destroy();
-
-	m_rows = m.m_rows;
-	m_columns = m.m_columns;
-	m_buffer = m.m_buffer;
-	m_resources = m.m_resources;
-	(*m_resources)++;
-
-	return *this;
-    }
+    Matrix(const Matrix &m);
+    Matrix& operator=(const Matrix &m);
 
     // accessor methods
     int rows() const {return m_rows;}

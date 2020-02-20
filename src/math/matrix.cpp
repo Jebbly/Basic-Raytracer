@@ -1,5 +1,47 @@
 #include "math/matrix.h"
 
+Matrix::Matrix(int rows, int columns) :
+    m_rows{rows},
+    m_columns{columns}
+{
+    init();
+}
+
+Matrix::~Matrix()
+{
+    (*m_resources)--;
+    if (*m_resources == 0)
+	destroy();
+}
+
+// copy overloads
+Matrix::Matrix(const Matrix &m) :
+    m_rows{m.m_rows},
+    m_columns{m.m_columns},
+    m_buffer{m.m_buffer},
+    m_resources(m.m_resources)
+{
+    (*m_resources)++;
+}
+
+Matrix& Matrix::operator=(const Matrix &m)
+{
+    if (&m == this)
+	return *this;
+
+    (*m_resources)--;
+    if (*m_resources == 0)
+	destroy();
+
+    m_rows = m.m_rows;
+    m_columns = m.m_columns;
+    m_buffer = m.m_buffer;
+    m_resources = m.m_resources;
+    (*m_resources)++;
+
+    return *this;
+}
+
 // initialize and destroy methods
 void Matrix::init()
 {
