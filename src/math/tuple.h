@@ -18,44 +18,12 @@ private:
     void destroy();
 
 public:
-    Tuple(int size = 3) :
-	m_size{size}
-    {
-	init();
-    };
-
-    ~Tuple()
-    {
-	(*m_resources)--;
-	if (*m_resources == 0)
-	    destroy();
-    }
+    Tuple(int size = 3);
+    ~Tuple();
 
     // copy overloads
-    Tuple(const Tuple &t) :
-	m_size{t.m_size},
-	m_buffer{t.m_buffer},
-	m_resources{t.m_resources}
-    {
-	(*m_resources)++;
-    }
-
-    Tuple& operator=(const Tuple &t)
-    {
-	if (&t == this)
-	    return *this;
-
-	(*m_resources)--;
-	if (*m_resources == 0)
-	    destroy();
-
-	m_size = t.m_size;
-	m_buffer = t.m_buffer;
-	m_resources = t.m_resources;
-	(*m_resources)++;
-
-	return *this;
-    }
+    Tuple(const Tuple &t);
+    Tuple& operator=(const Tuple &t);
 
     // accessor methods
     int size() const {return m_size;}

@@ -1,5 +1,44 @@
 #include "math/tuple.h"
 
+Tuple::Tuple(int size) :
+    m_size{size}
+{
+    init();
+};
+
+Tuple::~Tuple()
+{
+    (*m_resources)--;
+    if (*m_resources == 0)
+	destroy();
+}
+
+// copy overloads
+Tuple::Tuple(const Tuple &t) :
+    m_size{t.m_size},
+    m_buffer{t.m_buffer},
+    m_resources{t.m_resources}
+{
+    (*m_resources)++;
+}
+
+Tuple& Tuple::operator=(const Tuple &t)
+{
+    if (&t == this)
+	return *this;
+
+    (*m_resources)--;
+    if (*m_resources == 0)
+	destroy();
+
+    m_size = t.m_size;
+    m_buffer = t.m_buffer;
+    m_resources = t.m_resources;
+    (*m_resources)++;
+
+    return *this;
+}
+
 // initialize and destroy methods
 void Tuple::init()
 {
