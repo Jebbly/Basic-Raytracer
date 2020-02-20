@@ -1,5 +1,10 @@
 #include "primitives/intersection.h"
 
+Intersection::Intersection(double t, const Sphere &object) :
+    m_t{t},
+    m_object{object}
+{}
+
 // comparison overload
 bool operator<(const Intersection &i1, const Intersection &i2)
 {

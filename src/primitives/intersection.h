@@ -13,10 +13,7 @@ private:
     Sphere m_object;
 
 public:
-    Intersection(double t, const Sphere &object) :
-	m_t{t},
-	m_object{object}
-    {}
+    Intersection(double t, const Sphere &object);
 
     // accessor methods
     double t() const {return m_t;}
