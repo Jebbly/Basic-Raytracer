@@ -34,7 +34,7 @@ public:
 
     // utility functions
     void write_pixel(int x, int y, const Tuple &color);
-    void save_buffer(const std::string name);
+    void save_buffer(const std::string &name);
 };
 
 #endif

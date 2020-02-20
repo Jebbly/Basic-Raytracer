@@ -6,6 +6,7 @@
 class Ray
 {
 private:
+    // attributes
     Tuple m_origin, m_direction;
 
 public:

@@ -10,7 +10,7 @@ void Framebuffer::write_pixel(int x, int y, const Tuple &color)
     m_buffer[y][x] = color;
 }
 
-void Framebuffer::save_buffer(const std::string name)
+void Framebuffer::save_buffer(const std::string &name)
 {
     std::ofstream output(name, std::ofstream::trunc);
 

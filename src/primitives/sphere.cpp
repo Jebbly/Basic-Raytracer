@@ -12,8 +12,8 @@ Tuple Sphere::intersect(const Ray &r) const
     if (discriminant < 0)
 	return Tuple{0};
 
-    Tuple intersections{2};
-    intersections.set(0, (-b + sqrt(discriminant)) / (2 * a));
-    intersections.set(1, (-b - sqrt(discriminant)) / (2 * a));
-    return intersections;
+    Tuple intersects{2};
+    intersects.set(0, (-b + sqrt(discriminant)) / (2 * a));
+    intersects.set(1, (-b - sqrt(discriminant)) / (2 * a));
+    return intersects;
 }

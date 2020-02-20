@@ -2,6 +2,7 @@
 #define SPHERE_H
 
 #include "main/common.h"
+#include "math/tuple.h"
 #include "core/ray.h"
 
 class Sphere
@@ -24,4 +25,4 @@ public:
     Tuple intersect(const Ray &r) const;
 };
 
-#endif SPHERE_H
+#endif
