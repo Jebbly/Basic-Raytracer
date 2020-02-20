@@ -12,11 +12,7 @@ private:
     int m_id;
 
 public:
-    Sphere()
-    {
-	static int id = 0;
-	m_id = ++id;
-    }
+    Sphere();
 
     // accessor methods
     int id() const {return m_id;}

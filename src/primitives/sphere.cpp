@@ -1,5 +1,11 @@
 #include "primitives/sphere.h"
 
+Sphere::Sphere()
+{
+    static int id = 0;
+    m_id = ++id;
+}
+
 // line-sphere intersection
 Tuple Sphere::intersect(const Ray &r) const
 {

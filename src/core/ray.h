@@ -10,10 +10,7 @@ private:
     Tuple m_origin, m_direction;
 
 public:
-    Ray(const Tuple &origin, const Tuple &direction) :
-	m_origin{origin},
-	m_direction{direction}
-    {};
+    Ray(const Tuple &origin, const Tuple &direction);
 
     // accessor methods
     const Tuple& origin() const {return m_origin;}
