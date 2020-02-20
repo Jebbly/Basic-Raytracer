@@ -12,21 +12,8 @@ private:
     Tuple **m_buffer;
 
 public:
-    Framebuffer(int width, int height) :
-	m_width{width},
-	m_height{height}
-    {
-	m_buffer = new Tuple*[m_height];
-	for (int i = 0; i < m_height; i++)
-	    m_buffer[i] = new Tuple[m_width];
-    }
-
-    ~Framebuffer()
-    {
-	for (int i = 0; i < m_height; i++)
-	    delete[] m_buffer[i];
-	delete[] m_buffer;
-    }
+    Framebuffer(int width, int height);
+    ~Framebuffer();
 
     // accessor methods
     int width() const {return m_width;}
