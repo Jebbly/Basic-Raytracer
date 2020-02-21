@@ -1,13 +1,8 @@
 #include "core/intersection.h"
 
-Intersection::Intersection() :
-    m_valid{false}
-{}
-
 Intersection::Intersection(double t, const Sphere &object) :
     m_t{t},
-    m_object{object},
-    m_valid{true}
+    m_object{object}
 {}
 
 // comparison overload
@@ -31,13 +26,13 @@ std::vector<Intersection> intersections(const Ray &r, const Sphere &s)
     return intersects;
 }
 
-Intersection hit(const std::vector<Intersection> &intersections)
+std::optional<const Intersection> hit(const std::vector<Intersection> &intersections)
 {
     for (int i = 0; i < intersections.size(); i++)
     {
 	if (intersections.at(i).t() > 0)
-	    return (intersections.at(i));
+	    return intersections.at(i);
     }
 
-    return Intersection{};
+    return std::nullopt;
 }

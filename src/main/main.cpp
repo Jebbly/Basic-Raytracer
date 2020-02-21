@@ -27,15 +27,15 @@ int main()
 	std::cout << intersects2.at(i).t() << "\t";
     std::cout << std::endl;
    
-    Intersection i = hit(intersects);
-    Intersection i2 = hit(intersects2);
+    auto i = hit(intersects);
+    auto i2 = hit(intersects2);
 
-    if (i.valid())
-	std::cout << i.object().id() << "\t" << i.t() << "\n";
+    if (i)
+	std::cout << (*i).object().id() << "\t" << (*i).t() << "\n";
     else
 	std::cout << "no intersect\n";
-    if (i2.valid())
-	std::cout << i2.object().id() << "\t" << i2.t();
+    if (i2)
+	std::cout << (*i2).object().id() << "\t" << (*i2).t();
     else
 	std::cout << "no intersect\n";
     return 1;
