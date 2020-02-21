@@ -2,6 +2,7 @@
 #define RAY_H
 
 #include "math/tuple.h"
+#include "math/matrix.h"
 
 class Ray
 {
@@ -18,6 +19,7 @@ public:
 
     // ray operations
     Tuple position(double t) const;
+    Ray transform(const Matrix &m) const;
 };
 
 #endif

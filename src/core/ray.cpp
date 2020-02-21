@@ -10,3 +10,8 @@ Tuple Ray::position(double t) const
 {
     return m_origin + m_direction * t;
 }
+
+Ray Ray::transform(const Matrix &transformation) const
+{
+    return Ray{multiply(transformation, m_origin), multiply(transformation, m_direction)};
+}

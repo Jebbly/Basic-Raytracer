@@ -9,34 +9,35 @@
 
 int main()
 {
-    Sphere s1;
-    Sphere s2;
-    Tuple p = point(0.0, 0.0, 0.0);
-    Tuple v = vector(1.0, 0.0, 0.0);
+    Tuple ray_origin = point(0, 0, -5);
+    double wall_z = 10;
+    double wall_size = 7;
 
-    Tuple p1 = point(-3.0, 0.0, 0.0);
-    Tuple v1 = vector(-1.0, 0.0, 0.0);
-    Ray r{p, v};
-    Ray r2{p1, v1};
-    std::vector<Intersection> intersects = intersections(r, s1);
-    std::vector<Intersection> intersects2 = intersections(r2, s2);
-    for (int i = 0; i < intersects.size(); i++)
-	std::cout << intersects.at(i).t() << "\t";
-    std::cout << std::endl;
-    for (int i = 0; i < intersects2.size(); i++)
-	std::cout << intersects2.at(i).t() << "\t";
-    std::cout << std::endl;
-   
-    auto i = hit(intersects);
-    auto i2 = hit(intersects2);
+    Framebuffer canvas{100, 100};
+    double pixel_size = (double) 7 / 100;
+    double half = wall_size / 2;
 
-    if (i)
-	std::cout << (*i).object().id() << "\t" << (*i).t() << "\n";
-    else
-	std::cout << "no intersect\n";
-    if (i2)
-	std::cout << (*i2).object().id() << "\t" << (*i2).t();
-    else
-	std::cout << "no intersect\n";
+    Sphere sph;
+
+    for (int y = 0; y < 100; y++)
+    {
+	double world_y = half - (y * pixel_size);
+	for (int x = 0; x < 100; x++)
+	{
+	    double world_x = -half + (x * pixel_size);
+	    Tuple position = point(world_x, world_y, wall_z);
+	    Ray shoot_ray{ray_origin, normalize(position - ray_origin)};
+	    std::vector<Intersection> intersects = intersections(shoot_ray, sph);
+
+	    auto i = hit(intersects);
+	    if (i)
+	    {
+		Tuple col = color(i.value().t() * 100, i.value().t() * 100, i.value().t() * 100);
+		canvas.write_pixel(x, y, col);
+	    }
+	}
+    }
+
+    canvas.save_buffer("circle.ppm");
     return 1;
 }
