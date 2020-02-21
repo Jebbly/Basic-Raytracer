@@ -25,6 +25,6 @@ public:
 
 // utility functions
 std::vector<Intersection> intersections(const Ray &r, const Sphere &object);
-Intersection* hit(std::vector<Intersection> &intersections);
+Intersection* hit(const std::vector<Intersection> &intersections);
 
 #endif

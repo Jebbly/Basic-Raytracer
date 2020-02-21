@@ -26,7 +26,7 @@ std::vector<Intersection> intersections(const Ray &r, const Sphere &s)
     return intersects;
 }
 
-Intersection* hit(std::vector<Intersection> &intersections)
+Intersection* hit(const std::vector<Intersection> &intersections)
 {
     for (int i = 0; i < intersections.size(); i++)
     {
