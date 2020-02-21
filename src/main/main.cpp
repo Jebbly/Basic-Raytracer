@@ -5,7 +5,7 @@
 #include "core/ray.h"
 #include "image/framebuffer.h"
 #include "primitives/sphere.h"
-#include "primitives/intersection.h"
+#include "core/intersection.h"
 
 int main()
 {
@@ -15,7 +15,7 @@ int main()
     Tuple v = vector(1.0, 0.0, 0.0);
 
     Tuple p1 = point(-3.0, 0.0, 0.0);
-    Tuple v1 = vector(1.0, 0.0, 0.0);
+    Tuple v1 = vector(-1.0, 0.0, 0.0);
     Ray r{p, v};
     Ray r2{p1, v1};
     std::vector<Intersection> intersects = intersections(r, s1);
@@ -27,9 +27,16 @@ int main()
 	std::cout << intersects2.at(i).t() << "\t";
     std::cout << std::endl;
    
-    Intersection* i = hit(intersects);
-    Intersection* i2 = hit(intersects2);
-    std::cout << i->object().id() << "\t" << i->t() << "\n";
-    std::cout << i2->object().id() << "\t" << i2->t();
+    Intersection i = hit(intersects);
+    Intersection i2 = hit(intersects2);
+
+    if (i.valid())
+	std::cout << i.object().id() << "\t" << i.t() << "\n";
+    else
+	std::cout << "no intersect\n";
+    if (i2.valid())
+	std::cout << i2.object().id() << "\t" << i2.t();
+    else
+	std::cout << "no intersect\n";
     return 1;
 }
