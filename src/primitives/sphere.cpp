@@ -13,7 +13,7 @@ void Sphere::set_transform(const Matrix &m)
     m_transformation = m;
 }
 
-// line-sphere intersection
+// ray intersect functions
 Tuple Sphere::intersect(const Ray &r) const
 {
     Ray transformed_ray = r.transform(m_transformation.inverse());
@@ -30,4 +30,14 @@ Tuple Sphere::intersect(const Ray &r) const
     intersects.set(0, (-b + sqrt(discriminant)) / (2 * a));
     intersects.set(1, (-b - sqrt(discriminant)) / (2 * a));
     return intersects;
+}
+
+Tuple Sphere::normal(const Tuple &t) const
+{
+    Tuple object_point = multiply(m_transformation.inverse(), t);
+    Tuple object_normal = normalize(object_point - point(0.0, 0.0, 0.0));
+    Tuple world_normal = multiply(m_transformation.inverse().transpose(), object_normal);
+
+    world_normal.set(3, 0.0);
+    return normalize(world_normal);
 }

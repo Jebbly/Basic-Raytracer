@@ -22,8 +22,9 @@ public:
 
     void set_transform(const Matrix &m);
 
-    // line-sphere intersection
+    // ray intersect functions
     Tuple intersect(const Ray &r) const;
+    Tuple normal(const Tuple &t) const;
 };
 
 #endif

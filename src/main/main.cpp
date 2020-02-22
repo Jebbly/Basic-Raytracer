@@ -19,25 +19,14 @@ int main()
 
     Sphere sph;
 
-    for (int y = 0; y < 100; y++)
-    {
-	double world_y = half - (y * pixel_size);
-	for (int x = 0; x < 100; x++)
-	{
-	    double world_x = -half + (x * pixel_size);
-	    Tuple position = point(world_x, world_y, wall_z);
-	    Ray shoot_ray{ray_origin, normalize(position - ray_origin)};
-	    std::vector<Intersection> intersects = intersections(shoot_ray, sph);
+    sph.set_transform(identity().translate(0, 1, 0));
+    Tuple normal = sph.normal(point(0, 1.70711, -0.70711));
+    std::cout << normal << '\n';
 
-	    auto i = hit(intersects);
-	    if (i)
-	    {
-		Tuple col = color(i.value().t() * 100, i.value().t() * 100, i.value().t() * 100);
-		canvas.write_pixel(x, y, col);
-	    }
-	}
-    }
+    Sphere sph1;
+    sph1.set_transform(identity().rotate_z(Constants::PI / 5).scale(1, 0.5, 1));
+    Tuple normal1 = sph1.normal(point(0, sqrt(2) / 2, -sqrt(2) / 2));
+    std::cout << normal1 << '\n';
 
-    canvas.save_buffer("circle.ppm");
     return 1;
 }
