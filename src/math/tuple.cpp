@@ -145,6 +145,11 @@ Tuple normalize(const Tuple &t)
     return t / magnitude(t);
 }
 
+Tuple reflect(const Tuple &in, const Tuple &normal)
+{
+    return in - normal * 2 * dot(in, normal);
+}
+
 double dot(const Tuple &t1, const Tuple &t2)
 {
     assert(t1.size() == t2.size() &&

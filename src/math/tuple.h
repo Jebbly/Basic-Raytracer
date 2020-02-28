@@ -45,6 +45,7 @@ public:
 // utility functions
 double magnitude(const Tuple &t);
 Tuple normalize(const Tuple &t);
+Tuple reflect(const Tuple &in, const Tuple &normal);
 double dot(const Tuple &t1, const Tuple &t2);
 Tuple cross(const Tuple &t1, const Tuple &t2);
 Tuple hadamard_product(const Tuple &t1, const Tuple &t2);
