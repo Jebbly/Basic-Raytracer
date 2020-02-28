@@ -5,6 +5,7 @@
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"
+#include "core/material.h"
 
 class Sphere
 {
@@ -12,6 +13,7 @@ private:
     // attributes
     int m_id;
     Matrix m_transformation;
+    Material m_material;
 
 public:
     Sphere();
@@ -19,8 +21,10 @@ public:
     // accessor methods
     int id() const {return m_id;}
     const Matrix& transformation() const {return m_transformation;}
+    const Material& material() const {return m_material;}
 
     void set_transform(const Matrix &m);
+    void set_material(const Material &m);
 
     // ray intersect functions
     Tuple intersect(const Ray &r) const;

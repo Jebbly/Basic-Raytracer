@@ -1,7 +1,8 @@
 #include "primitives/sphere.h"
 
 Sphere::Sphere() :
-    m_transformation{identity()}
+    m_transformation{identity()},
+    m_material{}
 {
     static int id = 0;
     m_id = ++id;
@@ -11,6 +12,11 @@ Sphere::Sphere() :
 void Sphere::set_transform(const Matrix &m)
 {
     m_transformation = m;
+}
+
+void Sphere::set_material(const Material &m)
+{
+    m_material = m;
 }
 
 // ray intersect functions
