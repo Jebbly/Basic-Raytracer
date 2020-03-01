@@ -12,10 +12,7 @@
 int main()
 {
     World w{};
-    std::vector<Intersection> xs = w.intersects(Ray{point(0, 0, -5), vector(0, 0, 1)});
-    for (int i = 0; i < xs.size(); i++)
-    {
-	std::cout << xs.at(i).get_t() << "\n";
-    }
+    Ray r{point(0, 0, -5), vector(0, 0, 1)};
+    std::cout << w.final_color(r);
     return 1;
 }

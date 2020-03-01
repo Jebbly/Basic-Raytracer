@@ -19,3 +19,23 @@ std::vector<Intersection> World::intersects(const Ray &ray) const
     std::sort(ret.begin(), ret.end());
     return ret;
 }
+
+Tuple World::shade(const Computation &comp) const
+{
+    Tuple ret{color(0, 0, 0)};
+    for (int i = 0; i < lights.size(); i++)
+    {
+	ret += lighting(comp.get_object().get_material(), lights.at(i), comp.get_point(), comp.get_eye(), comp.get_normal());
+    }
+    return ret;
+}
+
+Tuple World::final_color(const Ray &ray) const
+{
+    std::vector<Intersection> xs = intersects(ray);
+    auto intersect = hit(xs);
+    if (intersect)
+	return shade(Computation{ray, intersect.value()});
+    else
+	return color(0, 0, 0);
+}

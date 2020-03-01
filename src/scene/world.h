@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "core/intersection.h"
+#include "core/computation.h"
 #include "scene/lighting.h"
 #include "primitives/sphere.h"
 
@@ -22,6 +23,8 @@ public:
 
     // raytrace functions
     std::vector<Intersection> intersects(const Ray &ray) const;
+    Tuple shade(const Computation &comp) const;
+    Tuple final_color(const Ray &ray) const;
 };
 
 #endif
