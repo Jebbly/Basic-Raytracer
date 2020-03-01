@@ -109,7 +109,7 @@ Tuple operator-(const Tuple &t1, const Tuple &t2)
     return ret;
 }
 
-Tuple operator*(const Tuple &t, float s)
+Tuple operator*(const Tuple &t, double s)
 {
     Tuple ret{t.size()};
     for (int i = 0; i < t.size(); i++)
@@ -119,7 +119,7 @@ Tuple operator*(const Tuple &t, float s)
     return ret;
 }
 
-Tuple operator/(const Tuple &t, float s)
+Tuple operator/(const Tuple &t, double s)
 {
     Tuple ret{t.size()};
     for (int i = 0; i < t.size(); i++)
