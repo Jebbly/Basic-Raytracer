@@ -18,8 +18,8 @@ public:
     Intersection(double t, const Sphere &object);
 
     // accessor methods
-    double t() const {return m_t;}
-    const Sphere& object() const {return m_object;}
+    double get_t() const {return m_t;}
+    const Sphere& get_object() const {return m_object;}
 
     // comparison overload
     friend bool operator<(const Intersection &i1, const Intersection &i2);

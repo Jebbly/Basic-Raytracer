@@ -30,7 +30,7 @@ std::optional<const Intersection> hit(const std::vector<Intersection> &intersect
 {
     for (int i = 0; i < intersections.size(); i++)
     {
-	if (intersections.at(i).t() > 0)
+	if (intersections.at(i).get_t() > 0)
 	    return intersections.at(i);
     }
 
