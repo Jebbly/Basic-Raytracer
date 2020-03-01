@@ -12,6 +12,13 @@ private:
 
 public:
     Material();
+
+    // accessor methods
+    const Tuple& color() const {return m_color;}
+    double ambient() {return m_ambient;}
+    double diffuse() {return m_diffuse;}
+    double specular() {return m_specular;}
+    double shininess() {return m_shininess;}
 };
 
 #endif
