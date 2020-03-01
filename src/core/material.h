@@ -15,10 +15,10 @@ public:
 
     // accessor methods
     const Tuple& color() const {return m_color;}
-    double ambient() {return m_ambient;}
-    double diffuse() {return m_diffuse;}
-    double specular() {return m_specular;}
-    double shininess() {return m_shininess;}
+    double ambient() const {return m_ambient;}
+    double diffuse() const {return m_diffuse;}
+    double specular() const {return m_specular;}
+    double shininess() const {return m_shininess;}
 };
 
 #endif
