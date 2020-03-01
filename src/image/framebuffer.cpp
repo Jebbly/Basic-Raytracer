@@ -42,7 +42,14 @@ void Framebuffer::save_buffer(const std::string &name)
     {
 	for (int x = 0; x < get_width(); x++)
 	{
-	    output << m_buffer[y][x];
+	    Tuple pixel = m_buffer[y][x];
+	    for (int i = 0; i < 3; i++)
+	    {
+		if (pixel.get(i) > 255)
+		    output << 255 << ' ';
+		else
+		    output << pixel.get(i) << ' ';
+	    }
 	}
 	output << '\n';
     }
