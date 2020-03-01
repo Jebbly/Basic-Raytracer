@@ -14,11 +14,17 @@ public:
     Material();
 
     // accessor methods
-    const Tuple& color() const {return m_color;}
-    double ambient() const {return m_ambient;}
-    double diffuse() const {return m_diffuse;}
-    double specular() const {return m_specular;}
-    double shininess() const {return m_shininess;}
+    const Tuple& get_color() const {return m_color;}
+    double get_ambient() const {return m_ambient;}
+    double get_diffuse() const {return m_diffuse;}
+    double get_specular() const {return m_specular;}
+    double get_shininess() const {return m_shininess;}
+
+    void set_color(const Tuple &color);
+    void set_ambient(double ambient);
+    void set_diffuse(double diffuse);
+    void set_specular(double specular);
+    void set_shininess(double shininess);
 };
 
 #endif

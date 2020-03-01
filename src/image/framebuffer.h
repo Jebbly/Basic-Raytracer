@@ -16,8 +16,8 @@ public:
     ~Framebuffer();
 
     // accessor methods
-    int width() const {return m_width;}
-    int height() const {return m_height;}
+    int get_width() const {return m_width;}
+    int get_height() const {return m_height;}
 
     // utility functions
     void write_pixel(int x, int y, const Tuple &color);

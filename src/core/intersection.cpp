@@ -17,7 +17,7 @@ std::vector<Intersection> intersections(const Ray &r, const Sphere &s)
     Tuple t_values = s.intersect(r);
     
     std::vector<Intersection> intersects{};
-    for (int i = 0; i < t_values.size(); i++)
+    for (int i = 0; i < t_values.get_size(); i++)
     {
 	intersects.push_back(Intersection{t_values.get(i), s});
     }

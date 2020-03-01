@@ -14,8 +14,8 @@ public:
     PointLight(const Tuple &intensity, const Tuple &position);
 
     // accessor methods
-    const Tuple& intensity() const {return m_intensity;}
-    const Tuple& position() const {return m_position;}
+    const Tuple& get_intensity() const {return m_intensity;}
+    const Tuple& get_position() const {return m_position;}
 };
 
 #endif

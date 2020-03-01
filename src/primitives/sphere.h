@@ -20,8 +20,8 @@ public:
 
     // accessor methods
     int id() const {return m_id;}
-    const Matrix& transformation() const {return m_transformation;}
-    const Material& material() const {return m_material;}
+    const Matrix& get_transformation() const {return m_transformation;}
+    const Material& get_material() const {return m_material;}
 
     void set_transform(const Matrix &m);
     void set_material(const Material &m);

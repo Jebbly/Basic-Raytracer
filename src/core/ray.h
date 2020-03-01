@@ -14,8 +14,8 @@ public:
     Ray(const Tuple &origin, const Tuple &direction);
 
     // accessor methods
-    const Tuple& origin() const {return m_origin;}
-    const Tuple& direction() const {return m_direction;}
+    const Tuple& get_origin() const {return m_origin;}
+    const Tuple& get_direction() const {return m_direction;}
 
     // ray operations
     Tuple position(double t) const;

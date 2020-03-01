@@ -26,8 +26,8 @@ public:
     Matrix& operator=(const Matrix &m);
 
     // accessor methods
-    int rows() const {return m_rows;}
-    int columns() const {return m_columns;}
+    int get_rows() const {return m_rows;}
+    int get_columns() const {return m_columns;}
 
     double get(int x, int y) const;
     void set(int x, int y, double value);

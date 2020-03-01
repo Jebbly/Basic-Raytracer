@@ -26,7 +26,7 @@ public:
     Tuple& operator=(const Tuple &t);
 
     // accessor methods
-    int size() const {return m_size;}
+    int get_size() const {return m_size;}
 
     double get(int index) const;
     void set(int index, double value);

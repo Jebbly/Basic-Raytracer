@@ -69,8 +69,8 @@ void Matrix::destroy()
 // accessor methods
 double Matrix::get(int x, int y) const
 {
-    assert(x >= 0 && x < columns() &&
-	   y >= 0 && y < rows() &&
+    assert(x >= 0 && x < get_columns() &&
+	   y >= 0 && y < get_rows() &&
 	   "index outside of matrix");
 
     return m_buffer[y][x];
@@ -78,8 +78,8 @@ double Matrix::get(int x, int y) const
 
 void Matrix::set(int x, int y, double value)
 {
-    assert(x >= 0 && x < columns() &&
-	   y >= 0 && y < rows() &&
+    assert(x >= 0 && x < get_columns() &&
+	   y >= 0 && y < get_rows() &&
 	   "index outside of matrix");
 
     m_buffer[y][x] = value;
@@ -88,10 +88,10 @@ void Matrix::set(int x, int y, double value)
 // matrix operations
 Matrix Matrix::transpose() const
 {
-    Matrix ret{columns(), rows()};
-    for (int i = 0; i < rows(); i++)
+    Matrix ret{get_columns(), get_rows()};
+    for (int i = 0; i < get_rows(); i++)
     {
-	for (int j = 0; j < columns(); j++)
+	for (int j = 0; j < get_columns(); j++)
 	{
 	    ret.set(j, i, get(i, j));
 	}
@@ -101,16 +101,16 @@ Matrix Matrix::transpose() const
 
 Matrix Matrix::submatrix(int row, int column) const
 {
-    assert(row >= 0 && row < rows() &&
-	   column >= 0 && column < columns() &&
+    assert(row >= 0 && row < get_rows() &&
+	   column >= 0 && column < get_columns() &&
 	   "row or column outside of matrix");
 
     int x = 0, y = 0;
-    Matrix ret{rows() - 1, columns() - 1};
-    for (int i = 0; i < rows(); i++)
+    Matrix ret{get_rows() - 1, get_columns() - 1};
+    for (int i = 0; i < get_rows(); i++)
     {
 	if (i == row) continue;
-	for (int j = 0; j < columns(); j++)
+	for (int j = 0; j < get_columns(); j++)
 	{
 	    if (j == column) continue;
 	    ret.set(x, y, get(i, j));
@@ -129,14 +129,14 @@ double Matrix::cofactor(int row, int column) const
 
 double Matrix::determinant() const
 {
-    assert(rows() == columns() &&
+    assert(get_rows() == get_columns() &&
 	   "non-square matrix given");
 
-    if (rows() == 2)
+    if (get_rows() == 2)
 	return get(0, 0) * get(1, 1) - get(1, 0) * get(0, 1);
 
     double total = 0;
-    for (int i = 0; i < columns(); i++)
+    for (int i = 0; i < get_columns(); i++)
     {
 	total += cofactor(0, i) * get(0, i);
     }
@@ -149,10 +149,10 @@ Matrix Matrix::inverse() const
     assert(det != 0 &&
 	   "noninvertible matrix");
 
-    Matrix ret{rows(), columns()};
-    for (int i = 0; i < rows(); i++)
+    Matrix ret{get_rows(), get_columns()};
+    for (int i = 0; i < get_rows(); i++)
     {
-	for (int j = 0; j < columns(); j++)
+	for (int j = 0; j < get_columns(); j++)
 	{
 	    ret.set(i, j, cofactor(i, j) / det);
 	}
@@ -236,13 +236,13 @@ Matrix Matrix::shear(double x_y, double x_z, double y_x, double y_z, double z_x,
 // utility functions
 bool compare(const Matrix &m1, const Matrix &m2)
 {
-    if (m1.rows() != m2.rows() ||
-	m1.columns() != m2.columns())
+    if (m1.get_rows() != m2.get_rows() ||
+	m1.get_columns() != m2.get_columns())
 	return false;
 
-    for (int i = 0; i < m1.rows(); i++)
+    for (int i = 0; i < m1.get_rows(); i++)
     {
-	for (int j = 0; j < m1.columns(); j++)
+	for (int j = 0; j < m1.get_columns(); j++)
 	{
 	    if (m1.get(i, j) != m2.get(i, j))
 		return false;
@@ -253,16 +253,16 @@ bool compare(const Matrix &m1, const Matrix &m2)
 
 Matrix multiply(const Matrix &m1, const Matrix &m2)
 {
-    assert(m1.columns() == m2.rows() &&
+    assert(m1.get_columns() == m2.get_rows() &&
 	"cannot multiply matrices");
 
-    Matrix ret{m1.rows(), m2.columns()};
-    for (int i = 0; i < m1.rows(); i++)
+    Matrix ret{m1.get_rows(), m2.get_columns()};
+    for (int i = 0; i < m1.get_rows(); i++)
     {
-	for (int j = 0; j < m2.columns(); j++)
+	for (int j = 0; j < m2.get_columns(); j++)
 	{
 	    double total = 0;
-	    for (int k = 0; k < m1.columns(); k++)
+	    for (int k = 0; k < m1.get_columns(); k++)
 	    {
 		total += m1.get(i, k) * m2.get(k, j);
 	    }
@@ -274,14 +274,14 @@ Matrix multiply(const Matrix &m1, const Matrix &m2)
 
 Tuple multiply(const Matrix &m, const Tuple &t)
 {
-    assert(m.rows() == t.size() &&
+    assert(m.get_rows() == t.get_size() &&
 	   "incompatible matrix and tuple multiplication");
 
-    Tuple ret{t.size()};
-    for (int i = 0; i < m.rows(); i++)
+    Tuple ret{t.get_size()};
+    for (int i = 0; i < m.get_rows(); i++)
     {
 	double total = 0;
-	for (int j = 0; j < m.columns(); j++)
+	for (int j = 0; j < m.get_columns(); j++)
 	{
 	    total += m.get(i, j) * t.get(j);
 	}
@@ -310,9 +310,9 @@ Matrix identity(int size)
 // print overload
 std::ostream& operator<<(std::ostream& out, const Matrix &m)
 {
-    for (int i = 0; i < m.rows(); i++)
+    for (int i = 0; i < m.get_rows(); i++)
     {
-	for (int j = 0; j < m.columns(); j++)
+	for (int j = 0; j < m.get_columns(); j++)
 	{
 	    out << m.get(i, j) << ' '; 
 	}
