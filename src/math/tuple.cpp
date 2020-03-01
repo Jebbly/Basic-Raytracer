@@ -129,6 +129,18 @@ Tuple operator/(const Tuple &t, double s)
     return ret;
 }
 
+Tuple& Tuple::operator+=(const Tuple &t)
+{
+    assert(get_size() == t.get_size() &&
+	   "cannot add differently sized tuples");
+
+    for (int i = 0; i < get_size(); i++)
+    {
+	m_buffer[i] += t.get(i);
+    }
+    return *this;
+}
+
 // utility functions
 double magnitude(const Tuple &t)
 {

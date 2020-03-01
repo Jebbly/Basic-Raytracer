@@ -37,6 +37,7 @@ public:
     friend Tuple operator-(const Tuple &t1, const Tuple &t2);
     friend Tuple operator*(const Tuple &t, double s);
     friend Tuple operator/(const Tuple &t, double s);
+    Tuple& operator+=(const Tuple &t);
 
     // print overload
     friend std::ostream& operator<<(std::ostream &out, const Tuple &t);
