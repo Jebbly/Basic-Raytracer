@@ -16,7 +16,7 @@ const Tuple lighting(const Material &mat, const PointLight &light, const Tuple &
 
 	Tuple reflection = reflect(-light_direction, normal);
 	double reflection_dot_eye = dot(reflection, eye);
-	if (reflection_dot_eye < 0)
+	if (reflection_dot_eye <= 0)
 	    return ambient + diffuse;
 	else
 	{
