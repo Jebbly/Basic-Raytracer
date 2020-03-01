@@ -1,8 +1,8 @@
 #include "primitives/sphere.h"
 
-Sphere::Sphere() :
-    m_transformation{identity()},
-    m_material{}
+Sphere::Sphere(const Matrix &transformation, const Material &material) :
+    m_transformation{transformation},
+    m_material{material}
 {
     static int id = 0;
     m_id = ++id;

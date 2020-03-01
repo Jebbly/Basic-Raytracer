@@ -16,7 +16,7 @@ private:
     Material m_material;
 
 public:
-    Sphere();
+    Sphere(const Matrix &transformation = identity(), const Material &material = Material{});
 
     // accessor methods
     int id() const {return m_id;}
