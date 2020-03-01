@@ -14,13 +14,13 @@ const Tuple lighting(const Material &mat, const PointLight &light, const Tuple &
     {
 	Tuple diffuse = effective_color * mat.get_diffuse() * light_dot_normal;
 
-	Tuple reflection = reflect(-light_direction, normal);
-	double reflection_dot_eye = dot(reflection, eye);
-	if (reflection_dot_eye <= 0)
+	Tuple reflect_direction = reflect(-light_direction, normal);
+	double reflect_dot_eye = dot(reflect_direction, eye);
+	if (reflect_dot_eye <= 0)
 	    return ambient + diffuse;
 	else
 	{
-	    Tuple specular = light.get_intensity() * mat.get_specular() * pow(reflection_dot_eye, mat.get_shininess());
+	    Tuple specular = light.get_intensity() * mat.get_specular() * pow(reflect_dot_eye, mat.get_shininess());
 	    return ambient + diffuse + specular;
 	}
     }
