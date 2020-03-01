@@ -1,11 +1,11 @@
 #include "core/material.h"
 
-Material::Material() : 
-    m_color{color(255, 255, 255)},
-    m_ambient{1},
-    m_diffuse{0},
-    m_specular{0},
-    m_shininess{0}
+Material::Material(const Tuple &color, double ambient, double diffuse, double specular, double shininess) : 
+    m_color{color},
+    m_ambient{ambient},
+    m_diffuse{diffuse},
+    m_specular{specular},
+    m_shininess{shininess}
 {}
 
 // accessor methods

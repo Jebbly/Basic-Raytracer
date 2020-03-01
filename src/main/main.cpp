@@ -31,9 +31,9 @@ int main()
 
     Material m{};
     Tuple pos = point(0, 0, 0);
-    Tuple eye = vector(0, 0, -1);
+    Tuple eye = vector(0, -1 / sqrt(2), -1 / sqrt(2));
     Tuple normal = vector(0, 0, -1);
-    PointLight light{point(0, 0, -10), color(1, 1, 1)};
+    PointLight light{color(1, 1, 1), point(0, 10, -10)};
     Tuple ret = lighting(m, light, pos, eye, normal);
     std::cout << ret;
 

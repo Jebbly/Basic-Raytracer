@@ -11,7 +11,7 @@ private:
     double m_ambient, m_diffuse, m_specular, m_shininess;
 
 public:
-    Material();
+    Material(const Tuple& color = color(1, 1, 1), double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200.0);
 
     // accessor methods
     const Tuple& get_color() const {return m_color;}
