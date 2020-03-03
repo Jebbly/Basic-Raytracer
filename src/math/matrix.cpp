@@ -67,7 +67,7 @@ void Matrix::destroy()
 }
 
 // accessor methods
-double Matrix::get(int x, int y) const
+double Matrix::get(int y, int x) const
 {
     assert(x >= 0 && x < get_columns() &&
 	   y >= 0 && y < get_rows() &&
@@ -76,7 +76,7 @@ double Matrix::get(int x, int y) const
     return m_buffer[y][x];
 }
 
-void Matrix::set(int x, int y, double value)
+void Matrix::set(int y, int x, double value)
 {
     assert(x >= 0 && x < get_columns() &&
 	   y >= 0 && y < get_rows() &&
@@ -305,6 +305,32 @@ Matrix identity(int size)
 	}
     }
     return ret;
+}
+
+Matrix view(const Tuple &from, const Tuple &to, const Tuple &up)
+{
+    Tuple forward = normalize(to - from);
+    Tuple left = cross(forward, normalize(up));
+    Tuple true_up = cross(left, forward);
+
+    Matrix orientation{identity()};
+
+    for (int i = 0; i < 3; i++)
+    {
+	orientation.set(0, i, left.get(i));
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+	orientation.set(1, i, true_up.get(i));
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+	orientation.set(2, i, -forward.get(i));
+    }
+
+    return multiply(orientation, identity().translate(-from.get(0), -from.get(1), -from.get(2)));
 }
 
 // print overload

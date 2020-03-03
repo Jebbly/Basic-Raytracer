@@ -29,8 +29,8 @@ public:
     int get_rows() const {return m_rows;}
     int get_columns() const {return m_columns;}
 
-    double get(int x, int y) const;
-    void set(int x, int y, double value);
+    double get(int y, int x) const;
+    void set(int y, int x, double value);
 
     // matrix operations
     Matrix transpose() const;
@@ -61,5 +61,6 @@ Tuple multiply(const Matrix &m, const Tuple &t);
 
 // convenience functions
 Matrix identity(int size = 4);
+Matrix view(const Tuple &from, const Tuple &to, const Tuple &up);
 
 #endif

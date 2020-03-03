@@ -11,8 +11,9 @@
 
 int main()
 {
-    World w{};
-    Ray r{point(0, 0, -5), vector(0, 0, 1)};
-    std::cout << w.final_color(r);
+    Tuple from = point(1, 3, 2);
+    Tuple to = point(4, -2, 8);
+    Tuple up = vector(1, 1, 0);
+    std::cout << view(from, to, up);
     return 1;
 }
