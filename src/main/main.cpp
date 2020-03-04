@@ -8,12 +8,17 @@
 #include "core/intersection.h"
 #include "scene/lighting.h"
 #include "scene/world.h"
+#include "image/camera.h"
 
 int main()
 {
-    Tuple from = point(1, 3, 2);
-    Tuple to = point(4, -2, 8);
-    Tuple up = vector(1, 1, 0);
-    std::cout << view(from, to, up);
+    World w{};
+    Camera c{11, 11, Constants::PI / 2};
+    Tuple from = point(0, 0, -5);
+    Tuple to = point(0, 0, 0);
+    Tuple up = vector(0, 1, 0);
+    c.set_transform(view(from, to, up));
+    Framebuffer image = c.render(w);
+    std::cout << image.get_pixel(5, 5);
     return 1;
 }
