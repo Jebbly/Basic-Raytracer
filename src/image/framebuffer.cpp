@@ -20,6 +20,16 @@ Framebuffer::~Framebuffer()
     delete[] m_buffer;
 }
 
+// accessor methods
+Tuple Framebuffer::get_pixel(int x, int y) const
+{
+    assert(x >= 0 && x < get_width() &&
+	   y >= 0 && y < get_height() &&
+	   "index outside of buffer");
+
+    return m_buffer[y][x];
+}
+
 // utility functions
 void Framebuffer::write_pixel(int x, int y, const Tuple &color)
 {
