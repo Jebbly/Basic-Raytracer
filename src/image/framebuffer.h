@@ -8,12 +8,22 @@
 class Framebuffer
 {
 private:
+    // attributes
     int m_width, m_height;
     Tuple **m_buffer;
+    int *m_resources;
+
+    // initialize and destroy methods
+    void init();
+    void destroy();
 
 public:
     Framebuffer(int width, int height);
     ~Framebuffer();
+
+    // copy overloads
+    Framebuffer(const Framebuffer &fb);
+    Framebuffer& operator=(const Framebuffer &fb);
 
     // accessor methods
     int get_width() const {return m_width;}
