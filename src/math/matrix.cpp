@@ -254,7 +254,7 @@ bool compare(const Matrix &m1, const Matrix &m2)
 Matrix multiply(const Matrix &m1, const Matrix &m2)
 {
     assert(m1.get_columns() == m2.get_rows() &&
-	"cannot multiply matrices");
+	   "cannot multiply matrices");
 
     Matrix ret{m1.get_rows(), m2.get_columns()};
     for (int i = 0; i < m1.get_rows(); i++)
