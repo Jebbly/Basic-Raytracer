@@ -101,10 +101,10 @@ void Framebuffer::save_buffer(const std::string &name)
 	    Tuple pixel = m_buffer[y][x];
 	    for (int i = 0; i < 3; i++)
 	    {
-		if (pixel.get(i) > 255)
+		if (pixel.get(i) >= 1)
 		    output << 255 << ' ';
 		else
-		    output << pixel.get(i) << ' ';
+		    output << pixel.get(i) * 255 << ' ';
 	    }
 	}
 	output << '\n';
