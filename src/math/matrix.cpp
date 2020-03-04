@@ -161,7 +161,7 @@ Matrix Matrix::inverse() const
 }
 
 // transformations
-Matrix Matrix::translate(double x, double y, double z)
+Matrix Matrix::translate(double x, double y, double z) const
 {
     Matrix ret = identity();
 
@@ -172,7 +172,7 @@ Matrix Matrix::translate(double x, double y, double z)
     return multiply(ret, *this);
 }
 
-Matrix Matrix::scale(double x, double y, double z)
+Matrix Matrix::scale(double x, double y, double z) const
 {
     Matrix ret = identity();
 
@@ -183,7 +183,7 @@ Matrix Matrix::scale(double x, double y, double z)
     return multiply(ret, *this);
 }
 
-Matrix Matrix::rotate_x(double r)
+Matrix Matrix::rotate_x(double r) const
 {
     Matrix ret = identity();
 
@@ -195,7 +195,7 @@ Matrix Matrix::rotate_x(double r)
     return multiply(ret, *this);
 }
 
-Matrix Matrix::rotate_y(double r)
+Matrix Matrix::rotate_y(double r) const
 {
     Matrix ret = identity();
 
@@ -207,7 +207,7 @@ Matrix Matrix::rotate_y(double r)
     return multiply(ret, *this);
 }
 
-Matrix Matrix::rotate_z(double r)
+Matrix Matrix::rotate_z(double r) const
 {
     Matrix ret = identity();
 
@@ -219,7 +219,7 @@ Matrix Matrix::rotate_z(double r)
     return multiply(ret, *this);
 }
 
-Matrix Matrix::shear(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y)
+Matrix Matrix::shear(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y) const
 {
     Matrix ret = identity();
 

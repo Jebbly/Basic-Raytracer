@@ -40,15 +40,15 @@ public:
     Matrix inverse() const;
 
     // transformations
-    Matrix translate(double x, double y, double z);
+    Matrix translate(double x, double y, double z) const;
 
-    Matrix scale(double x, double y, double z);
+    Matrix scale(double x, double y, double z) const;
 
-    Matrix rotate_x(double r);
-    Matrix rotate_y(double r);
-    Matrix rotate_z(double r);
+    Matrix rotate_x(double r) const;
+    Matrix rotate_y(double r) const;
+    Matrix rotate_z(double r) const;
 
-    Matrix shear(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y);
+    Matrix shear(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y) const;
 
     // print overload
     friend std::ostream& operator<<(std::ostream &out, const Matrix &m);
