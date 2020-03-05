@@ -15,11 +15,12 @@ private:
     std::vector<Sphere> objects;
 
 public:
-    World();
-
     // accessor methods
     std::vector<PointLight>& get_lights() {return lights;}
     std::vector<Sphere>& get_objects() {return objects;}
+
+    void add_object(Sphere object);
+    void add_light(PointLight light);
 
     // raytrace functions
     std::vector<Intersection> intersects(const Ray &ray) const;

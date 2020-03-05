@@ -1,10 +1,14 @@
 #include "scene/world.h"
 
-World::World()
+// accessor methods
+void World::add_object(Sphere object)
 {
-    lights.push_back(PointLight{color(1, 1, 1), point(-10, 10, -10)});
-    objects.push_back(Sphere{identity().scale(0.5, 0.5, 0.5).translate(-1, 2, 0)});
-    objects.push_back(Sphere{identity().translate(1, 1, 0), Material{color(0.8, 1.0, 0.6), 0.1, 0.7, 0.2}});
+    objects.push_back(object);
+}
+
+void World::add_light(PointLight light)
+{
+    lights.push_back(light);
 }
 
 // raytrace functions
