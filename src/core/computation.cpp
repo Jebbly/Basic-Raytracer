@@ -15,4 +15,6 @@ Computation::Computation(const Ray &ray, const Intersection &intersect) :
     }
     else
 	m_inside = false;
+
+    m_over_point = m_point + m_normal * Constants::EPSILON;
 }

@@ -1,6 +1,6 @@
 #include "scene/lighting.h"
 
-const Tuple lighting(const Material &mat, const PointLight &light, const Tuple &pos, const Tuple &eye, const Tuple &normal)
+const Tuple lighting(const Material &mat, const PointLight &light, const Tuple &pos, const Tuple &eye, const Tuple &normal, bool shadowed)
 {
     Tuple effective_color = hadamard_product(mat.get_color(), light.get_intensity());
 
@@ -8,7 +8,7 @@ const Tuple lighting(const Material &mat, const PointLight &light, const Tuple &
 
     Tuple light_direction = normalize(light.get_position() - pos);
     double light_dot_normal = dot(light_direction, normal);
-    if (light_dot_normal < 0)
+    if (light_dot_normal < 0 || shadowed)
 	return ambient;
     else
     {

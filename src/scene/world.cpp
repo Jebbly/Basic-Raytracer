@@ -24,12 +24,27 @@ std::vector<Intersection> World::intersects(const Ray &ray) const
     return ret;
 }
 
+bool World::shadow(const PointLight &light, const Tuple &position) const
+{
+    Tuple light_dir = light.get_position() - position;
+    double distance = magnitude(light_dir);
+    Tuple normalized_light_dir = normalize(light_dir);
+
+    std::vector<Intersection> xs = intersects(Ray{position, normalized_light_dir});
+    auto i = hit(xs);
+    if (i)
+	return (i.value().get_t() < distance);
+    else
+	return false;
+}
+
 Tuple World::shade(const Computation &comp) const
 {
     Tuple ret{color(0, 0, 0)};
     for (int i = 0; i < lights.size(); i++)
     {
-	ret += lighting(comp.get_object().get_material(), lights.at(i), comp.get_point(), comp.get_eye(), comp.get_normal());
+	bool shadowed = shadow(lights.at(i), comp.get_over_point());
+	ret += lighting(comp.get_object().get_material(), lights.at(i), comp.get_point(), comp.get_eye(), comp.get_normal(), shadowed);
     }
     return ret;
 }

@@ -24,6 +24,7 @@ public:
 
     // raytrace functions
     std::vector<Intersection> intersects(const Ray &ray) const;
+    bool shadow(const PointLight &light, const Tuple &position) const;
     Tuple shade(const Computation &comp) const;
     Tuple final_color(const Ray &ray) const;
 };

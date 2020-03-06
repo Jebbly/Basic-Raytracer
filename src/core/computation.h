@@ -12,6 +12,7 @@ private:
     // attributes
     Sphere m_object;
     Tuple m_point, m_eye, m_normal;
+    Tuple m_over_point;
     double m_t;
     bool m_inside;
 
@@ -23,6 +24,7 @@ public:
     const Tuple& get_point() const {return m_point;}
     const Tuple& get_eye() const {return m_eye;}
     const Tuple& get_normal() const {return m_normal;}
+    const Tuple& get_over_point() const {return m_over_point;}
     double get_t() const {return m_t;}
     bool get_inside() const {return m_inside;}
 };
