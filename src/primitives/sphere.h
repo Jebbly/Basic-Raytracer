@@ -11,7 +11,7 @@
 class Sphere : public Primitive
 {
 public:
-    Sphere(const Matrix &transformation, const Material &material);
+    Sphere(const Matrix &transformation = identity(), const Material &material = Material{});
 
     // ray intersect functions
     Tuple intersect(const Ray &r) const override;

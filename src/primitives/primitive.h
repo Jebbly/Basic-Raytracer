@@ -14,7 +14,7 @@ protected:
     Matrix m_transformation;
     Material m_material;
 
-    Primitive(const Matrix &transformation = identity(), const Material &material = Material{});
+    Primitive(const Matrix &transformation, const Material &material);
 
 public:
     // accessor methods
