@@ -25,7 +25,6 @@ public:
 };
 
 // utility functions
-std::vector<Intersection> intersections(const Ray &r, const Primitive *o);
 std::optional<const Intersection> hit(const std::vector<Intersection> &intersections);
 
 #endif

@@ -17,7 +17,7 @@ std::vector<Intersection> World::intersects(const Ray &ray) const
     std::vector<Intersection> ret;
     for (int i = 0; i < objects.size(); i++)
     {
-	std::vector<Intersection> object_intersects = intersections(ray, objects.at(i));
+	std::vector<Intersection> object_intersects = objects.at(i)->intersect(ray);
 	ret.insert(ret.end(), object_intersects.begin(), object_intersects.end());
     }
     std::sort(ret.begin(), ret.end());
