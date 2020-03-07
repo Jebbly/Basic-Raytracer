@@ -5,6 +5,7 @@
 #include "core/ray.h"
 #include "image/framebuffer.h"
 #include "primitives/sphere.h"
+#include "primitives/plane.h"
 #include "core/intersection.h"
 #include "scene/lighting.h"
 #include "scene/world.h"
@@ -15,13 +16,9 @@ int main()
     World w{};
 
     Material floorMaterial{color(1, 0.9, 0.9), 0.1, 0.9, 0, 0};
-    Sphere floor{identity().scale(10, 0.01, 10), floorMaterial};
-    Sphere leftWall{identity().scale(10, 0.01, 10).rotate_x(Constants::PI / 2).rotate_y(-Constants::PI / 4).translate(0, 0, 5), floorMaterial};
-    Sphere rightWall{identity().scale(10, 0.01, 10).rotate_x(Constants::PI / 2).rotate_y(Constants::PI / 4).translate(0, 0, 5), floorMaterial};
+    Plane floor{identity(), floorMaterial};
 
     w.add_object(floor);
-    w.add_object(leftWall);
-    w.add_object(rightWall);
 
     Sphere middle{identity().translate(-0.5, 1, 0.5), Material{color(0.1, 1, 0.5), 0.1, 0.7, 0.3}};
     Sphere right{identity().scale(0.5, 0.5, 0.5).translate(1.5, 0.5, -0.5), Material{color(0.5, 1, 0.1), 0.1, 0.7, 0.3}};
@@ -42,6 +39,19 @@ int main()
     c.set_transform(view(from, to, up));
     Framebuffer image = c.render(w);
     image.save_buffer("output.ppm");
+
+    Plane p{};
+    std::cout << normal(&p, point(0, 0, 0)) << "\n";
+    std::cout << normal(&p, point(10, 0, -10)) << "\n";
+    std::cout << normal(&p, point(-5, 0, 15)) << "\n";
+
+    std::vector<Intersection> xs = intersect(&p, Ray{point(0, 1, 0), vector(0, -1, 0)});
+    for (int i = 0; i < xs.size(); i++)
+	std::cout << xs.at(i).get_t() << '\n';
+
+    xs = intersect(&p, Ray{point(0, -1, 0), vector(0, 1, 0)});
+    for (int i = 0; i < xs.size(); i++)
+	std::cout << xs.at(i).get_t() << '\n';
 
     return 1;
 }
