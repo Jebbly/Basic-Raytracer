@@ -4,13 +4,12 @@ Sphere::Sphere(const Matrix &transformation, const Material &material) :
     Primitive{transformation, material}
 {}
 
-// ray intersect functions
-Tuple Sphere::intersect(const Ray &r) const
+// primitive-specific ray intersect functions
+Tuple Sphere::local_intersect(const Ray &r) const
 {
-    Ray transformed_ray = r.transform(m_transformation.inverse());
-    Tuple sphere_to_ray = transformed_ray.get_origin() - point(0, 0, 0);
-    double a = dot(transformed_ray.get_direction(), transformed_ray.get_direction());
-    double b = 2 * dot(transformed_ray.get_direction(), sphere_to_ray);
+    Tuple sphere_to_ray = r.get_origin() - point(0, 0, 0);
+    double a = dot(r.get_direction(), r.get_direction());
+    double b = 2 * dot(r.get_direction(), sphere_to_ray);
     double c = dot(sphere_to_ray, sphere_to_ray) - 1;
     double discriminant = pow(b, 2) - 4 * a * c;
 
@@ -23,12 +22,7 @@ Tuple Sphere::intersect(const Ray &r) const
     return intersects;
 }
 
-Tuple Sphere::normal(const Tuple &t) const
+Tuple Sphere::local_normal(const Tuple &t) const
 {
-    Tuple object_point = multiply(m_transformation.inverse(), t);
-    Tuple object_normal = normalize(object_point - point(0.0, 0.0, 0.0));
-    Tuple world_normal = multiply(m_transformation.inverse().transpose(), object_normal);
-
-    world_normal.set(3, 0.0);
-    return normalize(world_normal);
+    return normalize(t - point(0.0, 0.0, 0.0));
 }

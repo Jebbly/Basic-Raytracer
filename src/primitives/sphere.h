@@ -10,12 +10,13 @@
 
 class Sphere : public Primitive
 {
+protected:
+    // primitive-specific ray intersect functions
+    virtual Tuple local_intersect(const Ray &r) const override;
+    virtual Tuple local_normal(const Tuple &t) const override;
+
 public:
     Sphere(const Matrix &transformation = identity(), const Material &material = Material{});
-
-    // ray intersect functions
-    Tuple intersect(const Ray &r) const override;
-    Tuple normal(const Tuple &t) const override;
 };
 
 #endif
