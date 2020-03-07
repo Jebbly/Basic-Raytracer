@@ -25,6 +25,8 @@ public:
 };
 
 // utility functions
+Tuple normal(const Primitive *o, const Tuple &t);
+std::vector<Intersection> intersect(const Primitive *o, const Ray &r);
 std::optional<const Intersection> hit(const std::vector<Intersection> &intersections);
 
 #endif
