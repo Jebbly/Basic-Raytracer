@@ -4,29 +4,28 @@
 #include <vector>
 #include <algorithm>
 #include <optional>
-#include "primitives/sphere.h"
+#include "primitives/primitive.h"
 
 class Intersection
 {
 private:
     // attributes
     double m_t;
-    Sphere m_object;
+    const Primitive* m_object;
 
 public:
-    Intersection();
-    Intersection(double t, const Sphere &object);
+    Intersection(double t, const Primitive *object);
 
     // accessor methods
     double get_t() const {return m_t;}
-    const Sphere& get_object() const {return m_object;}
+    const Primitive* get_object() const {return m_object;}
 
     // comparison overload
     friend bool operator<(const Intersection &i1, const Intersection &i2);
 };
 
 // utility functions
-std::vector<Intersection> intersections(const Ray &r, const Sphere &object);
+std::vector<Intersection> intersections(const Ray &r, const Primitive *o);
 std::optional<const Intersection> hit(const std::vector<Intersection> &intersections);
 
 #endif

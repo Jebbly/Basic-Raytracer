@@ -1,9 +1,9 @@
 #include "scene/world.h"
 
 // accessor methods
-void World::add_object(Sphere object)
+void World::add_object(Primitive &object)
 {
-    objects.push_back(object);
+    objects.push_back(&object);
 }
 
 void World::add_light(PointLight light)
@@ -44,7 +44,7 @@ Tuple World::shade(const Computation &comp) const
     for (int i = 0; i < lights.size(); i++)
     {
 	bool shadowed = shadow(lights.at(i), comp.get_over_point());
-	ret += lighting(comp.get_object().get_material(), lights.at(i), comp.get_point(), comp.get_eye(), comp.get_normal(), shadowed);
+	ret += lighting(comp.get_object()->get_material(), lights.at(i), comp.get_point(), comp.get_eye(), comp.get_normal(), shadowed);
     }
     return ret;
 }

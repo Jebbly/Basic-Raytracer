@@ -35,7 +35,7 @@ int main()
 
     w.add_light(light);
 
-    Camera c{1000, 500, Constants::PI / 3};
+    Camera c{100, 50, Constants::PI / 3};
     Tuple from = point(0, 1.5, -5);
     Tuple to = point(0, 1, 0);
     Tuple up = vector(0, 1, 0);

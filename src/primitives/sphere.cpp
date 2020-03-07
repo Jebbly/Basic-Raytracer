@@ -1,23 +1,8 @@
 #include "primitives/sphere.h"
 
 Sphere::Sphere(const Matrix &transformation, const Material &material) :
-    m_transformation{transformation},
-    m_material{material}
-{
-    static int id = 0;
-    m_id = ++id;
-}
-
-// accessor methods
-void Sphere::set_transform(const Matrix &m)
-{
-    m_transformation = m;
-}
-
-void Sphere::set_material(const Material &m)
-{
-    m_material = m;
-}
+    Primitive{transformation, material}
+{}
 
 // ray intersect functions
 Tuple Sphere::intersect(const Ray &r) const

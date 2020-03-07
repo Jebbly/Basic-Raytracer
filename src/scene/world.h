@@ -5,21 +5,21 @@
 #include "core/intersection.h"
 #include "core/computation.h"
 #include "scene/lighting.h"
-#include "primitives/sphere.h"
+#include "primitives/primitive.h"
 
 class World
 {
 private:
     // attributes
     std::vector<PointLight> lights;
-    std::vector<Sphere> objects;
+    std::vector<Primitive*> objects;
 
 public:
     // accessor methods
     std::vector<PointLight>& get_lights() {return lights;}
-    std::vector<Sphere>& get_objects() {return objects;}
+    std::vector<Primitive*>& get_objects() {return objects;}
 
-    void add_object(Sphere object);
+    void add_object(Primitive &object);
     void add_light(PointLight light);
 
     // raytrace functions
