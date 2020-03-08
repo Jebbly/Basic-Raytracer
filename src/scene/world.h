@@ -4,27 +4,30 @@
 #include <vector>
 #include "core/intersection.h"
 #include "core/computation.h"
-#include "scene/lighting.h"
+#include "scene/light.h"
 #include "primitives/primitive.h"
 
 class World
 {
 private:
     // attributes
-    std::vector<PointLight> lights;
-    std::vector<Primitive*> objects;
+    Tuple m_ambient;
+    std::vector<Light*> m_lights;
+    std::vector<Primitive*> m_objects;
 
 public:
+    World(const Tuple &ambient = color(1, 1, 1));
+
     // accessor methods
-    std::vector<PointLight>& get_lights() {return lights;}
-    std::vector<Primitive*>& get_objects() {return objects;}
+    std::vector<Light*>& get_lights() {return m_lights;}
+    std::vector<Primitive*>& get_objects() {return m_objects;}
 
     void add_object(Primitive &object);
-    void add_light(PointLight light);
+    void add_light(Light &light);
 
     // raytrace functions
     std::vector<Intersection> intersects(const Ray &ray) const;
-    bool shadow(const PointLight &light, const Tuple &position) const;
+    bool shadow(const Light *light, const Tuple &position) const;
     Tuple shade(const Computation &comp) const;
     Tuple final_color(const Ray &ray) const;
 };

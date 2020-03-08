@@ -1,32 +1,36 @@
 #include "scene/world.h"
 
+World::World(const Tuple &ambient) :
+    m_ambient{ambient}
+{}
+
 // accessor methods
 void World::add_object(Primitive &object)
 {
-    objects.push_back(&object);
+    m_objects.push_back(&object);
 }
 
-void World::add_light(PointLight light)
+void World::add_light(Light &light)
 {
-    lights.push_back(light);
+    m_lights.push_back(&light);
 }
 
 // raytrace functions
 std::vector<Intersection> World::intersects(const Ray &ray) const
 {
     std::vector<Intersection> ret;
-    for (int i = 0; i < objects.size(); i++)
+    for (int i = 0; i < m_objects.size(); i++)
     {
-	std::vector<Intersection> object_intersects = intersect(objects.at(i), ray);
+	std::vector<Intersection> object_intersects = intersect(m_objects.at(i), ray);
 	ret.insert(ret.end(), object_intersects.begin(), object_intersects.end());
     }
     std::sort(ret.begin(), ret.end());
     return ret;
 }
 
-bool World::shadow(const PointLight &light, const Tuple &position) const
+bool World::shadow(const Light *light, const Tuple &position) const
 {
-    Tuple light_dir = light.get_position() - position;
+    Tuple light_dir = light->get_direction(position);
     double distance = magnitude(light_dir);
     Tuple normalized_light_dir = normalize(light_dir);
 
@@ -38,14 +42,16 @@ bool World::shadow(const PointLight &light, const Tuple &position) const
 	return false;
 }
 
+// raytrace functions
 Tuple World::shade(const Computation &comp) const
 {
     Tuple ret{color(0, 0, 0)};
-    for (int i = 0; i < lights.size(); i++)
+    for (int i = 0; i < m_lights.size(); i++)
     {
-	bool shadowed = shadow(lights.at(i), comp.get_over_point());
-	ret += lighting(comp.get_object()->get_material(), lights.at(i), comp.get_point(), comp.get_eye(), comp.get_normal(), shadowed);
+	bool shadowed = shadow(m_lights.at(i), comp.get_over_point());
+	ret += m_lights.at(i)->lighting(comp.get_object()->get_material(), comp.get_point(), comp.get_eye(), comp.get_normal(), shadowed);
     }
+    ret += hadamard_product(m_ambient, comp.get_object()->get_material().get_color()) * comp.get_object()->get_material().get_ambient();
     return ret;
 }
 

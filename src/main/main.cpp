@@ -8,7 +8,8 @@
 #include "primitives/sphere.h"
 #include "primitives/plane.h"
 #include "core/intersection.h"
-#include "scene/lighting.h"
+#include "scene/light.h"
+#include "scene/point_light.h"
 #include "scene/world.h"
 #include "image/camera.h"
 
@@ -30,11 +31,13 @@ int main()
     w.add_object(left);
 
     PointLight light{color(1, 1, 1), point(-10, 10, -10)};
+    // PointLight light2{color(1, 1, 1), point(10, 10, -10)};
 
     w.add_light(light);
+    // w.add_light(light2);
 
-    Camera c{1000, 500, Constants::PI / 3};
-    Tuple from = point(0, 1.5, -5);
+    Camera c{100, 50, Constants::PI / 3};
+    Tuple from = point(0, 1.5, -10);
     Tuple to = point(0, 1, 0);
     Tuple up = vector(0, 1, 0);
     c.set_transform(view(from, to, up));
