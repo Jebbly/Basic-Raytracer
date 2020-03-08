@@ -3,6 +3,6 @@ A basic raytracer implemented with C++
 
 ## To-do List
 - Create CMake Instructions
-- Implement Interfaces for Lights
+- Create Directional and Spot Light
 - Move All Accessor Methods from Header Files to Source Files
 - Sort Includes in All Headers
