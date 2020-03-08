@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "common.h"
+#include "utility/common.h"
 
 class Tuple
 {

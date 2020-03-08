@@ -1,4 +1,4 @@
-#include "material/material.h"
+#include "materials/material.h"
 
 Material::Material(const Tuple &color, double ambient, double diffuse, double specular, double shininess) : 
     m_color{color},

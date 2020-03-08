@@ -2,11 +2,11 @@
 #define PRIMITIVE_H
 
 #include <vector>
-#include "common.h"
+#include "utility/common.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"
-#include "core/material.h"
+#include "materials/material.h"
 
 class Primitive
 {

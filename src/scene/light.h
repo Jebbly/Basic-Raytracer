@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include "math/tuple.h"
-#include "core/material.h"
+#include "materials/material.h"
 
 class Light
 {

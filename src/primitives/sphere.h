@@ -1,11 +1,11 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include "common.h"
+#include "utility/common.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"
-#include "core/material.h"
+#include "materials/material.h"
 #include "primitives/primitive.h"
 
 class Sphere : public Primitive

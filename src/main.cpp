@@ -1,6 +1,6 @@
 #include <iostream>
 #include <chrono>
-#include "common.h"
+#include "utility/common.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"
@@ -36,7 +36,7 @@ int main()
     w.add_light(light);
     w.add_light(light2);
 
-    Camera c{2000, 1000, Constants::PI / 3};
+    Camera c{20, 10, Constants::PI / 3};
     Tuple from = point(0, 1.5, -5);
     Tuple to = point(0, 1, 0);
     Tuple up = vector(0, 1, 0);
