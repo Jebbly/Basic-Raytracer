@@ -21,17 +21,18 @@ const Tuple PointLight::lighting(const Material &mat, const Tuple &position, con
     else
     {
 	Tuple effective_color = hadamard_product(mat.get_color(), m_intensity);
+	double distance = magnitude(position - m_position);
 
 	Tuple diffuse = effective_color * mat.get_diffuse() * light_dot_normal;
 
 	Tuple reflect_direction = reflect(-light_direction, normal);
 	double reflect_dot_eye = dot(reflect_direction, eye);
 	if (reflect_dot_eye <= 0)
-	    return diffuse;
+	    return diffuse / (1 + 0.01 * pow(distance, 2));
 	else
 	{
 	    Tuple specular = m_intensity * mat.get_specular() * pow(reflect_dot_eye, mat.get_shininess());
-	    return diffuse + specular;
+	    return (diffuse + specular) / (1 + 0.01 * pow(distance, 2));
 	}
     }
 }
