@@ -2,6 +2,7 @@
 #define POINT_LIGHT_H
 
 #include "math/tuple.h"
+#include "core/computation.h"
 #include "scene/light.h"
 
 class PointLight : public Light
@@ -18,7 +19,7 @@ public:
     virtual const Tuple get_direction(const Tuple &t) const override;
     
     // raytrace functions
-    virtual const Tuple lighting(const Material &mat, const Tuple &position, const Tuple &eye, const Tuple &normal, bool shadowed) const override;
+    virtual const Tuple lighting(const Computation &comp) const override;
 };
 
 #endif

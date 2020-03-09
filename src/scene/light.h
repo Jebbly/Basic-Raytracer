@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include "math/tuple.h"
+#include "core/computation.h"
 #include "materials/material.h"
 
 class Light
@@ -12,6 +13,9 @@ protected:
     Tuple m_intensity;
 
     Light(const Tuple &intensity);
+    
+    // phong shading
+    const Tuple phong_shading(const Material &mat, const Tuple &position, const Tuple &eye, const Tuple &normal) const;
 
 public:
     // accessor methods
@@ -19,7 +23,7 @@ public:
     virtual const Tuple get_direction(const Tuple &t) const = 0;
 
     // raytrace functions
-    virtual const Tuple lighting(const Material &mat, const Tuple &position, const Tuple &eye, const Tuple &normal, bool shadowed) const = 0;
+    virtual const Tuple lighting(const Computation &comp) const = 0;
 };
 
 #endif

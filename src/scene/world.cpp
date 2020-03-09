@@ -49,7 +49,8 @@ Tuple World::shade(const Computation &comp) const
     for (int i = 0; i < m_lights.size(); i++)
     {
 	bool shadowed = shadow(m_lights.at(i), comp.get_over_point());
-	ret += m_lights.at(i)->lighting(comp.get_object()->get_material(), comp.get_point(), comp.get_eye(), comp.get_normal(), shadowed);
+	if (!shadowed)
+	    ret += m_lights.at(i)->lighting(comp);
     }
     ret += hadamard_product(m_ambient, comp.get_object()->get_material().get_color()) * comp.get_object()->get_material().get_ambient();
     return ret;

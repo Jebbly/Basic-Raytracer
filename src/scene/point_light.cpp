@@ -12,27 +12,9 @@ const Tuple PointLight::get_direction(const Tuple &t) const
 }
 
 // raytrace functions
-const Tuple PointLight::lighting(const Material &mat, const Tuple &position, const Tuple &eye, const Tuple &normal, bool shadowed) const
+const Tuple PointLight::lighting(const Computation &comp) const
 {
-    Tuple light_direction = get_direction(position);
-    double light_dot_normal = dot(light_direction, normal);
-    if (light_dot_normal < 0 || shadowed)
-	return color(0, 0, 0);
-    else
-    {
-	Tuple effective_color = hadamard_product(mat.get_color(), m_intensity);
-	double distance = magnitude(position - m_position);
-
-	Tuple diffuse = effective_color * mat.get_diffuse() * light_dot_normal;
-
-	Tuple reflect_direction = reflect(-light_direction, normal);
-	double reflect_dot_eye = dot(reflect_direction, eye);
-	if (reflect_dot_eye <= 0)
-	    return diffuse / (1 + 0.01 * pow(distance, 2));
-	else
-	{
-	    Tuple specular = m_intensity * mat.get_specular() * pow(reflect_dot_eye, mat.get_shininess());
-	    return (diffuse + specular) / (1 + 0.01 * pow(distance, 2));
-	}
-    }
+    Tuple color_value = phong_shading(comp.get_object()->get_material(), comp.get_point(), comp.get_eye(), comp.get_normal());
+    double distance = magnitude(comp.get_point() - m_position);
+    return color_value / (1 + 0.01 * pow(distance, 2));
 }
