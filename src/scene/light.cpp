@@ -13,7 +13,12 @@ const Tuple Light::phong_shading(const Material &mat, const Tuple &position, con
 	return color(0, 0, 0);
     else
     {
-	Tuple effective_color = hadamard_product(mat.get_color(), m_intensity);
+	Tuple material_color;
+	if (mat.get_pattern())
+	    material_color = mat.get_pattern()->get_color(position);
+	else
+	    material_color = mat.get_color();
+	Tuple effective_color = hadamard_product(material_color, m_intensity);
 
 	Tuple diffuse = effective_color * mat.get_diffuse() * light_dot_normal;
 

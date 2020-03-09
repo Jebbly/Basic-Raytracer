@@ -13,7 +13,7 @@ protected:
 
 public:
     // accessor methods
-    virtual const Tuple& get_pattern(const Tuple &pos) const = 0;
+    virtual const Tuple& get_color(const Tuple &pos) const = 0;
 };
 
 #endif

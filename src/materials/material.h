@@ -14,7 +14,7 @@ private:
 
 public:
     Material(const Tuple &color = color(1, 1, 1), double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200.0);
-    Material(const Pattern *pattern, double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200);
+    Material(Pattern *pattern, double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200);
 
     // accessor methods
     const Tuple& get_color() const {return m_color;}
@@ -29,7 +29,7 @@ public:
     void set_diffuse(double diffuse);
     void set_specular(double specular);
     void set_shininess(double shininess);
-    void set_pattern(const Pattern *pattern);
+    void set_pattern(Pattern *pattern);
 };
 
 #endif
