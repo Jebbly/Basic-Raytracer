@@ -13,7 +13,7 @@ public:
     Material(double ambient, double diffuse, double specular, double shininess);
 
     // accessor methods
-    virtual const Tuple& get_color() const = 0;
+    virtual const Tuple& get_color(const Tuple &pos) const = 0;
 
     double get_ambient() const {return m_ambient;}
     double get_diffuse() const {return m_diffuse;}

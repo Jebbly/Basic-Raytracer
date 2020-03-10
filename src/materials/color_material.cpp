@@ -6,7 +6,7 @@ ColorMaterial::ColorMaterial(const Tuple &color, double ambient, double diffuse,
 {}
 
 // accessor methods
-const Tuple& ColorMaterial::get_color(const Tuple& pos) const
+const Tuple& ColorMaterial::get_color(const Tuple &pos) const
 {
     return m_color;
 }
