@@ -15,6 +15,6 @@ public:
 
     // accessor methods
     virtual const Tuple& get_color(const Tuple &pos) const override;
-}
+};
 
 #endif
