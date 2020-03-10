@@ -1,6 +1,6 @@
 #include "primitives/plane.h"
 
-Plane::Plane(const Matrix &transformation, const Material &material) :
+Plane::Plane(const Matrix &transformation, const Material *material) :
     Primitive{transformation, material}
 {}
 
