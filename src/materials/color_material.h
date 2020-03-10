@@ -2,7 +2,7 @@
 #define COLOR_MATERIAL_H
 
 #include "math/tuple.h"
-#include "materials/material.cpp"
+#include "materials/material.h"
 
 class ColorMaterial : public Material
 {
