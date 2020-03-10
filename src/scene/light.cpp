@@ -5,7 +5,7 @@ Light::Light(const Tuple &intensity) :
 {}
 
 // phong shading
-const Tuple Light::phong_shading(const Material &mat, const Tuple &position, const Tuple &eye, const Tuple &normal) const
+const Tuple Light::phong_shading(const Material *mat, const Tuple &position, const Tuple &eye, const Tuple &normal) const
 {
     Tuple light_direction = get_direction(position);
     double light_dot_normal = dot(light_direction, normal);
@@ -13,14 +13,10 @@ const Tuple Light::phong_shading(const Material &mat, const Tuple &position, con
 	return color(0, 0, 0);
     else
     {
-	Tuple material_color;
-	if (mat.get_pattern())
-	    material_color = mat.get_pattern()->get_color(position);
-	else
-	    material_color = mat.get_color();
-	Tuple effective_color = hadamard_product(material_color, m_intensity);
 
-	Tuple diffuse = effective_color * mat.get_diffuse() * light_dot_normal;
+	Tuple effective_color = hadamard_product(mat->get_color(position), m_intensity);
+
+	Tuple diffuse = effective_color * mat->get_diffuse() * light_dot_normal;
 
 	Tuple reflect_direction = reflect(-light_direction, normal);
 	double reflect_dot_eye = dot(reflect_direction, eye);
@@ -28,7 +24,7 @@ const Tuple Light::phong_shading(const Material &mat, const Tuple &position, con
 	    return diffuse;
 	else
 	{
-	    Tuple specular = m_intensity * mat.get_specular() * pow(reflect_dot_eye, mat.get_shininess());
+	    Tuple specular = m_intensity * mat->get_specular() * pow(reflect_dot_eye, mat->get_shininess());
 	    return diffuse + specular;
 	}
     }
