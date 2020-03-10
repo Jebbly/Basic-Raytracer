@@ -1,6 +1,6 @@
 #include "primitives/sphere.h"
 
-Sphere::Sphere(const Matrix &transformation, const Material *material) :
+Sphere::Sphere(const Matrix &transformation, Material *material) :
     Primitive{transformation, material}
 {}
 

@@ -6,12 +6,13 @@
 #include "math/matrix.h"
 #include "core/ray.h"
 #include "materials/material.h"
+#include "materials/color_material.h"
 #include "primitives/primitive.h"
 
 class Sphere : public Primitive
 {
 public:
-    Sphere(const Matrix &transformation = identity(), const Material *material = &(ColorMaterial{}));
+    Sphere(const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}));
 
     // ray intersect functions
     virtual Tuple local_intersect(const Ray &r) const override;

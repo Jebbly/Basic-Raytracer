@@ -7,8 +7,6 @@
 #include "math/matrix.h"
 #include "core/ray.h"
 #include "materials/material.h"
-#include "materials/color_material.h"
-#include "materials/stripe_material.h"
 
 class Primitive
 {
@@ -17,7 +15,7 @@ protected:
     Matrix m_transformation;
     Material* m_material;
 
-    Primitive(const Matrix &transformation, const Material *material);
+    Primitive(const Matrix &transformation, Material *material);
 
 public:
     // accessor methods
@@ -25,7 +23,7 @@ public:
     const Material* get_material() const {return m_material;}
 
     void set_transform(const Matrix &m);
-    void set_material(const Material *m);
+    void set_material(Material *m);
 
     // ray intersect functions
     virtual Tuple local_intersect(const Ray &r) const = 0;
