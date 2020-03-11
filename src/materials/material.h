@@ -13,8 +13,6 @@ public:
     Material(double ambient, double diffuse, double specular, double shininess);
 
     // accessor methods
-    virtual const Tuple& get_color(const Tuple &pos) const = 0;
-
     double get_ambient() const {return m_ambient;}
     double get_diffuse() const {return m_diffuse;}
     double get_specular() const {return m_specular;}
@@ -24,6 +22,9 @@ public:
     void set_diffuse(double diffuse);
     void set_specular(double specular);
     void set_shininess(double shininess);
+
+    // raytrace functions
+    virtual const Tuple& get_color(const Tuple &pos) const = 0;
 };
 
 #endif
