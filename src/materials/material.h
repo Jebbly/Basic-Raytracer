@@ -24,7 +24,7 @@ public:
     void set_shininess(double shininess);
 
     // raytrace functions
-    virtual const Tuple& get_color(const Tuple &pos) const = 0;
+    virtual Tuple get_color(const Tuple &pos) const = 0;
 };
 
 #endif

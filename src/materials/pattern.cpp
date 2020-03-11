@@ -14,7 +14,7 @@ void Pattern::set_transformation(const Matrix &transformation)
 }
 
 // raytrace functions
-const Tuple& Pattern::get_color(const Tuple &pos) const
+Tuple Pattern::get_color(const Tuple &pos) const
 {
     return get_pattern(multiply(m_transformation.inverse(), pos));
 }

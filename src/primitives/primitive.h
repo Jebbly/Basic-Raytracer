@@ -26,6 +26,8 @@ public:
     void set_material(Material *m);
 
     // ray intersect functions
+    Tuple color(const Tuple &point) const;
+
     virtual Tuple local_intersect(const Ray &r) const = 0;
     virtual Tuple local_normal(const Tuple &t) const = 0;
 };

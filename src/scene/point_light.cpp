@@ -14,7 +14,7 @@ const Tuple PointLight::get_direction(const Tuple &t) const
 // raytrace functions
 const Tuple PointLight::lighting(const Computation &comp) const
 {
-    Tuple color_value = phong_shading(comp.get_object()->get_material(), comp.get_point(), comp.get_eye(), comp.get_normal());
+    Tuple color_value = phong_shading(comp.get_object(), comp.get_point(), comp.get_eye(), comp.get_normal());
     double distance = magnitude(comp.get_point() - m_position);
     return color_value / (1 + 0.01 * pow(distance, 2));
 }

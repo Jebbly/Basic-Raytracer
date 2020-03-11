@@ -15,3 +15,10 @@ void Primitive::set_material(Material *m)
 {
     m_material = m;
 }
+
+// ray intersect functions
+Tuple Primitive::color(const Tuple &point) const
+{
+    Tuple object_space = multiply(m_transformation.inverse(), point);
+    return m_material->get_color(object_space);
+}

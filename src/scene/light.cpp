@@ -5,7 +5,7 @@ Light::Light(const Tuple &intensity) :
 {}
 
 // phong shading
-const Tuple Light::phong_shading(const Material *mat, const Tuple &position, const Tuple &eye, const Tuple &normal) const
+const Tuple Light::phong_shading(const Primitive *object, const Tuple &position, const Tuple &eye, const Tuple &normal) const
 {
     Tuple light_direction = get_direction(position);
     double light_dot_normal = dot(light_direction, normal);
@@ -14,7 +14,8 @@ const Tuple Light::phong_shading(const Material *mat, const Tuple &position, con
     else
     {
 
-	Tuple effective_color = hadamard_product(mat->get_color(position), m_intensity);
+	Tuple effective_color = hadamard_product(object->color(position), m_intensity);
+	const Material *mat = object->get_material();
 
 	Tuple diffuse = effective_color * mat->get_diffuse() * light_dot_normal;
 

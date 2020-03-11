@@ -52,7 +52,7 @@ Tuple World::shade(const Computation &comp) const
 	if (!shadowed)
 	    ret += m_lights.at(i)->lighting(comp);
     }
-    ret += hadamard_product(m_ambient, comp.get_object()->get_material().get_color()) * comp.get_object()->get_material().get_ambient();
+    ret += hadamard_product(m_ambient, comp.get_object()->color(comp.get_point())) * comp.get_object()->get_material()->get_ambient();
     return ret;
 }
 

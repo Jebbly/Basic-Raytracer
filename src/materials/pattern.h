@@ -21,8 +21,8 @@ public:
     void set_transformation(const Matrix &transformation);
 
     // raytrace functions
-    virtual const Tuple& get_color(const Tuple &pos) const override;
-    virtual const Tuple& get_pattern(const Tuple &pos) const = 0;
+    virtual Tuple get_color(const Tuple &pos) const override;
+    virtual Tuple get_pattern(const Tuple &pos) const = 0;
 };
 
 #endif
