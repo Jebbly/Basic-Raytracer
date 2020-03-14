@@ -17,11 +17,13 @@ public:
     double get_diffuse() const {return m_diffuse;}
     double get_specular() const {return m_specular;}
     double get_shininess() const {return m_shininess;}
+    double get_reflective() const {return m_reflective;}
 
     void set_ambient(double ambient);
     void set_diffuse(double diffuse);
     void set_specular(double specular);
     void set_shininess(double shininess);
+    void set_reflective(double reflective);
 
     // raytrace functions
     virtual Tuple get_color(const Tuple &pos) const = 0;

@@ -27,3 +27,8 @@ void Material::set_shininess(double shininess)
 {
     m_shininess = shininess;
 }
+
+void Material::set_reflective(double reflective)
+{
+    m_reflective = reflective;
+}
