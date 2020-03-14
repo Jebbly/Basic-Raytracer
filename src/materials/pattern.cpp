@@ -1,7 +1,7 @@
 #include "materials/pattern.h"
 
-Pattern::Pattern(const Tuple &color_a, const Tuple &color_b, const Matrix &transformation, double ambient, double diffuse, double specular, double shininess, double reflective) :
-    Material{ambient, diffuse, specular, shininess, reflective},
+Pattern::Pattern(const Tuple &color_a, const Tuple &color_b, const Matrix &transformation, double ambient, double diffuse, double specular, double shininess, double reflective, double transparency, double IOR) :
+    Material{ambient, diffuse, specular, shininess, reflective, transparency, IOR},
     m_color_a{color_a},
     m_color_b{color_b},
     m_transformation{transformation}
