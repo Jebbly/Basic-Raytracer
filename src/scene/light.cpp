@@ -13,7 +13,6 @@ const Tuple Light::phong_shading(const Primitive *object, const Tuple &position,
 	return color(0, 0, 0);
     else
     {
-
 	Tuple effective_color = hadamard_product(object->color(position), m_intensity);
 	const Material *mat = object->get_material();
 

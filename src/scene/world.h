@@ -28,8 +28,8 @@ public:
     // raytrace functions
     std::vector<Intersection> intersects(const Ray &ray) const;
     bool shadow(const Light *light, const Tuple &position) const;
-    Tuple shade(const Computation &comp) const;
-    Tuple final_color(const Ray &ray) const;
+    Tuple shade(const Computation &comp, int recursion_depth) const;
+    Tuple final_color(const Ray &ray, int recursion_depth) const;
 };
 
 #endif

@@ -57,7 +57,7 @@ Framebuffer Camera::render(const World &w) const
 	for (int x = 0; x < m_width; x++)
 	{
 	    Ray shoot_ray = ray(x, y);
-	    Tuple color = w.final_color(shoot_ray);
+	    Tuple color = w.final_color(shoot_ray, 0);
 	    ret.write_pixel(x, y, color);
 	}
     }

@@ -42,26 +42,38 @@ bool World::shadow(const Light *light, const Tuple &position) const
 	return false;
 }
 
-// raytrace functions
-Tuple World::shade(const Computation &comp) const
+Tuple World::shade(const Computation &comp, int recursion_depth) const
 {
     Tuple ret{color(0, 0, 0)};
+
+    // surface
     for (int i = 0; i < m_lights.size(); i++)
     {
 	bool shadowed = shadow(m_lights.at(i), comp.get_over_point());
 	if (!shadowed)
 	    ret += m_lights.at(i)->lighting(comp);
     }
+
+    // reflected
+    if (recursion_depth < 6)
+    {
+	double reflective = comp.get_object()->get_material()->get_reflective();
+	if (reflective > 0)
+	    ret += final_color(Ray{comp.get_over_point(), comp.get_reflect()}, recursion_depth + 1) * reflective;
+    }
+
+    // ambient
     ret += hadamard_product(m_ambient, comp.get_object()->color(comp.get_point())) * comp.get_object()->get_material()->get_ambient();
+
     return ret;
 }
 
-Tuple World::final_color(const Ray &ray) const
+Tuple World::final_color(const Ray &ray, int recursion_depth) const
 {
     std::vector<Intersection> xs = intersects(ray);
     auto intersect = hit(xs);
     if (intersect)
-	return shade(Computation{ray, intersect.value()});
+	return shade(Computation{ray, intersect.value()}, recursion_depth);
     else
 	return color(0, 0, 0);
 }
