@@ -25,7 +25,7 @@ int main()
     StripeMaterial stripes{color(215/255.0, 178/255.0, 255/255.0), color(147/255.0, 216/255.0, 148/255.0), identity().scale(0.5, 0.5, 0.5), 0.1, 0.9, 1, 200};
     GradientMaterial gradient{color(0.8, 0, 0), color(0, 0, 0.8), identity().scale(1.5, 1.5, 1.5).rotate_y(Constants::PI / 3)};
     RingMaterial ring{color(211/255.0, 217/255.0, 231/255.0), color(141/255.0, 153/255.0, 186/255.0), identity().scale(0.25, 0.25, 0.25).rotate_x(Constants::PI / 1.5).rotate_y(-Constants::PI / 12)};
-    CheckerMaterial grid{color(0.2, 0.2, 0.2), color(0.7, 0.7, 0.7), identity(), 0.9, 0.1, 0.9, 200, 1};
+    CheckerMaterial grid{color(0.2, 0.2, 0.2), color(0.7, 0.7, 0.7), identity(), 0.1, 0.9, 0.9, 200, 1};
     Plane floor{identity(), &grid};
 
     w.add_object(floor);
