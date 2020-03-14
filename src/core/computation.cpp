@@ -1,6 +1,6 @@
 #include "core/computation.h"
 
-Computation::Computation(const Ray &ray, const Intersection &intersect) :
+Computation::Computation(const Ray &ray, const Intersection &intersect, const std::vector<Intersection> &xs) :
     m_t{intersect.get_t()},
     m_object{intersect.get_object()},
     m_eye{-ray.get_direction()}
@@ -18,4 +18,30 @@ Computation::Computation(const Ray &ray, const Intersection &intersect) :
 
     m_reflect = reflect(ray.get_direction(), m_normal);
     m_over_point = m_point + m_normal * Constants::EPSILON;
+    m_under_point = m_point - m_normal * Constants::EPSILON;
+
+    std::vector<Primitive*> containers;
+    for (int i = 0; i < xs.size(); i++)
+    {
+	if (xs.at(i) == intersect)
+	{
+	    if (containers.size() == 0)
+		m_n1 = 1.0;
+	    else
+		m_n1 = containers.at(containers.size() - 1)->get_material()->get_IOR();
+	}
+
+	if (std::find(containers.begin(), containers.end(), xs.at(i).get_object()) != containers.end())
+	    containers.pop_back();
+	else
+	    containers.push_back(xs.at(i).get_object());
+
+	if (xs.at(i) == intersect)
+	{
+	    if (containers.size() == 0)
+		m_n2 = 1.0;
+	    else
+		m_n2 = containers.at(containers.size() - 1)->get_material()->get_IOR();
+	}
+    }
 }

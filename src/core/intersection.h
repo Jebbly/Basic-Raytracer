@@ -11,17 +11,18 @@ class Intersection
 private:
     // attributes
     double m_t;
-    const Primitive* m_object;
+    Primitive* m_object;
 
 public:
     Intersection(double t, const Primitive *object);
 
     // accessor methods
     double get_t() const {return m_t;}
-    const Primitive* get_object() const {return m_object;}
+    Primitive* get_object() const {return m_object;}
 
     // comparison overload
     friend bool operator<(const Intersection &i1, const Intersection &i2);
+    friend bool operator==(const Intersection &i1, const Intersection &i2);
 };
 
 // utility functions

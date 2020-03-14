@@ -11,6 +11,11 @@ bool operator<(const Intersection &i1, const Intersection &i2)
     return (i1.m_t < i2.m_t);
 }
 
+bool operator==(const Intersection &i1, const Intersection &i2)
+{
+    return (i1.m_t == i2.m_t && i1.m_object == i2.m_object);
+}
+
 // utility functions
 Tuple normal(const Primitive *o, const Tuple &t)
 {

@@ -73,7 +73,7 @@ Tuple World::final_color(const Ray &ray, int recursion_depth) const
     std::vector<Intersection> xs = intersects(ray);
     auto intersect = hit(xs);
     if (intersect)
-	return shade(Computation{ray, intersect.value()}, recursion_depth);
+	return shade(Computation{ray, intersect.value(), xs}, recursion_depth);
     else
 	return color(0, 0, 0);
 }
