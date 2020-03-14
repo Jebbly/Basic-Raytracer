@@ -104,7 +104,7 @@ void Framebuffer::save_buffer(const std::string &name)
 		if (pixel.get(i) >= 1)
 		    output << 255 << ' ';
 		else
-		    output << pixel.get(i) * 255 << ' ';
+		    output << (int) (pixel.get(i) * 256) << ' ';
 	    }
 	}
 	output << '\n';
