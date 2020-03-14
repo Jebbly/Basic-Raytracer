@@ -11,7 +11,7 @@ private:
     Tuple m_color;
 
 public:
-    ColorMaterial(const Tuple &color = color(0.8, 0.8, 0.8), double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200);
+    ColorMaterial(const Tuple &color = color(0.8, 0.8, 0.8), double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200, double reflective = 0.0);
 
     // accessor methods
     virtual Tuple get_color(const Tuple &pos) const override;

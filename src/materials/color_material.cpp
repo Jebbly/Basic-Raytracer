@@ -1,7 +1,7 @@
 #include "materials/color_material.h"
 
-ColorMaterial::ColorMaterial(const Tuple &color, double ambient, double diffuse, double specular, double shininess) :
-    Material{ambient, diffuse, specular, shininess},
+ColorMaterial::ColorMaterial(const Tuple &color, double ambient, double diffuse, double specular, double shininess, double reflective) :
+    Material{ambient, diffuse, specular, shininess, reflective},
     m_color{color}
 {}
 

@@ -1,9 +1,5 @@
 #include "materials/checker_material.h"
 
-CheckerMaterial::CheckerMaterial(const Tuple &color_a, const Tuple &color_b, const Matrix &transformation, double ambient, double diffuse, double specular, double shininess) :
-    Pattern{color_a, color_b, transformation, ambient, diffuse, specular, shininess}
-{}
-
 // raytrace functions
 Tuple CheckerMaterial::get_pattern(const Tuple &pos) const
 {
