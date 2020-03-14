@@ -7,10 +7,10 @@ class Material
 {
 protected:
     // attributes
-    double m_ambient, m_diffuse, m_specular, m_shininess;
+    double m_ambient, m_diffuse, m_specular, m_shininess, m_reflective;
 
 public:
-    Material(double ambient, double diffuse, double specular, double shininess);
+    Material(double ambient, double diffuse, double specular, double shininess, double reflective);
 
     // accessor methods
     double get_ambient() const {return m_ambient;}

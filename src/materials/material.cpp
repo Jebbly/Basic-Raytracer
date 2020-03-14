@@ -1,10 +1,11 @@
 #include "materials/material.h"
 
-Material::Material(double ambient, double diffuse, double specular, double shininess) : 
+Material::Material(double ambient, double diffuse, double specular, double shininess, double reflective) : 
     m_ambient{ambient},
     m_diffuse{diffuse},
     m_specular{specular},
-    m_shininess{shininess}
+    m_shininess{shininess},
+    m_reflective{reflective}
 {}
 
 // accessor methods
