@@ -42,6 +42,25 @@ bool World::shadow(const Light *light, const Tuple &position) const
 	return false;
 }
 
+Tuple World::reflection(const Computation &comp, int recursion_depth) const
+{
+    return final_color(Ray{comp.get_over_point(), comp.get_reflect()}, recursion_depth + 1) * comp.get_object()->get_material()->get_reflective();
+}
+
+Tuple World::refraction(const Computation &comp, int recursion_depth) const
+{
+    double n_ratio = comp.get_n1() / comp.get_n2();
+    double cos_i = dot(comp.get_eye(), comp.get_normal());
+    double sin2_t = pow(n_ratio, 2) * (1 - pow(cos_i, 2));
+
+    if (sin2_t > 1)
+	return color(0, 0, 0);
+
+    double cos_t = sqrt(1 - sin2_t);
+    Tuple refract = comp.get_normal() * (n_ratio * cos_i - cos_t) - comp.get_eye() * n_ratio;
+    return final_color(Ray{comp.get_under_point(), refract}, recursion_depth + 1) * comp.get_object()->get_material()->get_transparency();
+}
+
 Tuple World::shade(const Computation &comp, int recursion_depth) const
 {
     Tuple ret{color(0, 0, 0)};
@@ -54,12 +73,14 @@ Tuple World::shade(const Computation &comp, int recursion_depth) const
 	    ret += m_lights.at(i)->lighting(comp);
     }
 
-    // reflected
-    if (recursion_depth < 6)
+    // reflection and refraction
+    if (recursion_depth < 5)
     {
-	double reflective = comp.get_object()->get_material()->get_reflective();
-	if (reflective > 0)
-	    ret += final_color(Ray{comp.get_over_point(), comp.get_reflect()}, recursion_depth + 1) * reflective;
+	const Material* mat = comp.get_object()->get_material();
+	if (mat->get_reflective() > 0)
+	    ret += reflection(comp, recursion_depth);
+	if (mat->get_transparency() > 0)
+	    ret += refraction(comp, recursion_depth);
     }
 
     // ambient
