@@ -1,6 +1,6 @@
 #include "core/intersection.h"
 
-Intersection::Intersection(double t, const Primitive *object) :
+Intersection::Intersection(double t, Primitive *object) :
     m_t{t},
     m_object{object}
 {}
@@ -27,7 +27,7 @@ Tuple normal(const Primitive *o, const Tuple &t)
     return normalize(world_normal);
 }
 
-std::vector<Intersection> intersect(const Primitive *o, const Ray &r)
+std::vector<Intersection> intersect(Primitive *o, const Ray &r)
 {
     Ray transformed_ray = r.transform(o->get_transformation().inverse());
     Tuple t_values = o->local_intersect(transformed_ray);

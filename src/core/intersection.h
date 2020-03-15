@@ -14,7 +14,7 @@ private:
     Primitive* m_object;
 
 public:
-    Intersection(double t, const Primitive *object);
+    Intersection(double t, Primitive *object);
 
     // accessor methods
     double get_t() const {return m_t;}
@@ -27,7 +27,7 @@ public:
 
 // utility functions
 Tuple normal(const Primitive *o, const Tuple &t);
-std::vector<Intersection> intersect(const Primitive *o, const Ray &r);
+std::vector<Intersection> intersect(Primitive *o, const Ray &r);
 std::optional<const Intersection> hit(const std::vector<Intersection> &intersections);
 
 #endif
