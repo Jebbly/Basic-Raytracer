@@ -16,10 +16,6 @@ Computation::Computation(const Ray &ray, const Intersection &intersect, const st
     else
 	m_inside = false;
 
-    m_reflect = reflect(ray.get_direction(), m_normal);
-    m_over_point = m_point + m_normal * Constants::EPSILON;
-    m_under_point = m_point - m_normal * Constants::EPSILON;
-
     std::vector<Primitive*> containers;
     for (int i = 0; i < xs.size(); i++)
     {
@@ -31,8 +27,9 @@ Computation::Computation(const Ray &ray, const Intersection &intersect, const st
 		m_n1 = containers.at(containers.size() - 1)->get_material()->get_IOR();
 	}
 
-	if (std::find(containers.begin(), containers.end(), xs.at(i).get_object()) != containers.end())
-	    containers.pop_back();
+	std::vector<Primitive*>::iterator found = std::find(containers.begin(), containers.end(), xs.at(i).get_object());
+	if (found != containers.end())
+	    containers.erase(found);
 	else
 	    containers.push_back(xs.at(i).get_object());
 
@@ -44,4 +41,8 @@ Computation::Computation(const Ray &ray, const Intersection &intersect, const st
 		m_n2 = containers.at(containers.size() - 1)->get_material()->get_IOR();
 	}
     }
+
+    m_reflect = reflect(ray.get_direction(), m_normal);
+    m_over_point = m_point + m_normal * Constants::EPSILON;
+    m_under_point = m_point - m_normal * Constants::EPSILON;
 }
