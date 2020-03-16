@@ -30,6 +30,7 @@ public:
     bool shadow(const Light *light, const Tuple &position) const;
     Tuple reflection(const Computation &comp, int recursion_depth) const;
     Tuple refraction(const Computation &comp, int recursion_depth) const;
+    double schlick(const Computation &comp) const;
     Tuple shade(const Computation &comp, int recursion_depth) const;
     Tuple final_color(const Ray &ray, int recursion_depth) const;
 };

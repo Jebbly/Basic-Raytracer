@@ -44,11 +44,17 @@ bool World::shadow(const Light *light, const Tuple &position) const
 
 Tuple World::reflection(const Computation &comp, int recursion_depth) const
 {
+    if (equals(comp.get_object()->get_material()->get_reflective(), 0))
+	return color(0, 0, 0);
+
     return final_color(Ray{comp.get_over_point(), comp.get_reflect()}, recursion_depth + 1) * comp.get_object()->get_material()->get_reflective();
 }
 
 Tuple World::refraction(const Computation &comp, int recursion_depth) const
 {
+    if (equals(comp.get_object()->get_material()->get_transparency(), 0))
+	return color(0, 0, 0);
+
     double n_ratio = comp.get_n1() / comp.get_n2();
     double cos_i = dot(comp.get_eye(), comp.get_normal());
     double sin2_t = pow(n_ratio, 2) * (1 - pow(cos_i, 2));
@@ -59,6 +65,25 @@ Tuple World::refraction(const Computation &comp, int recursion_depth) const
     double cos_t = sqrt(1 - sin2_t);
     Tuple refract = comp.get_normal() * (n_ratio * cos_i - cos_t) - comp.get_eye() * n_ratio;
     return final_color(Ray{comp.get_under_point(), refract}, recursion_depth + 1) * comp.get_object()->get_material()->get_transparency();
+}
+
+double World::schlick(const Computation &comp) const
+{
+    double cos = dot(comp.get_eye(), comp.get_normal());
+
+    double n1 = comp.get_n1(), n2 = comp.get_n2();
+    if (n1 > n2)
+    {
+	double n = n1 / n2;
+	double sin2_t = pow(n, 2) * (1 - pow(cos, 2));
+	if (sin2_t > 1) return 1.0;
+
+	double cos_t = sqrt(1 - sin2_t);
+	cos = cos_t;
+    }
+
+    double r0 = pow((n1 - n2) / (n1 + n2), 2);
+    return (r0 + (1 - r0) * pow(1 - cos, 5));
 }
 
 Tuple World::shade(const Computation &comp, int recursion_depth) const
@@ -76,11 +101,17 @@ Tuple World::shade(const Computation &comp, int recursion_depth) const
     // reflection and refraction
     if (recursion_depth < 5)
     {
+	Tuple reflected = reflection(comp, recursion_depth);
+	Tuple refracted = refraction(comp, recursion_depth);
+
 	const Material* mat = comp.get_object()->get_material();
-	if (mat->get_reflective() > 0)
-	    ret += reflection(comp, recursion_depth);
-	if (mat->get_transparency() > 0)
-	    ret += refraction(comp, recursion_depth);
+	if (mat->get_reflective() > 0 && mat->get_transparency() > 0)
+	{
+	    double reflectance = schlick(comp);
+	    ret += reflected * reflectance + refracted * (1 - reflectance);
+	}
+	else
+	    ret += reflected + refracted;
     }
 
     // ambient
