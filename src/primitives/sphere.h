@@ -6,7 +6,6 @@
 #include "math/matrix.h"
 #include "core/ray.h"
 #include "materials/material.h"
-#include "materials/color_material.h"
 #include "primitives/primitive.h"
 
 class Sphere : public Primitive

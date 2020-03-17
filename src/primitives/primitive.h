@@ -7,6 +7,7 @@
 #include "math/matrix.h"
 #include "core/ray.h"
 #include "materials/material.h"
+#include "materials/color_material.h"
 
 class Primitive
 {
