@@ -15,9 +15,9 @@ protected:
     Matrix m_transformation;
     Material* m_material;
 
-    Primitive(const Matrix &transformation, Material *material);
-
 public:
+    Primitive(const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}));
+
     // accessor methods
     const Matrix& get_transformation() const {return m_transformation;}
     const Material* get_material() const {return m_material;}

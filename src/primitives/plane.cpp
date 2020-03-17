@@ -1,9 +1,5 @@
 #include "primitives/plane.h"
 
-Plane::Plane(const Matrix &transformation, Material *material) :
-    Primitive{transformation, material}
-{}
-
 // ray intersect functions
 Tuple Plane::local_intersect(const Ray &r) const
 {

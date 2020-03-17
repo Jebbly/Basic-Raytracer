@@ -12,7 +12,7 @@
 class Sphere : public Primitive
 {
 public:
-    Sphere(const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}));
+    using Primitive::Primitive;
 
     // ray intersect functions
     virtual Tuple local_intersect(const Ray &r) const override;

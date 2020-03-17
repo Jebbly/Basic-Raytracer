@@ -1,9 +1,5 @@
 #include "primitives/sphere.h"
 
-Sphere::Sphere(const Matrix &transformation, Material *material) :
-    Primitive{transformation, material}
-{}
-
 // primitive-specific ray intersect functions
 Tuple Sphere::local_intersect(const Ray &r) const
 {
