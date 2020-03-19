@@ -8,6 +8,7 @@
 #include "primitives/sphere.h"
 #include "primitives/cube.h"
 #include "primitives/cylinder.h"
+#include "primitives/cone.h"
 #include "primitives/plane.h"
 #include "materials/color_material.h"
 #include "materials/stripe_material.h"
@@ -35,8 +36,8 @@ int main()
     w.add_object(floor);
 
     Sphere middle{identity().translate(-0.5, 1, 0.5), /*Material{color(0.1, 1, 0.5), 0.1, 0.7, 1, 200}*/ &gradient};
-    Sphere right{identity().scale(0.5, 0.5, 0.5).translate(1.2, 0.5, -0.5), /*Material{color(0.5, 1, 0.1), 0.1, 0.7, 1, 32}*/ &ring};
-    Cylinder left{identity().scale(0.33, 0.33, 0.33).translate(-1.5, 0.33, -0.75).rotate_y(Constants::PI / 4), /*Material{color(1, 0.8, 0.1), 0.1, 0.7, 1, 64}*/ &stripes};
+    Cone right{identity()./*scale(0.3, 0.5, 0.3).*/translate(1.2, 0, -0.5), /*Material{color(0.5, 1, 0.1), 0.1, 0.7, 1, 32}*/ &ring, 0, 1};
+    Cylinder left{identity().scale(0.33, 0.33, 0.33).translate(-1.5, 0.33, -1.5).rotate_y(Constants::PI / 4), /*Material{color(1, 0.8, 0.1), 0.1, 0.7, 1, 64}*/ &stripes, 0, 1};
 
     w.add_object(middle);
     w.add_object(right);
@@ -59,14 +60,14 @@ int main()
     w.add_light(light);
     w.add_light(light2);
 
-    Camera c{100, 50, Constants::PI / 3};
-    Tuple from = point(0, 1.5, -7);
+    Camera c{200, 100, Constants::PI / 3};
+    Tuple from = point(0, 5, -7);
     Tuple to = point(0, 1, 0);
     Tuple up = vector(0, 1, 0);
     c.set_transform(view(from, to, up));
     auto start = std::chrono::high_resolution_clock::now();
     std::cout << "Rendering...\n";
-    // Framebuffer image = c.render(w);
+    Framebuffer image = c.render(w);
     auto stop = std::chrono::high_resolution_clock::now();
     std::cout << "Finished in " << (std::chrono::duration_cast<std::chrono::seconds>(stop - start)).count() << " seconds\n";
     image.save_buffer("output1.ppm");
