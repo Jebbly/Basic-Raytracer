@@ -1,6 +1,7 @@
 #ifndef PLANE_H
 #define PLANE_H
 
+#include <vector>
 #include "utility/common.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
@@ -14,7 +15,7 @@ public:
     using Primitive::Primitive;
 
     // ray intersect functions
-    virtual Tuple local_intersect(const Ray &r) const override;
+    virtual std::vector<double> local_intersect(const Ray &r) const override;
     virtual Tuple local_normal(const Tuple &t) const override;
 };
 

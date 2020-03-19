@@ -1,13 +1,14 @@
 #include "primitives/plane.h"
 
 // ray intersect functions
-Tuple Plane::local_intersect(const Ray &r) const
+std::vector<double> Plane::local_intersect(const Ray &r) const
 {
-    if (abs(r.get_direction().get(1)) < Constants::EPSILON)
-	return Tuple{0};
+    std::vector<double> intersects;
 
-    Tuple intersects{1};
-    intersects.set(0, -r.get_origin().get(1) / r.get_direction().get(1));
+    if (abs(r.get_direction().get(1)) < Constants::EPSILON)
+	return intersects;
+
+    intersects.push_back(-r.get_origin().get(1) / r.get_direction().get(1));
     return intersects;
 }
 
