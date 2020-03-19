@@ -40,14 +40,7 @@ Tuple Primitive::normal(const Tuple &t) const
 std::vector<Intersection> Primitive::intersect(const Ray &r)
 {
     Ray transformed_ray = r.transform(m_transformation.inverse());
-    std::vector<double> t_values = local_intersect(transformed_ray);
-
-    std::vector<Intersection> ret;
-    for (int i = 0; i < t_values.size(); i++)
-    {
-	ret.push_back(Intersection{t_values.at(i), this});
-    }
-    return ret;
+    return local_intersect(transformed_ray);
 }
 
 Tuple Primitive::color(const Tuple &point) const

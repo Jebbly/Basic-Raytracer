@@ -34,7 +34,7 @@ Tuple Cube::check_axis(double origin, double direction) const
 }
 
 // ray intersect functions
-std::vector<double> Cube::local_intersect(const Ray &r) const
+std::vector<Intersection> Cube::local_intersect(const Ray &r) const
 {
     Tuple axes[3];
     for (int i = 0; i < 3; i++)
@@ -49,11 +49,11 @@ std::vector<double> Cube::local_intersect(const Ray &r) const
 	if (axes[i].get(1) < tmax) tmax = axes[i].get(1);
     }
 
-    std::vector<double> intersects;
+    std::vector<Intersection> intersects;
     if (tmin <= tmax)
     {
-	intersects.push_back(tmin);
-	intersects.push_back(tmax);
+	intersects.push_back(Intersection{tmin, (Primitive*) this});
+	intersects.push_back(Intersection{tmax, (Primitive*) this});
     }
     return intersects;
 }

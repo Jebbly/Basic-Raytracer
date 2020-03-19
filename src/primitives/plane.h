@@ -6,6 +6,7 @@
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"
+#include "core/intersection.h"
 #include "materials/material.h"
 #include "primitives/primitive.h"
 
@@ -15,7 +16,7 @@ public:
     using Primitive::Primitive;
 
     // ray intersect functions
-    virtual std::vector<double> local_intersect(const Ray &r) const override;
+    virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
     virtual Tuple local_normal(const Tuple &t) const override;
 };
 
