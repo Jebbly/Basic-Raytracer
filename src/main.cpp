@@ -7,6 +7,7 @@
 #include "image/framebuffer.h"
 #include "primitives/sphere.h"
 #include "primitives/cube.h"
+#include "primitives/cylinder.h"
 #include "primitives/plane.h"
 #include "materials/color_material.h"
 #include "materials/stripe_material.h"
@@ -35,7 +36,7 @@ int main()
 
     Sphere middle{identity().translate(-0.5, 1, 0.5), /*Material{color(0.1, 1, 0.5), 0.1, 0.7, 1, 200}*/ &gradient};
     Sphere right{identity().scale(0.5, 0.5, 0.5).translate(1.2, 0.5, -0.5), /*Material{color(0.5, 1, 0.1), 0.1, 0.7, 1, 32}*/ &ring};
-    Cube left{identity().scale(0.33, 0.33, 0.33).translate(-1.5, 0.33, -0.75).rotate_y(Constants::PI / 4), /*Material{color(1, 0.8, 0.1), 0.1, 0.7, 1, 64}*/ &stripes};
+    Cylinder left{identity().scale(0.33, 0.33, 0.33).translate(-1.5, 0.33, -0.75).rotate_y(Constants::PI / 4), /*Material{color(1, 0.8, 0.1), 0.1, 0.7, 1, 64}*/ &stripes};
 
     w.add_object(middle);
     w.add_object(right);
@@ -65,7 +66,7 @@ int main()
     c.set_transform(view(from, to, up));
     auto start = std::chrono::high_resolution_clock::now();
     std::cout << "Rendering...\n";
-    Framebuffer image = c.render(w);
+    // Framebuffer image = c.render(w);
     auto stop = std::chrono::high_resolution_clock::now();
     std::cout << "Finished in " << (std::chrono::duration_cast<std::chrono::seconds>(stop - start)).count() << " seconds\n";
     image.save_buffer("output1.ppm");
