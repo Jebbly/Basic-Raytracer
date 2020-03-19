@@ -6,6 +6,8 @@
 #include <optional>
 #include "primitives/primitive.h"
 
+class Primitive;
+
 class Intersection
 {
 private:
@@ -17,17 +19,15 @@ public:
     Intersection(double t, Primitive *object);
 
     // accessor methods
-    double get_t() const {return m_t;}
-    Primitive* get_object() const {return m_object;}
+    double get_t() const;
+    Primitive* get_object() const;
 
     // comparison overload
     friend bool operator<(const Intersection &i1, const Intersection &i2);
     friend bool operator==(const Intersection &i1, const Intersection &i2);
 };
 
-// utility functions
-Tuple normal(const Primitive *o, const Tuple &t);
-std::vector<Intersection> intersect(Primitive *o, const Ray &r);
+// utility function
 std::optional<const Intersection> hit(const std::vector<Intersection> &intersections);
 
 #endif

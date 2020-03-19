@@ -6,6 +6,16 @@ Primitive::Primitive(const Matrix &transformation, Material *material) :
 {}
 
 // accessor methods
+const Matrix& Primitive::get_transformation() const
+{
+    return m_transformation;
+}
+
+const Material* Primitive::get_material() const
+{
+    return m_material;
+}
+
 void Primitive::set_transform(const Matrix &m)
 {
     m_transformation = m;
@@ -17,6 +27,29 @@ void Primitive::set_material(Material *m)
 }
 
 // ray intersect functions
+Tuple Primitive::normal(const Tuple &t) const
+{
+    Tuple object_point = multiply(m_transformation.inverse(), t);
+    Tuple object_normal = local_normal(object_point);
+    Tuple world_normal = multiply(m_transformation.inverse().transpose(), object_normal);
+
+    world_normal.set(3, 0.0);
+    return normalize(world_normal);
+}
+
+std::vector<Intersection> Primitive::intersect(const Ray &r)
+{
+    Ray transformed_ray = r.transform(m_transformation.inverse());
+    std::vector<double> t_values = local_intersect(transformed_ray);
+
+    std::vector<Intersection> ret;
+    for (int i = 0; i < t_values.size(); i++)
+    {
+	ret.push_back(Intersection{t_values.at(i), this});
+    }
+    return ret;
+}
+
 Tuple Primitive::color(const Tuple &point) const
 {
     Tuple object_space = multiply(m_transformation.inverse(), point);
