@@ -37,12 +37,17 @@ int main()
     w.add_object(floor);
 
     Sphere middle{identity().translate(-0.5, 1, 0.5), /*Material{color(0.1, 1, 0.5), 0.1, 0.7, 1, 200}*/ &gradient};
-    Cone right{identity()./*scale(0.3, 0.5, 0.3).*/translate(1.2, 0, -0.5), /*Material{color(0.5, 1, 0.1), 0.1, 0.7, 1, 32}*/ &ring, 0, 1};
-    Cylinder left{identity().scale(0.33, 0.33, 0.33).translate(-1.5, 0.33, -1.5).rotate_y(Constants::PI / 4), /*Material{color(1, 0.8, 0.1), 0.1, 0.7, 1, 64}*/ &stripes, 0, 1};
+    Cone right{identity()./*scale(0.3, 0.5, 0.3).*/translate(1.2, 0, -0.5), /*Material{color(0.5, 1, 0.1), 0.1, 0.7, 1, 32}*/ &ring, 0, 1, true};
+    Cylinder left{identity().scale(0.33, 0.33, 0.33).translate(-1.5, 0.33, -1.5).rotate_y(Constants::PI / 4), /*Material{color(1, 0.8, 0.1), 0.1, 0.7, 1, 64}*/ &stripes, 0, 1, true};
+    Group g{};
+
+    g.add_child(&right);
+    g.add_child(&left);
 
     w.add_object(middle);
-    w.add_object(right);
-    w.add_object(left);
+    // w.add_object(right);
+    // w.add_object(left);
+    w.add_object(g);
 
     // ColorMaterial glass{color(1, 1, 1), 0.1, 0.5, 0.9, 200, 0.0, 1.0, 1.5};
     // ColorMaterial glass2{color(1, 1, 1), 0.1, 0.5, 0.9, 200, 0.0, 0.5, 2.0};
@@ -68,12 +73,11 @@ int main()
     c.set_transform(view(from, to, up));
     auto start = std::chrono::high_resolution_clock::now();
     std::cout << "Rendering...\n";
-    //Framebuffer image = c.render(w);
+    Framebuffer image = c.render(w);
     auto stop = std::chrono::high_resolution_clock::now();
     std::cout << "Finished in " << (std::chrono::duration_cast<std::chrono::seconds>(stop - start)).count() << " seconds\n";
-    //image.save_buffer("output1.ppm");
+    image.save_buffer("output1.ppm");
 
-    Group 
 
     return 1;
 }

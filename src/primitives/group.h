@@ -18,7 +18,7 @@ private:
     std::vector<Primitive*> m_children;
 
 public:
-    Group(const Matrix &transformation = identity());
+    using Primitive::Primitive;
 
     // accessor methods
     void add_child(Primitive *object);

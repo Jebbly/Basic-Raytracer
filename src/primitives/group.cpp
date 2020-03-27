@@ -1,9 +1,5 @@
 #include "primitives/group.h"
 
-Group::Group(const Matrix &transformation) :
-    Primitive{transformation, nullptr}
-{}
-
 // accessor methods
 void Group::add_child(Primitive *object)
 {
