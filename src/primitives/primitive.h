@@ -11,13 +11,18 @@
 #include "materials/color_material.h"
 
 class Intersection;
-
+class Group;
 class Primitive
 {
 protected:
     // attributes
     Matrix m_transformation;
-    Material* m_material;
+    Material *m_material;
+    Group *m_parent;
+public:
+    // helper functions
+    Tuple world_to_object(Tuple point) const;
+    Tuple normal_to_world(Tuple normal) const;
 
 public:
     Primitive(const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}));
@@ -25,9 +30,11 @@ public:
     // accessor methods
     const Matrix& get_transformation() const;
     const Material* get_material() const;
+    const Group* get_parent() const;
 
     void set_transform(const Matrix &m);
     void set_material(Material *m);
+    void set_parent(Group *p);
 
     // ray intersect functions
     Tuple normal(const Tuple &t) const;

@@ -2,7 +2,6 @@
 A basic raytracer implemented with C++
 
 ## To-do List
-- Implement Groups of Primitives
 - Add Support for Triangle Primitive/OBJ Importing
 - Implement CSG
 - Implement Multithreading

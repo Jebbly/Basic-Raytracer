@@ -10,6 +10,7 @@
 #include "primitives/cylinder.h"
 #include "primitives/cone.h"
 #include "primitives/plane.h"
+#include "primitives/group.h"
 #include "materials/color_material.h"
 #include "materials/stripe_material.h"
 #include "materials/gradient_material.h"
@@ -60,17 +61,19 @@ int main()
     w.add_light(light);
     w.add_light(light2);
 
-    Camera c{200, 100, Constants::PI / 3};
+    Camera c{100, 50, Constants::PI / 3};
     Tuple from = point(0, 5, -7);
     Tuple to = point(0, 1, 0);
     Tuple up = vector(0, 1, 0);
     c.set_transform(view(from, to, up));
     auto start = std::chrono::high_resolution_clock::now();
     std::cout << "Rendering...\n";
-    Framebuffer image = c.render(w);
+    //Framebuffer image = c.render(w);
     auto stop = std::chrono::high_resolution_clock::now();
     std::cout << "Finished in " << (std::chrono::duration_cast<std::chrono::seconds>(stop - start)).count() << " seconds\n";
-    image.save_buffer("output1.ppm");
+    //image.save_buffer("output1.ppm");
+
+    Group 
 
     return 1;
 }
