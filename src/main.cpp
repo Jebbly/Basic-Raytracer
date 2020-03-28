@@ -48,6 +48,11 @@ int main()
     std::cout << g.local_bounds().get_minimum() << "\n";
     std::cout << g.local_bounds().get_maximum() << "\n";
 
+    g.transform(identity().rotate_y(-Constants::PI / 3));
+
+    std::cout << g.local_bounds().get_minimum() << "\n";
+    std::cout << g.local_bounds().get_maximum() << "\n";
+
     // w.add_object(middle);
     // w.add_object(right);
     // w.add_object(left);

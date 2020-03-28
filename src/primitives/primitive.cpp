@@ -82,6 +82,11 @@ Tuple Primitive::color(const Tuple &point) const
 }
 
 // utility functions
+void Primitive::transform(const Matrix &transformation)
+{
+    m_transformation = multiply(m_transformation, transformation);
+}
+
 BoundingBox Primitive::bounds() const
 {
     return local_bounds().transform(m_transformation);

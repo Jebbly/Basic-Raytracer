@@ -35,6 +35,12 @@ Tuple Group::local_normal(const Tuple &t) const
 }
 
 // utility functions
+void Group::transform(const Matrix &transformation)
+{
+    m_bounds = m_bounds.transform(transformation);
+    Primitive::transform(transformation);
+}
+
 BoundingBox Group::local_bounds() const
 {
     return m_bounds;

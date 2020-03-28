@@ -46,6 +46,7 @@ public:
     virtual Tuple local_normal(const Tuple &t) const = 0;
 
     // utility functions
+    virtual void transform(const Matrix &transformation);
     BoundingBox bounds() const;
     virtual BoundingBox local_bounds() const = 0;
 };

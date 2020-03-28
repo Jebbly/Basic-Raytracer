@@ -30,6 +30,7 @@ public:
     virtual Tuple local_normal(const Tuple &t) const override;
 
     // utliity functions
+    virtual void transform(const Matrix &transformation) override;
     virtual BoundingBox local_bounds() const override;
 };
 
