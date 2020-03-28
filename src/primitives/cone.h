@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include "utility/common.h"
+#include "utility/helper.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"
@@ -19,9 +20,6 @@ private:
     // attributes
     double m_minmax[2];
     bool m_closed;
-
-    // helper function
-    void intersect_caps(const Ray &r, std::vector<Intersection> &xs) const;
 
 public:
     Cone(const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}), double minimum = -INFINITY, double maximum = INFINITY, bool closed = false);

@@ -1,38 +1,5 @@
 #include "primitives/cube.h"
 
-// helper function
-Tuple Cube::check_axis(double origin, double direction) const
-{
-    Tuple ret{2};
-
-    double tminmax_numerator[2] = {(-1 - origin), (1 - origin)};
-    if (abs(direction) >= Constants::EPSILON)
-    {
-	for (int i = 0; i < 2; i++)
-	{
-	    tminmax_numerator[i] /= direction;
-	    ret.set(i, tminmax_numerator[i]);
-	}
-    }
-    else
-    {
-	for (int i = 0; i < 2; i++)
-	{
-	    tminmax_numerator[i] *= INFINITY;
-	    ret.set(i, tminmax_numerator[i]);
-	}
-    }
-
-    if (ret.get(0) > ret.get(1))
-    {
-	double temp = ret.get(0);
-	ret.set(0, ret.get(1));
-	ret.set(1, temp);
-    }
-
-    return ret;
-}
-
 // ray intersect functions
 std::vector<Intersection> Cube::local_intersect(const Ray &r) const
 {

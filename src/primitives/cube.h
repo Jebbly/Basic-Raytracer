@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include "utility/common.h"
+#include "utility/helper.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"
@@ -14,10 +15,6 @@
 
 class Cube : public Primitive
 {
-private:
-    // helper function
-    Tuple check_axis(double origin, double direction) const;
-
 public:
     using Primitive::Primitive;
 

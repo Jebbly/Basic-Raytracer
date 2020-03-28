@@ -33,38 +33,6 @@ bool BoundingBox::contains_point(const Tuple &point) const
     return true;
 }
 
-Tuple BoundingBox::check_axis(double origin, double direction, double min, double max) const
-{
-    Tuple ret{2};
-
-    double tminmax_numerator[2] = {(min - origin), (max - origin)};
-    if (abs(direction) >= Constants::EPSILON)
-    {
-	for (int i = 0; i < 2; i++)
-	{
-	    tminmax_numerator[i] /= direction;
-	    ret.set(i, tminmax_numerator[i]);
-	}
-    }
-    else
-    {
-	for (int i = 0; i < 2; i++)
-	{
-	    tminmax_numerator[i] *= INFINITY;
-	    ret.set(i, tminmax_numerator[i]);
-	}
-    }
-
-    if (ret.get(0) > ret.get(1))
-    {
-	double temp = ret.get(0);
-	ret.set(0, ret.get(1));
-	ret.set(1, temp);
-    }
-
-    return ret;
-}
-
 // accessor methods
 const Tuple& BoundingBox::get_minimum() const
 {

@@ -6,23 +6,6 @@ Cone::Cone(const Matrix &transformation, Material *material, double minimum, dou
     m_closed{closed}
 {}
 
-// helper function
-void Cone::intersect_caps(const Ray &r, std::vector<Intersection> &xs) const
-{
-    double y_direction = r.get_direction().get(1);
-    if (!m_closed || abs(y_direction) < Constants::EPSILON)
-	return;
-
-    double y_origin = r.get_origin().get(1);
-    for (int i = 0; i < 2; i++)
-    {
-	double t = (m_minmax[i] - y_origin) / y_direction;
-	Tuple pos = r.position(t);
-	if (sqrt(pow(pos.get(0), 2) + pow(pos.get(2), 2)) <= abs(m_minmax[i]))
-	    xs.push_back(Intersection{t, (Primitive*) this});
-    }
-}
-
 // ray intersect functions
 std::vector<Intersection> Cone::local_intersect(const Ray &r) const
 {
@@ -54,7 +37,16 @@ std::vector<Intersection> Cone::local_intersect(const Ray &r) const
 	    intersects.push_back(Intersection{t, (Primitive*) this});
     }
 
-    intersect_caps(r, intersects);
+    if (m_closed && !(abs(r.get_direction().get(1)) < Constants::EPSILON))
+    {
+	Tuple radii = intersect_caps(r,  m_minmax);
+	for (int i = 0; i < 2; i++)
+	{
+	    if (radii.get(2 * i) <= abs(m_minmax[i]))
+		intersects.push_back(Intersection{radii.get(2 * i + 1), (Primitive*) this});
+	}
+    }
+
     return intersects;
 }
 

@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include "utility/common.h"
+#include "utility/helper.h"
 #include "core/ray.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
@@ -17,8 +18,6 @@ private:
     // helper functions
     void add_point(const Tuple &point);
     bool contains_point(const Tuple &point) const;
-
-    Tuple check_axis(double origin, double direction, double min, double max) const;
 
 public:
     BoundingBox(const Tuple &minimum = point(INFINITY, INFINITY, INFINITY), const Tuple &maximum = point(-INFINITY, -INFINITY, -INFINITY));
