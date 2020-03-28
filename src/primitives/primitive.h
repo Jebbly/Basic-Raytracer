@@ -19,7 +19,7 @@ protected:
     Matrix m_transformation;
     Material *m_material;
     Group *m_parent;
-public:
+
     // helper functions
     Tuple world_to_object(Tuple point) const;
     Tuple normal_to_world(Tuple normal) const;
