@@ -66,3 +66,9 @@ Tuple Cylinder::local_normal(const Tuple &t) const
     }
     return vector(t.get(0), 0, t.get(2));
 }
+
+// utility functions
+BoundingBox Cylinder::local_bounds() const
+{
+    return BoundingBox{point(-1, m_minmax[0], -1), point(1, m_minmax[1], 1)};
+}

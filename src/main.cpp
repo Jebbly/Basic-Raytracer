@@ -43,8 +43,12 @@ int main()
 
     g.add_child(&right);
     g.add_child(&left);
+    g.add_child(&middle);
 
-    w.add_object(middle);
+    std::cout << g.local_bounds().get_minimum() << "\n";
+    std::cout << g.local_bounds().get_maximum() << "\n";
+
+    // w.add_object(middle);
     // w.add_object(right);
     // w.add_object(left);
     w.add_object(g);

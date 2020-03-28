@@ -80,3 +80,9 @@ Tuple Primitive::color(const Tuple &point) const
     Tuple object_space = world_to_object(point);
     return m_material->get_color(object_space);
 }
+
+// utility functions
+BoundingBox Primitive::bounds() const
+{
+    return local_bounds().transform(m_transformation);
+}

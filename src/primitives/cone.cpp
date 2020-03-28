@@ -73,3 +73,13 @@ Tuple Cone::local_normal(const Tuple &t) const
     double y = sqrt(distance) * (t.get(1) > 0) ? -1 : 1;
     return vector(t.get(0), y, t.get(2));
 }
+
+// utility functions
+BoundingBox Cone::local_bounds() const
+{
+    double a = abs(m_minmax[0]);
+    double b = abs(m_minmax[1]);
+    double limit = std::max(a, b);
+
+    return BoundingBox{point(-limit, m_minmax[0], -limit), point(limit, m_minmax[1], limit)};
+}

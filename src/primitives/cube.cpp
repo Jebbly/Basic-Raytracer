@@ -75,3 +75,9 @@ Tuple Cube::local_normal(const Tuple &t) const
     }
     return ret;
 }
+
+// utility functions
+BoundingBox Cube::local_bounds() const
+{
+    return BoundingBox{point(-1, -1, -1), point(1, 1, 1)};
+}

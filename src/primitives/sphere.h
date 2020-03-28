@@ -7,6 +7,7 @@
 #include "math/matrix.h"
 #include "core/ray.h"
 #include "core/intersection.h"
+#include "core/bounding_box.h"
 #include "materials/material.h"
 #include "primitives/primitive.h"
 
@@ -18,6 +19,9 @@ public:
     // ray intersect functions
     virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
     virtual Tuple local_normal(const Tuple &t) const override;
+
+    // utility functions
+    virtual BoundingBox local_bounds() const override;
 };
 
 #endif

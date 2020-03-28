@@ -16,3 +16,9 @@ Tuple Plane::local_normal(const Tuple &t) const
 {
     return vector(0, 1, 0);
 }
+
+// utility functions
+BoundingBox Plane::local_bounds() const
+{
+    return BoundingBox{point(-INFINITY, 0, -INFINITY), point(INFINITY, 0, INFINITY)};
+}

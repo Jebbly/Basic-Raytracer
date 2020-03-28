@@ -7,6 +7,7 @@
 #include "math/matrix.h"
 #include "core/ray.h"
 #include "core/intersection.h"
+#include "core/bounding_box.h"
 #include "materials/material.h"
 #include "materials/color_material.h"
 
@@ -43,6 +44,10 @@ public:
 
     virtual std::vector<Intersection> local_intersect(const Ray &r) const = 0;
     virtual Tuple local_normal(const Tuple &t) const = 0;
+
+    // utility functions
+    BoundingBox bounds() const;
+    virtual BoundingBox local_bounds() const = 0;
 };
 
 #endif

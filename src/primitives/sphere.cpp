@@ -1,6 +1,6 @@
 #include "primitives/sphere.h"
 
-// primitive-specific ray intersect functions
+// ray intersect functions
 std::vector<Intersection> Sphere::local_intersect(const Ray &r) const
 {
     Tuple sphere_to_ray = r.get_origin() - point(0, 0, 0);
@@ -21,4 +21,10 @@ std::vector<Intersection> Sphere::local_intersect(const Ray &r) const
 Tuple Sphere::local_normal(const Tuple &t) const
 {
     return normalize(t - point(0.0, 0.0, 0.0));
+}
+
+// utility functions
+BoundingBox Sphere::local_bounds() const
+{
+    return BoundingBox{point(-1, -1, -1), point(1, 1, 1)};
 }
