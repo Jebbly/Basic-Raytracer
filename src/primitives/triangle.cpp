@@ -7,6 +7,7 @@ Triangle::Triangle(const Tuple &point1, const Tuple &point2, const Tuple &point3
 {
     m_normal = normalize(cross(m_edges[0], m_edges[1]));
 }
+
 // accessor methods
 const Tuple& Triangle::get_point(int index) const
 {
