@@ -23,10 +23,6 @@ protected:
 public:
     Group(const Matrix &transformation = identity(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
 
-    // copy overloads
-    Group(const Group &g);
-    Group& operator=(const Group &g);
-
     // accessor methods
     void add_child(Primitive *object);
 
