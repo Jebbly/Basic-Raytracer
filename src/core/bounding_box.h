@@ -15,10 +15,6 @@ private:
     // attributes
     Tuple m_minmax[2];
 
-    // helper functions
-    void add_point(const Tuple &point);
-    bool contains_point(const Tuple &point) const;
-
 public:
     BoundingBox(const Tuple &minimum = point(INFINITY, INFINITY, INFINITY), const Tuple &maximum = point(-INFINITY, -INFINITY, -INFINITY));
 
@@ -30,6 +26,9 @@ public:
     void set_maximum(const Tuple &t);
 
     // utility functions
+    void add_point(const Tuple &point);
+    bool contains_point(const Tuple &point) const;
+
     void add_bounds(const BoundingBox &box);
     bool contains_bounds(const BoundingBox &box) const;
 

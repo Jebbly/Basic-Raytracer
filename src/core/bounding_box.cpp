@@ -4,7 +4,28 @@ BoundingBox::BoundingBox(const Tuple &minimum, const Tuple &maximum) :
     m_minmax{minimum, maximum}
 {}
 
-// helper functions
+// accessor methods
+const Tuple& BoundingBox::get_minimum() const
+{
+    return m_minmax[0];
+}
+
+const Tuple& BoundingBox::get_maximum() const
+{
+    return m_minmax[1];
+}
+
+void BoundingBox::set_minimum(const Tuple &t)
+{
+    m_minmax[0] = t;
+}
+
+void BoundingBox::set_maximum(const Tuple &t)
+{
+    m_minmax[1] = t;
+}
+
+// utility functions
 void BoundingBox::add_point(const Tuple &point)
 {
     // test for minimums
@@ -33,28 +54,6 @@ bool BoundingBox::contains_point(const Tuple &point) const
     return true;
 }
 
-// accessor methods
-const Tuple& BoundingBox::get_minimum() const
-{
-    return m_minmax[0];
-}
-
-const Tuple& BoundingBox::get_maximum() const
-{
-    return m_minmax[1];
-}
-
-void BoundingBox::set_minimum(const Tuple &t)
-{
-    m_minmax[0] = t;
-}
-
-void BoundingBox::set_maximum(const Tuple &t)
-{
-    m_minmax[1] = t;
-}
-
-// utility functions
 void BoundingBox::add_bounds(const BoundingBox &box)
 {
     add_point(box.get_minimum());
