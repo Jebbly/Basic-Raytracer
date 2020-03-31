@@ -1,6 +1,6 @@
 #include "primitives/primitive.h"
 
-Primitive::Primitive(const Matrix &transformation, Material *material) :
+Primitive::Primitive(const Matrix &transformation, std::shared_ptr<Material> material) :
     m_transformation{transformation},
     m_material{material},
     m_parent{nullptr}
@@ -33,7 +33,7 @@ const Matrix& Primitive::get_transformation() const
     return m_transformation;
 }
 
-const Material* Primitive::get_material() const
+std::shared_ptr<Material> Primitive::get_material()
 {
     return m_material;
 }
@@ -48,7 +48,7 @@ void Primitive::set_transform(const Matrix &m)
     m_transformation = m;
 }
 
-void Primitive::set_material(Material *m)
+void Primitive::set_material(std::shared_ptr<Material> m)
 {
     m_material = m;
 }

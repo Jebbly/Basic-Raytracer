@@ -2,6 +2,7 @@
 #define CONE_H
 
 #include <cmath>
+#include <memory>
 #include <vector>
 #include "utility/common.h"
 #include "utility/helper.h"
@@ -22,7 +23,7 @@ private:
     bool m_closed;
 
 public:
-    Cone(const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}), double minimum = -INFINITY, double maximum = INFINITY, bool closed = false);
+    Cone(const Matrix &transformation = identity(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}), double minimum = -INFINITY, double maximum = INFINITY, bool closed = false);
 
     // ray intersect functions
     virtual std::vector<Intersection> local_intersect(const Ray &r) const override;

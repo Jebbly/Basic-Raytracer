@@ -104,7 +104,7 @@ Tuple World::shade(const Computation &comp, int recursion_depth) const
 	Tuple reflected = reflection(comp, recursion_depth);
 	Tuple refracted = refraction(comp, recursion_depth);
 
-	const Material* mat = comp.get_object()->get_material();
+	std::shared_ptr<Material> mat = comp.get_object()->get_material();
 	if (mat->get_reflective() > 0 && mat->get_transparency() > 0)
 	{
 	    double reflectance = schlick(comp);

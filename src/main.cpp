@@ -34,13 +34,13 @@ int main()
     CheckerMaterial grid{color(0.2, 0.2, 0.2), color(0.7, 0.7, 0.7), identity(), 0.1, 0.9, 0.9, 200, 1};
     ColorMaterial glass{color(1, 1, 1), 0, 0, 0.9, 200, 1.0, 1.0, 1.52};
     ColorMaterial air{color(1, 1, 1), 0, 0, 0.9, 200, 1.0, 1.0, 1.0};
-    Plane floor{identity(), &grid};
+    Plane floor{identity(), std::make_shared<CheckerMaterial>(grid)};
 
     w.add_object(floor);
 
-    Sphere middle{identity().translate(-0.5, 1, 0.5), /*Material{color(0.1, 1, 0.5), 0.1, 0.7, 1, 200}*/ &gradient};
-    Cone right{identity()./*scale(0.3, 0.5, 0.3).*/translate(1.2, 0, -0.5), /*Material{color(0.5, 1, 0.1), 0.1, 0.7, 1, 32}*/ &ring, 0, 1, true};
-    Cylinder left{identity().scale(0.33, 0.33, 0.33).translate(-1.5, 0.33, -1.5).rotate_y(Constants::PI / 4), /*Material{color(1, 0.8, 0.1), 0.1, 0.7, 1, 64}*/ &stripes, 0, 1, true};
+    Sphere middle{identity().translate(-0.5, 1, 0.5), /*Material{color(0.1, 1, 0.5), 0.1, 0.7, 1, 200}*/ std::make_shared<GradientMaterial>(gradient)};
+    Cone right{identity()./*scale(0.3, 0.5, 0.3).*/translate(1.2, 0, -0.5), /*Material{color(0.5, 1, 0.1), 0.1, 0.7, 1, 32}*/ std::make_shared<RingMaterial>(ring), 0, 1, true};
+    Cylinder left{identity().scale(0.33, 0.33, 0.33).translate(-1.5, 0.33, -1.5).rotate_y(Constants::PI / 4), /*Material{color(1, 0.8, 0.1), 0.1, 0.7, 1, 64}*/ std::make_shared<StripeMaterial>(stripes), 0, 1, true};
     Group g{};
 
     g.add_child(&right);
@@ -58,15 +58,7 @@ int main()
     // w.add_object(right);
     // w.add_object(left);
     // w.add_object(g);
-   w.add_object(mesh);
-
-    // ColorMaterial glass{color(1, 1, 1), 0.1, 0.5, 0.9, 200, 0.0, 1.0, 1.5};
-    // ColorMaterial glass2{color(1, 1, 1), 0.1, 0.5, 0.9, 200, 0.0, 0.5, 2.0};
-    // ColorMaterial glass3{color(1, 1, 1), 0.1, 0.5, 0.9, 200, 0.0, 0.0, 2.5};
-    Sphere mainSphere(identity().translate(0, 2, 0), &glass);
-    Sphere mainSphere2(identity().scale(0.5, 0.5, 0.5).translate(0, 2, 0), &air);
-    //Sphere sideSphere1(identity().translate(0, 0, -0.25), &glass2);
-    // sideSphere2(identity().translate(0, 0, 0.25), &glass3);
+    // w.add_object(mesh);
 
     // w.add_object(mainSphere);
     // w.add_object(mainSphere2);

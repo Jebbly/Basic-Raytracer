@@ -1,6 +1,6 @@
 #include "primitives/mesh.h"
 
-Mesh::Mesh(const std::string &filepath, const Matrix &transformation, Material *material) :
+Mesh::Mesh(const std::string &filepath, const Matrix &transformation, std::shared_ptr<Material> material) :
     Group{transformation, material}
 {
     parse_obj_file(filepath);

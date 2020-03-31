@@ -1,6 +1,6 @@
 #include "primitives/group.h"
 
-Group::Group(const Matrix &transformation, Material *material) :
+Group::Group(const Matrix &transformation, std::shared_ptr<Material> material) :
     Primitive{transformation, material},
     m_bounds{}
 {}

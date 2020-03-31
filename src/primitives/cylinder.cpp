@@ -1,6 +1,6 @@
 #include "primitives/cylinder.h"
 
-Cylinder::Cylinder(const Matrix &transformation, Material *material, double minimum, double maximum, bool closed) :
+Cylinder::Cylinder(const Matrix &transformation, std::shared_ptr<Material> material, double minimum, double maximum, bool closed) :
     Primitive(transformation, material),
     m_minmax{minimum, maximum},
     m_closed{closed}

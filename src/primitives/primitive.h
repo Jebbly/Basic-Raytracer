@@ -1,6 +1,7 @@
 #ifndef PRIMITIVE_H
 #define PRIMITIVE_H
 
+#include <memory>
 #include <vector>
 #include "utility/common.h"
 #include "math/tuple.h"
@@ -18,7 +19,7 @@ class Primitive
 protected:
     // attributes
     Matrix m_transformation;
-    Material *m_material;
+    std::shared_ptr<Material> m_material;
     Group *m_parent;
 
     // helper functions
@@ -26,15 +27,15 @@ protected:
     Tuple normal_to_world(Tuple normal) const;
 
 public:
-    Primitive(const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}));
+    Primitive(const Matrix &transformation = identity(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
 
     // accessor methods
     const Matrix& get_transformation() const;
-    const Material* get_material() const;
+    std::shared_ptr<Material> get_material();
     const Group* get_parent() const;
 
     void set_transform(const Matrix &m);
-    void set_material(Material *m);
+    void set_material(std::shared_ptr<Material> m);
     void set_parent(Group *p);
 
     // ray intersect functions

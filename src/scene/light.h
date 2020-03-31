@@ -15,7 +15,7 @@ protected:
     Light(const Tuple &intensity);
     
     // phong shading
-    const Tuple phong_shading(const Primitive *object, const Tuple &position, const Tuple &eye, const Tuple &normal) const;
+    const Tuple phong_shading(Primitive *object, const Tuple &position, const Tuple &eye, const Tuple &normal) const;
 
 public:
     // accessor methods

@@ -12,7 +12,7 @@ class Computation
 {
 private:
     // attributes
-    const Primitive* m_object;
+    Primitive* m_object;
     Tuple m_point, m_eye, m_normal, m_reflect;
     Tuple m_over_point, m_under_point;
     double m_t;
@@ -23,7 +23,7 @@ public:
     Computation(const Ray &ray, const Intersection &intersect, const std::vector<Intersection> &xs);
     
     // accessor methods
-    const Primitive* get_object() const {return m_object;}
+    Primitive* get_object() const {return m_object;}
     const Tuple& get_point() const {return m_point;}
     const Tuple& get_eye() const {return m_eye;}
     const Tuple& get_normal() const {return m_normal;}

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <memory>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -31,7 +32,7 @@ private:
     void parse_obj_file(const std::string &filepath);
 
 public:
-    Mesh(const std::string &filepath, const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}));
+    Mesh(const std::string &filepath, const Matrix &transformation = identity(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
 };
 
 #endif

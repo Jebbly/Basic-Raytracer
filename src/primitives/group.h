@@ -2,6 +2,7 @@
 #define GROUP_H
 
 #include <cassert>
+#include <memory>
 #include <vector>
 #include "utility/common.h"
 #include "math/tuple.h"
@@ -20,7 +21,7 @@ protected:
     BoundingBox m_bounds;
 
 public:
-    Group(const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}));
+    Group(const Matrix &transformation = identity(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
 
     // copy overloads
     Group(const Group &g);
