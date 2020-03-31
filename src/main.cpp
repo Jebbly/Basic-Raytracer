@@ -11,6 +11,7 @@
 #include "primitives/cone.h"
 #include "primitives/plane.h"
 #include "primitives/group.h"
+#include "primitives/triangle.h"
 #include "materials/color_material.h"
 #include "materials/stripe_material.h"
 #include "materials/gradient_material.h"
@@ -74,10 +75,15 @@ int main()
     c.set_transform(view(from, to, up));
     auto start = std::chrono::high_resolution_clock::now();
     std::cout << "Rendering...\n";
-    Framebuffer image = c.render(w);
+    //Framebuffer image = c.render(w);
     auto stop = std::chrono::high_resolution_clock::now();
     std::cout << "Finished in " << (std::chrono::duration_cast<std::chrono::seconds>(stop - start)).count() << " seconds\n";
-    image.save_buffer("output1.ppm");
+    //image.save_buffer("output1.ppm");
+
+    Triangle t{point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0)};
+    std::vector<Intersection> xs = t.intersect(Ray{point(0, 0.5, -2), vector(0, 0, 1)});
+    for (int i = 0; i < xs.size(); i++)
+	std::cout << xs.at(i).get_t();
 
 
     return 1;
