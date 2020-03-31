@@ -10,6 +10,7 @@
 #include "primitives/cylinder.h"
 #include "primitives/cone.h"
 #include "primitives/plane.h"
+#include "primitives/mesh.h"
 #include "primitives/group.h"
 #include "primitives/triangle.h"
 #include "materials/color_material.h"
@@ -27,9 +28,9 @@ int main()
 {
     World w{};
 
-    StripeMaterial stripes{color(215/255.0, 178/255.0, 255/255.0), color(147/255.0, 216/255.0, 148/255.0), identity().scale(0.5, 0.5, 0.5), 0.1, 0.9, 1, 200};
+    StripeMaterial stripes{color(215 / 255.0, 178 / 255.0, 255 / 255.0), color(147 / 255.0, 216 / 255.0, 148 / 255.0), identity().scale(0.5, 0.5, 0.5), 0.1, 0.9, 1, 200};
     GradientMaterial gradient{color(0.8, 0, 0), color(0, 0, 0.8), identity().scale(1.5, 1.5, 1.5).rotate_y(Constants::PI / 3), 0.1, 0.9, 1, 200};
-    RingMaterial ring{color(211/255.0, 217/255.0, 231/255.0), color(141/255.0, 153/255.0, 186/255.0), identity().scale(0.25, 0.25, 0.25).rotate_x(Constants::PI / 1.5).rotate_y(-Constants::PI / 12)};
+    RingMaterial ring{color(211 / 255.0, 217 / 255.0, 231 / 255.0), color(141 / 255.0, 153 / 255.0, 186 / 255.0), identity().scale(0.25, 0.25, 0.25).rotate_x(Constants::PI / 1.5).rotate_y(-Constants::PI / 12)};
     CheckerMaterial grid{color(0.2, 0.2, 0.2), color(0.7, 0.7, 0.7), identity(), 0.1, 0.9, 0.9, 200, 1};
     ColorMaterial glass{color(1, 1, 1), 0, 0, 0.9, 200, 1.0, 1.0, 1.52};
     ColorMaterial air{color(1, 1, 1), 0, 0, 0.9, 200, 1.0, 1.0, 1.0};
@@ -46,10 +47,18 @@ int main()
     g.add_child(&left);
     g.add_child(&middle);
 
+    Mesh mesh{"teapot.obj"};
+    std::cout << mesh.bounds().get_minimum() << " " << mesh.bounds().get_maximum() << "\n";
+
+    Sphere test{};
+    std::cout << test.get_material()->get_diffuse() << "\n";
+    std::cout << mesh.get_material()->get_diffuse() << "\n";
+
     // w.add_object(middle);
     // w.add_object(right);
     // w.add_object(left);
-    w.add_object(g);
+    // w.add_object(g);
+   w.add_object(mesh);
 
     // ColorMaterial glass{color(1, 1, 1), 0.1, 0.5, 0.9, 200, 0.0, 1.0, 1.5};
     // ColorMaterial glass2{color(1, 1, 1), 0.1, 0.5, 0.9, 200, 0.0, 0.5, 2.0};
@@ -65,26 +74,20 @@ int main()
     PointLight light{color(1, 1, 1), point(-2, 2, -2)};
     PointLight light2{color(1, 1, 1), point(10, 10, -10)};
 
-    w.add_light(light);
+    //w.add_light(light);
     w.add_light(light2);
 
-    Camera c{100, 50, Constants::PI / 3};
+    Camera c{50, 25, Constants::PI / 3};
     Tuple from = point(0, 5, -7);
     Tuple to = point(0, 1, 0);
     Tuple up = vector(0, 1, 0);
     c.set_transform(view(from, to, up));
     auto start = std::chrono::high_resolution_clock::now();
     std::cout << "Rendering...\n";
-    //Framebuffer image = c.render(w);
+    Framebuffer image = c.render(w);
     auto stop = std::chrono::high_resolution_clock::now();
     std::cout << "Finished in " << (std::chrono::duration_cast<std::chrono::seconds>(stop - start)).count() << " seconds\n";
-    //image.save_buffer("output1.ppm");
-
-    Triangle t{point(0, 1, 0), point(-1, 0, 0), point(1, 0, 0)};
-    std::vector<Intersection> xs = t.intersect(Ray{point(0, 0.5, -2), vector(0, 0, 1)});
-    for (int i = 0; i < xs.size(); i++)
-	std::cout << xs.at(i).get_t();
-
+    image.save_buffer("output1.ppm");
 
     return 1;
 }
