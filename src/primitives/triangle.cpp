@@ -1,10 +1,23 @@
 #include "primitives/triangle.h"
 
 Triangle::Triangle(const Tuple &point1, const Tuple &point2, const Tuple &point3) :
+    Primitive{},
     m_points{point1, point2, point3},
     m_edges{point2 - point1, point3 - point1}
 {
     m_normal = normalize(cross(m_edges[0], m_edges[1]));
+}
+// accessor methods
+const Tuple& Triangle::get_point(int index) const
+{
+    assert(index < 3 && "index out of bounds");
+    return m_points[index];
+}
+
+const Tuple& Triangle::get_edge(int index) const
+{
+    assert(index < 2 && "index out of bounds");
+    return m_edges[index];
 }
 
 // ray intersect functions
