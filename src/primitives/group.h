@@ -25,6 +25,8 @@ public:
     // accessor methods
     void add_child(Primitive *object);
 
+    const std::vector<Primitive*>& get_children() const;
+
     // ray intersect functions
     virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
     virtual Tuple local_normal(const Tuple &t) const override;

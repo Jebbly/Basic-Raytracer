@@ -13,6 +13,11 @@ void Group::add_child(Primitive *object)
     m_children.push_back(object);
 }
 
+const std::vector<Primitive*>& Group::get_children() const
+{
+    return m_children;
+}
+
 // ray intersect functions
 std::vector<Intersection> Group::local_intersect(const Ray &r) const
 {
