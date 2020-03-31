@@ -5,6 +5,33 @@ Group::Group(const Matrix &transformation, Material *material) :
     m_bounds{}
 {}
 
+// copy overloads
+Group::Group(const Group &g) :
+    m_children{g.m_children},
+    m_bounds{g.m_bounds}
+{
+    for (int i = 0; i < m_children.size(); i++)
+    {
+	m_children.at(i)->set_parent(this);
+    }
+}
+
+Group& Group::operator=(const Group &g)
+{
+    if (&g == this)
+	return *this;
+
+    m_children = g.m_children;
+    m_bounds = g.m_bounds;
+    
+    for (int i = 0; i < m_children.size(); i++)
+    {
+	m_children.at(i)->set_parent(this);
+    }
+
+    return *this;
+}
+
 // accessor methods
 void Group::add_child(Primitive *object)
 {

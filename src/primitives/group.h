@@ -14,13 +14,17 @@
 
 class Group : public Primitive
 {
-private:
+protected:
     // attributes
     std::vector<Primitive*> m_children;
     BoundingBox m_bounds;
 
 public:
     Group(const Matrix &transformation = identity(), Material *material = &(ColorMaterial{}));
+
+    // copy overloads
+    Group(const Group &g);
+    Group& operator=(const Group &g);
 
     // accessor methods
     void add_child(Primitive *object);
