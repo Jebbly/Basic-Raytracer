@@ -13,6 +13,7 @@
 #include "primitives/mesh.h"
 #include "primitives/group.h"
 #include "primitives/triangle.h"
+#include "primitives/smooth_triangle.h"
 #include "materials/color_material.h"
 #include "materials/stripe_material.h"
 #include "materials/gradient_material.h"
@@ -47,31 +48,27 @@ int main()
     g.add_child(&left);
     g.add_child(&middle);
 
-    Mesh mesh{"teapot.obj"};
+    Mesh mesh{"astronaut.obj", identity().scale(0.05, 0.05, 0.05).rotate_y(5 * Constants::PI / 4).translate(0.7, 2.7, 0.2)};
     std::cout << mesh.bounds().get_minimum() << " " << mesh.bounds().get_maximum() << "\n";
-
-    Sphere test{};
-    std::cout << test.get_material()->get_diffuse() << "\n";
-    std::cout << mesh.get_material()->get_diffuse() << "\n";
 
     // w.add_object(middle);
     // w.add_object(right);
     // w.add_object(left);
     // w.add_object(g);
-    // w.add_object(mesh);
+    w.add_object(mesh);
 
     // w.add_object(mainSphere);
     // w.add_object(mainSphere2);
 
-    PointLight light{color(1, 1, 1), point(-2, 2, -2)};
+    PointLight light{color(1, 1, 1), point(-5, 5, -5)};
     PointLight light2{color(1, 1, 1), point(10, 10, -10)};
 
-    //w.add_light(light);
+    w.add_light(light);
     w.add_light(light2);
 
-    Camera c{50, 25, Constants::PI / 3};
-    Tuple from = point(0, 5, -7);
-    Tuple to = point(0, 1, 0);
+    Camera c{512, 288, Constants::PI / 3};
+    Tuple from = point(0, 3, -9);
+    Tuple to = point(0, 2, 0);
     Tuple up = vector(0, 1, 0);
     c.set_transform(view(from, to, up));
     auto start = std::chrono::high_resolution_clock::now();
@@ -79,7 +76,7 @@ int main()
     Framebuffer image = c.render(w);
     auto stop = std::chrono::high_resolution_clock::now();
     std::cout << "Finished in " << (std::chrono::duration_cast<std::chrono::seconds>(stop - start)).count() << " seconds\n";
-    image.save_buffer("output1.ppm");
+    image.save_buffer("profiling.ppm");
 
     return 1;
 }

@@ -18,6 +18,7 @@
 #include "materials/material.h"
 #include "primitives/primitive.h"
 #include "primitives/triangle.h"
+#include "primitives/smooth_triangle.h"
 #include "primitives/group.h"
 
 class Mesh : public Group
@@ -25,10 +26,13 @@ class Mesh : public Group
 private:
     // attributes
     std::vector<Tuple> m_vertices;
-    std::vector<Triangle> m_triangles;
+    std::vector<Tuple> m_normals;
+    std::vector<std::shared_ptr<Triangle>> m_triangles;
+    bool m_smooth;
 
     // helper functions
-    void triangulate(const std::vector<int> &vertex_indices);
+    void flat_triangulate(const std::vector<int> &vertex_indices);
+    void smooth_triangulate(const std::vector<int> &vertex_indices, const std::vector<int> &normal_indices);
     void parse_obj_file(const std::string &filepath);
 
 public:
