@@ -18,7 +18,7 @@ std::vector<Intersection> Sphere::local_intersect(const Ray &r) const
     return intersects;
 }
 
-Tuple Sphere::local_normal(const Tuple &t) const
+Tuple Sphere::local_normal(const Tuple &t, const Intersection &hit) const
 {
     return normalize(t - point(0.0, 0.0, 0.0));
 }

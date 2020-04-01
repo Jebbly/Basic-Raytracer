@@ -16,10 +16,13 @@
 
 class Triangle : public Primitive
 {
-private:
-    // attributes
+protected:
+    // triangle attributes
     Tuple m_points[3];
     Tuple m_edges[2];
+  
+private:
+    // flat shading attribute
     Tuple m_normal;
 
 public:
@@ -31,7 +34,7 @@ public:
 
     // ray intersect functions
     virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
-    virtual Tuple local_normal(const Tuple &t) const override;
+    virtual Tuple local_normal(const Tuple &t, const Intersection &hit) const override;
 
     // utility functions
     virtual BoundingBox local_bounds() const override;

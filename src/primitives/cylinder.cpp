@@ -46,7 +46,7 @@ std::vector<Intersection> Cylinder::local_intersect(const Ray &r) const
     return intersects;
 }
 
-Tuple Cylinder::local_normal(const Tuple &t) const
+Tuple Cylinder::local_normal(const Tuple &t, const Intersection &hit) const
 {
     double distance = pow(t.get(0), 2) + pow(t.get(2), 2);
     if (m_closed && distance + Constants::EPSILON < 1)

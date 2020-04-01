@@ -25,7 +25,7 @@ std::vector<Intersection> Cube::local_intersect(const Ray &r) const
     return intersects;
 }
 
-Tuple Cube::local_normal(const Tuple &t) const
+Tuple Cube::local_normal(const Tuple &t, const Intersection &hit) const
 {
     double max = 0;
     for (int i = 0; i < 3; i++)

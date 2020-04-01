@@ -30,7 +30,7 @@ public:
 
     // ray intersect functions
     virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
-    virtual Tuple local_normal(const Tuple &t) const override;
+    virtual Tuple local_normal(const Tuple &t, const Intersection &hit) const override;
 
     // utliity functions
     virtual void transform(const Matrix &transformation) override;

@@ -1,8 +1,9 @@
 #include "core/intersection.h"
 
-Intersection::Intersection(double t, Primitive *object) :
+Intersection::Intersection(double t, Primitive *object, std::pair<double, double> uv) :
     m_t{t},
-    m_object{object}
+    m_object{object},
+    m_uv{uv}
 {}
 
 // accessor methods
@@ -14,6 +15,11 @@ double Intersection::get_t() const
 Primitive* Intersection::get_object() const
 {
     return m_object;
+}
+
+const std::pair<double, double>& Intersection::get_uv() const
+{
+    return m_uv;
 }
 
 // comparison overload

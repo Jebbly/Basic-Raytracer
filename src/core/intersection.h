@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <optional>
+#include <utility>
 #include "primitives/primitive.h"
 
 class Primitive;
@@ -14,13 +15,15 @@ private:
     // attributes
     double m_t;
     Primitive* m_object;
+    std::pair<double, double> m_uv;
 
 public:
-    Intersection(double t, Primitive *object);
+    Intersection(double t, Primitive *object, std::pair<double, double> uv = std::make_pair(0, 0));
 
     // accessor methods
     double get_t() const;
     Primitive* get_object() const;
+    const std::pair<double, double>& get_uv() const;
 
     // comparison overload
     friend bool operator<(const Intersection &i1, const Intersection &i2);

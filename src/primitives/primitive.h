@@ -39,12 +39,12 @@ public:
     void set_parent(Group *p);
 
     // ray intersect functions
-    Tuple normal(const Tuple &t) const;
+    Tuple normal(const Tuple &t, const Intersection &hit) const;
     std::vector<Intersection> intersect(const Ray &r);
     Tuple color(const Tuple &point) const;
 
     virtual std::vector<Intersection> local_intersect(const Ray &r) const = 0;
-    virtual Tuple local_normal(const Tuple &t) const = 0;
+    virtual Tuple local_normal(const Tuple &t, const Intersection &hit) const = 0;
 
     // utility functions
     virtual void transform(const Matrix &transformation);

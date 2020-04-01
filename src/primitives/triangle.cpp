@@ -40,14 +40,14 @@ std::vector<Intersection> Triangle::local_intersect(const Ray &r) const
 	    if (v >= 0 && (u + v) <= 1)
 	    {
 		double t = f * dot(m_edges[1], origin_cross_e1);
-		intersects.push_back(Intersection{t, (Primitive*) this});
+		intersects.push_back(Intersection{t, (Primitive*) this, std::make_pair(u, v)});
 	    }
 	}
     }
     return intersects;
 }
 
-Tuple Triangle::local_normal(const Tuple &t) const
+Tuple Triangle::local_normal(const Tuple &t, const Intersection &hit) const
 {
     return m_normal;
 }

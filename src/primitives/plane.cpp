@@ -12,7 +12,7 @@ std::vector<Intersection> Plane::local_intersect(const Ray &r) const
     return intersects;
 }
 
-Tuple Plane::local_normal(const Tuple &t) const
+Tuple Plane::local_normal(const Tuple &t, const Intersection &hit) const
 {
     return vector(0, 1, 0);
 }

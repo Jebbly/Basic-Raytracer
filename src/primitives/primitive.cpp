@@ -59,10 +59,10 @@ void Primitive::set_parent(Group *p)
 }
 
 // ray intersect functions
-Tuple Primitive::normal(const Tuple &t) const
+Tuple Primitive::normal(const Tuple &t, const Intersection &hit) const
 {
     Tuple object_point = multiply(m_transformation.inverse(), t);
-    Tuple object_normal = local_normal(object_point);
+    Tuple object_normal = local_normal(object_point, hit);
     Tuple world_normal = multiply(m_transformation.inverse().transpose(), object_normal);
 
     world_normal.set(3, 0.0);
