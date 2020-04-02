@@ -8,6 +8,9 @@
 namespace math
 {
 
+template <typename T, size_t M, size_t N>
+class Matrix;
+
 // base Matrix class
 template <typename T, size_t M, size_t N>
 class MatrixBase
@@ -31,15 +34,8 @@ public:
     T& operator()(const size_t row, const size_t col);
     const T& operator()(const size_t row, const size_t col) const;
 
-    // matrix arithmetic
-    friend MatrixBase<T, M, N> operator*(const MatrixBase<T, M, N> &lhs, const MatrixBase<T, N, M> &rhs);
-    friend Tuple<T, N> operator*(const MatrixBase<T, M, N> &lhs, const Tuple<T, N> &rhs);
-
     // utility functions
-    MatrixBase<T, N, M> transpose() const;
-
-    // print overload
-    friend std::ostream& operator<<(std::ostream &out, const MatrixBase &rhs);
+    Matrix<T, N, M> transpose() const;
 };
 
 template <typename T, size_t M, size_t N>
@@ -82,6 +78,7 @@ public:
     // matrix operators
     Matrix<T, 3, 3> submatrix(const size_t row, const size_t col) const;
     double cofactor(const size_t row, const size_t col) const;
+    double determinant() const;
     Matrix<T, 4, 4> inverse() const;
 
     // transformations
@@ -93,7 +90,14 @@ public:
     Matrix<T, 4, 4> shear(T x_y, T x_z, T y_x, T y_z, T z_x, T z_y) const;
 };
 
-// convenience function
+// matrix arithmetic
+template <typename T, size_t M, size_t N> Matrix<T, M, M> operator*(const Matrix<T, M, N> &lhs, const Matrix<T, M, N> &rhs);
+template <typename T, size_t M, size_t N> Tuple<T, N> operator*(const Matrix<T, M, N> &lhs, const Tuple<T, N> &rhs);
+
+// print overload
+template <typename T, size_t M, size_t N> std::ostream& operator<<(std::ostream &out, const Matrix<T, M, N> &rhs);
+
+// convenience functions
 template <typename T, size_t N> Matrix<T, N, N> identity();
 template <typename T> Matrix<T, 4, 4> view(const Tuple<T, 4> &from, const Tuple<T, 4> &to, const Tuple<T, 4> &up);
 
@@ -166,44 +170,9 @@ inline const T& MatrixBase<T, M, N>::operator()(const size_t row, const size_t c
 }
 
 template <typename T, size_t M, size_t N>
-inline MatrixBase<T, M, M> operator*(const MatrixBase<T, M, N> &lhs, const MatrixBase<T, N, M> &rhs)
+inline Matrix<T, N, M> MatrixBase<T, M, N>::transpose() const
 {
-    MatrixBase<T, M, M> ret{};
-    for (int i = 0; i < M; i++)
-    {
-	for (int j = 0; j < M; j++)
-	{
-	    double total = 0;
-	    for (int k = 0; k < N; k++)
-	    {
-		total += lhs(i, k) * rhs(k, j);
-	    }
-	    ret(i, j) = total;
-	}
-    }
-    return ret;
-}
-
-template <typename T, size_t M, size_t N>
-inline Tuple<T, N> operator*(const MatrixBase<T, M, N> &lhs, const Tuple<T, N> &rhs)
-{
-    Tuple<T, N> ret{};
-    for (int i = 0; i < M; i++)
-    {
-	double total = 0;
-	for (int j = 0; j < N; j++)
-	{
-	    total += lhs(i, j) * rhs(j);
-	}
-	ret(i) = total;
-    }
-    return ret;
-}
-
-template <typename T, size_t M, size_t N>
-inline MatrixBase<T, N, M> MatrixBase<T, M, N>::transpose() const
-{
-    MatrixBase<T, N, M> ret{};
+    Matrix<T, N, M> ret{};
     for (int i = 0; i < M; i++)
     {
 	for (int j = 0; j < N; j++)
@@ -212,20 +181,6 @@ inline MatrixBase<T, N, M> MatrixBase<T, M, N>::transpose() const
 	}
     }
     return ret;
-}
-
-template <typename T, size_t M, size_t N>
-std::ostream& operator<<(std::ostream &out, const MatrixBase<T, M, N> &rhs)
-{
-    for (int i = 0; i < M; i++)
-    {
-	for (int j = 0; j < N; j++)
-	{
-	    out << rhs(i, j) << ' ';
-	}
-	out << '\n';
-    }
-    return out;
 }
 
 template <typename T, size_t M, size_t N>
@@ -361,6 +316,35 @@ double Matrix<T, 4, 4>::cofactor(const size_t row, const size_t col) const
 }
 
 template <typename T>
+double Matrix<T, 4, 4>::determinant() const
+{
+    double total = 0;
+    for (int i = 0; i < 4; i++)
+    {
+	total += cofactor(0, i) * this->m_buffer[0][i];
+    }
+    return total;
+}
+
+template <typename T>
+Matrix<T, 4, 4> Matrix<T, 4, 4>::inverse() const
+{
+    double det = determinant();
+    assert(det != 0 &&
+	"noninvertible matrix");
+
+    Matrix<T, 4, 4> ret{};
+    for (int i = 0; i < 4; i++)
+    {
+	for (int j = 0; j < 4; j++)
+	{
+	    ret(i, j) = cofactor(i, j) / det;
+	}
+    }
+    return ret.transpose();
+}
+
+template <typename T>
 inline Matrix<T, 4, 4> Matrix<T, 4, 4>::translate(T x, T y, T z) const
 {
     Matrix<T, 4, 4> ret = identity<T, 4>();
@@ -424,6 +408,55 @@ inline Matrix<T, 4, 4> Matrix<T, 4, 4>::shear(T x_y, T x_z, T y_x, T y_z, T z_x,
     ret(2, 0) = z_x;
     ret(2, 1) = z_y;
     return ret * (*this);
+}
+
+template <typename T, size_t M, size_t N>
+inline Matrix<T, M, M> operator*(const Matrix<T, M, N> &lhs, const Matrix<T, M, N> &rhs)
+{
+    Matrix<T, M, N> ret{};
+    for (int i = 0; i < M; i++)
+    {
+	for (int j = 0; j < M; j++)
+	{
+	    double total = 0;
+	    for (int k = 0; k < N; k++)
+	    {
+		total += lhs(i, k) * rhs(k, j);
+	    }
+	    ret(i, j) = total;
+	}
+    }
+    return ret;
+}
+
+template <typename T, size_t M, size_t N>
+inline Tuple<T, N> operator*(const Matrix<T, M, N> &lhs, const Tuple<T, N> &rhs)
+{
+    Tuple<T, N> ret{};
+    for (int i = 0; i < M; i++)
+    {
+	double total = 0;
+	for (int j = 0; j < N; j++)
+	{
+	    total += lhs(i, j) * rhs(j);
+	}
+	ret(i) = total;
+    }
+    return ret;
+}
+
+template <typename T, size_t M, size_t N>
+std::ostream& operator<<(std::ostream &out, const Matrix<T, M, N> &rhs)
+{
+    for (int i = 0; i < M; i++)
+    {
+	for (int j = 0; j < N; j++)
+	{
+	    out << rhs(i, j) << ' ';
+	}
+	out << '\n';
+    }
+    return out;
 }
 
 template <typename T, size_t N> 

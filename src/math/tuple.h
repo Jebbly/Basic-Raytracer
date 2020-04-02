@@ -33,20 +33,9 @@ public:
     T& operator()(const size_t idx);
     const T& operator()(const size_t idx) const;
 
-    // arithmetic overloads
-    TupleBase<T, N> operator-() const;
-    friend TupleBase<T, N> operator+(const TupleBase<T, N> &lhs, const TupleBase<T, N> &rhs);
-    friend TupleBase<T, N> operator-(const TupleBase<T, N> &lhs, const TupleBase<T, N> &rhs);
-    friend TupleBase<T, N> operator*(const TupleBase<T, N> &lhs, double s);
-    friend TupleBase<T, N> operator/(const TupleBase<T, N> &lhs, double s);
-    TupleBase<T, N>& operator+=(const TupleBase &rhs);
-
     // utility functions
     double magnitude() const;
-    TupleBase<T, N> normalize() const;
-
-    // print overload
-    friend std::ostream& operator<<(std::ostream &out, const TupleBase<T, N> &rhs);
+    Tuple<T, N> normalize() const;
 };
 
 template <typename T, size_t N>
@@ -59,6 +48,17 @@ public:
     Tuple(const TupleBase<T, N> &rhs);
     Tuple<T, N>& operator=(const TupleBase<T, N> &rhs);
 };
+
+// arithmetic overloads
+template <typename T, size_t N> Tuple<T, N> operator-(const Tuple<T, N> &rhs);
+template <typename T, size_t N> Tuple<T, N> operator+(const Tuple<T, N> &lhs, const Tuple<T, N> &rhs);
+template <typename T, size_t N> Tuple<T, N> operator-(const Tuple<T, N> &lhs, const Tuple<T, N> &rhs);
+template <typename T, size_t N> Tuple<T, N> operator*(const Tuple<T, N> &lhs, double s);
+template <typename T, size_t N> Tuple<T, N> operator/(const Tuple<T, N> &lhs, double s);
+template <typename T, size_t N> Tuple<T, N>& operator+=(Tuple<T, N> &lhs, const Tuple<T, N> &rhs);
+
+// print overload
+template <typename T, size_t N> std::ostream& operator<<(std::ostream &out, const Tuple<T, N> &rhs);
 
 // utility functions
 template <typename T> Tuple<T, 4> reflect(const Tuple<T, 4> &in, const Tuple<T, 4> &normal);
@@ -125,66 +125,6 @@ inline const T& TupleBase<T, N>::operator()(const size_t idx) const
 }
 
 template <typename T, size_t N>
-inline TupleBase<T, N> TupleBase<T, N>::operator-() const
-{
-    TupleBase<T, N> ret;
-    for (int i = 0; i < N; i++)
-    {
-	ret(i) = -this->m_buffer[i];
-    }
-    return ret;
-}
-
-template <typename T, size_t N>
-inline TupleBase<T, N> operator+(const TupleBase<T, N> &lhs, const TupleBase<T, N> &rhs)
-{
-    TupleBase<T, N> ret;
-    for (int i = 0; i < N; i++)
-    {
-	ret(i) = lhs(i) + rhs(i);
-    }
-    return ret;
-}
-
-template <typename T, size_t N>
-inline TupleBase<T, N> operator-(const TupleBase<T, N> &lhs, const TupleBase<T, N> &rhs)
-{
-    TupleBase<T, N> ret;
-    for (int i = 0; i < N; i++)
-    {
-	ret(i) = lhs(i) - rhs(i);
-    }
-    return ret;
-}
-
-template <typename T, size_t N>
-inline TupleBase<T, N> operator*(const TupleBase<T, N> &lhs, double s)
-{
-    TupleBase<T, N> ret;
-    for (int i = 0; i < N; i++)
-    {
-	ret(i) = lhs(i) * s;
-    }
-    return ret;
-}
-
-template <typename T, size_t N>
-inline TupleBase<T, N> operator/(const TupleBase<T, N> &lhs, double s)
-{
-    return lhs * (1 / s);
-}
-
-template <typename T, size_t N>
-inline TupleBase<T, N>& TupleBase<T, N>::operator+=(const TupleBase<T, N> &rhs)
-{
-    for (int i = 0; i < N; i++)
-    {
-	this->m_buffer[i] += rhs(i);
-    }
-    return *this;
-}
-
-template <typename T, size_t N>
 inline double TupleBase<T, N>::magnitude() const
 {
     double total = 0;
@@ -196,25 +136,15 @@ inline double TupleBase<T, N>::magnitude() const
 }
 
 template <typename T, size_t N>
-inline TupleBase<T, N> TupleBase<T, N>::normalize() const
+inline Tuple<T, N> TupleBase<T, N>::normalize() const
 {
     double scalar = magnitude();
-    TupleBase<T, N> ret{};
+    Tuple<T, N> ret{};
     for (int i = 0; i < N; i++)
     {
 	ret(i) = this->m_buffer[i] / scalar;
     }
     return ret;
-}
-
-template <typename T, size_t N>
-inline std::ostream& operator<<(std::ostream &out, const TupleBase<T, N> &rhs)
-{
-    for (int i = 0; i < N; i++)
-    {
-	out << rhs(i);
-    }
-    return out;
 }
 
 template <typename T, size_t N>
@@ -239,6 +169,76 @@ inline Tuple<T, N>& Tuple<T, N>::operator=(const TupleBase<T, N> &rhs)
 	this->m_buffer[i] = rhs(i);
     }
     return *this;
+}
+
+template <typename T, size_t N>
+inline Tuple<T, N> operator-(const Tuple<T, N> &rhs)
+{
+    Tuple<T, N> ret;
+    for (int i = 0; i < N; i++)
+    {
+	ret(i) = -rhs(i);
+    }
+    return ret;
+}
+
+template <typename T, size_t N>
+inline Tuple<T, N> operator+(const Tuple<T, N> &lhs, const Tuple<T, N> &rhs)
+{
+    Tuple<T, N> ret;
+    for (int i = 0; i < N; i++)
+    {
+	ret(i) = lhs(i) + rhs(i);
+    }
+    return ret;
+}
+
+template <typename T, size_t N>
+inline Tuple<T, N> operator-(const Tuple<T, N> &lhs, const Tuple<T, N> &rhs)
+{
+    Tuple<T, N> ret;
+    for (int i = 0; i < N; i++)
+    {
+	ret(i) = lhs(i) - rhs(i);
+    }
+    return ret;
+}
+
+template <typename T, size_t N>
+inline Tuple<T, N> operator*(const Tuple<T, N> &lhs, double s)
+{
+    Tuple<T, N> ret;
+    for (int i = 0; i < N; i++)
+    {
+	ret(i) = lhs(i) * s;
+    }
+    return ret;
+}
+
+template <typename T, size_t N>
+inline Tuple<T, N> operator/(const Tuple<T, N> &lhs, double s)
+{
+    return lhs * (1 / s);
+}
+
+template <typename T, size_t N>
+inline Tuple<T, N>& operator+=(Tuple<T, N> &lhs, const Tuple<T, N> &rhs)
+{
+    for (int i = 0; i < N; i++)
+    {
+	lhs(i) += rhs(i);
+    }
+    return lhs;
+}
+
+template <typename T, size_t N>
+inline std::ostream& operator<<(std::ostream &out, const Tuple<T, N> &rhs)
+{
+    for (int i = 0; i < N; i++)
+    {
+	out << rhs(i) << " ";
+    }
+    return out;
 }
 
 template <typename T>
@@ -284,7 +284,7 @@ inline Tuple<T, 4> point(T x, T y, T z)
     ret(0) = x;
     ret(1) = y;
     ret(2) = z;
-    ret(3) = 0;
+    ret(3) = 1;
     return ret;
 }
 
@@ -295,7 +295,7 @@ inline Tuple<T, 4> vector(T x, T y, T z)
     ret(0) = x;
     ret(1) = y;
     ret(2) = z;
-    ret(3) = 1;
+    ret(3) = 0;
     return ret;
 }
 

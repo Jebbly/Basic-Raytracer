@@ -48,14 +48,14 @@ int main()
     g.add_child(&left);
     g.add_child(&middle);
 
-    // Mesh mesh{"astronaut.obj", math::identity<double, 4>().scale(0.05, 0.05, 0.05).rotate_y(5 * Constants::PI / 4).translate(0.7, 2.7, 0.2)};
+    Mesh mesh{"astronaut.obj", math::identity<double, 4>().scale(0.05, 0.05, 0.05).rotate_y(5 * Constants::PI / 4).translate(0.7, 2.7, 0.2)};
     // std::cout << mesh.bounds().get_minimum() << " " << mesh.bounds().get_maximum() << "\n";
 
     // w.add_object(middle);
     // w.add_object(right);
     // w.add_object(left);
     // w.add_object(g);
-    // w.add_object(mesh);
+    w.add_object(mesh);
 
     // w.add_object(mainSphere);
     // w.add_object(mainSphere2);
@@ -77,6 +77,5 @@ int main()
     auto stop = std::chrono::high_resolution_clock::now();
     std::cout << "Finished in " << (std::chrono::duration_cast<std::chrono::seconds>(stop - start)).count() << " seconds\n";
     image.save_buffer("output.ppm");
-
     return 1;
 }
