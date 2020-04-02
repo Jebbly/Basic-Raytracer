@@ -1,6 +1,6 @@
 #include "scene/world.h"
 
-World::World(const Tuple &ambient) :
+World::World(const math::Tuple3d &ambient) :
     m_ambient{ambient}
 {}
 
@@ -28,11 +28,11 @@ std::vector<Intersection> World::intersects(const Ray &ray) const
     return ret;
 }
 
-bool World::shadow(const Light *light, const Tuple &position) const
+bool World::shadow(const Light *light, const math::Tuple4d &position) const
 {
-    Tuple light_dir = light->get_direction(position);
-    double distance = magnitude(light_dir);
-    Tuple normalized_light_dir = normalize(light_dir);
+    math::Tuple4d light_dir = light->get_direction(position);
+    double distance = light_dir.magnitude();
+    math::Tuple4d normalized_light_dir = light_dir.normalize();
 
     std::vector<Intersection> xs = intersects(Ray{position, normalized_light_dir});
     auto i = hit(xs);
@@ -42,28 +42,28 @@ bool World::shadow(const Light *light, const Tuple &position) const
 	return false;
 }
 
-Tuple World::reflection(const Computation &comp, int recursion_depth) const
+math::Tuple3d World::reflection(const Computation &comp, int recursion_depth) const
 {
     if (equals(comp.get_object()->get_material()->get_reflective(), 0))
-	return color(0, 0, 0);
+	return math::color<double>(0, 0, 0);
 
     return final_color(Ray{comp.get_over_point(), comp.get_reflect()}, recursion_depth + 1) * comp.get_object()->get_material()->get_reflective();
 }
 
-Tuple World::refraction(const Computation &comp, int recursion_depth) const
+math::Tuple3d World::refraction(const Computation &comp, int recursion_depth) const
 {
     if (equals(comp.get_object()->get_material()->get_transparency(), 0))
-	return color(0, 0, 0);
+	return math::color<double>(0, 0, 0);
 
     double n_ratio = comp.get_n1() / comp.get_n2();
     double cos_i = dot(comp.get_eye(), comp.get_normal());
     double sin2_t = pow(n_ratio, 2) * (1 - pow(cos_i, 2));
 
     if (sin2_t > 1)
-	return color(0, 0, 0);
+	return math::color<double>(0, 0, 0);
 
     double cos_t = sqrt(1 - sin2_t);
-    Tuple refract = comp.get_normal() * (n_ratio * cos_i - cos_t) - comp.get_eye() * n_ratio;
+    math::Tuple4d refract = comp.get_normal() * (n_ratio * cos_i - cos_t) - comp.get_eye() * n_ratio;
     return final_color(Ray{comp.get_under_point(), refract}, recursion_depth + 1) * comp.get_object()->get_material()->get_transparency();
 }
 
@@ -86,9 +86,9 @@ double World::schlick(const Computation &comp) const
     return (r0 + (1 - r0) * pow(1 - cos, 5));
 }
 
-Tuple World::shade(const Computation &comp, int recursion_depth) const
+math::Tuple3d World::shade(const Computation &comp, int recursion_depth) const
 {
-    Tuple ret{color(0, 0, 0)};
+    math::Tuple3d ret{math::color<double>(0, 0, 0)};
 
     // surface
     for (int i = 0; i < m_lights.size(); i++)
@@ -101,8 +101,8 @@ Tuple World::shade(const Computation &comp, int recursion_depth) const
     // reflection and refraction
     if (recursion_depth < 5)
     {
-	Tuple reflected = reflection(comp, recursion_depth);
-	Tuple refracted = refraction(comp, recursion_depth);
+	math::Tuple3d reflected = reflection(comp, recursion_depth);
+	math::Tuple3d refracted = refraction(comp, recursion_depth);
 
 	std::shared_ptr<Material> mat = comp.get_object()->get_material();
 	if (mat->get_reflective() > 0 && mat->get_transparency() > 0)
@@ -115,17 +115,17 @@ Tuple World::shade(const Computation &comp, int recursion_depth) const
     }
 
     // ambient
-    ret += hadamard_product(m_ambient, comp.get_object()->color(comp.get_point())) * comp.get_object()->get_material()->get_ambient();
+    ret += math::hadamard_product<double, 3>(m_ambient, comp.get_object()->color(comp.get_point())) * comp.get_object()->get_material()->get_ambient();
 
     return ret;
 }
 
-Tuple World::final_color(const Ray &ray, int recursion_depth) const
+math::Tuple3d World::final_color(const Ray &ray, int recursion_depth) const
 {
     std::vector<Intersection> xs = intersects(ray);
     auto intersect = hit(xs);
     if (intersect)
 	return shade(Computation{ray, intersect.value(), xs}, recursion_depth);
     else
-	return color(0, 0, 0);
+	return math::color<double>(0, 0, 0);
 }

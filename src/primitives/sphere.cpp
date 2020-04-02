@@ -3,7 +3,7 @@
 // ray intersect functions
 std::vector<Intersection> Sphere::local_intersect(const Ray &r) const
 {
-    Tuple sphere_to_ray = r.get_origin() - point(0, 0, 0);
+    math::Tuple4d sphere_to_ray = r.get_origin() - math::point<double>(0, 0, 0);
     double a = dot(r.get_direction(), r.get_direction());
     double b = 2 * dot(r.get_direction(), sphere_to_ray);
     double c = dot(sphere_to_ray, sphere_to_ray) - 1;
@@ -18,13 +18,13 @@ std::vector<Intersection> Sphere::local_intersect(const Ray &r) const
     return intersects;
 }
 
-Tuple Sphere::local_normal(const Tuple &t, const Intersection &hit) const
+math::Tuple4d Sphere::local_normal(const math::Tuple4d &t, const Intersection &hit) const
 {
-    return normalize(t - point(0.0, 0.0, 0.0));
+    return (t - math::point<double>(0, 0, 0));
 }
 
 // utility functions
 BoundingBox Sphere::local_bounds() const
 {
-    return BoundingBox{point(-1, -1, -1), point(1, 1, 1)};
+    return BoundingBox{math::point<double>(-1, -1, -1), math::point<double>(1, 1, 1)};
 }

@@ -1,6 +1,6 @@
 #include "primitives/group.h"
 
-Group::Group(const Matrix &transformation, std::shared_ptr<Material> material) :
+Group::Group(const math::Matrix4d &transformation, std::shared_ptr<Material> material) :
     Primitive{transformation, material},
     m_bounds{}
 {}
@@ -33,14 +33,14 @@ std::vector<Intersection> Group::local_intersect(const Ray &r) const
     return ret;
 }
 
-Tuple Group::local_normal(const Tuple &t, const Intersection &hit) const
+math::Tuple4d Group::local_normal(const math::Tuple4d &t, const Intersection &hit) const
 {
     assert(!"cannot find local_normal of Group");
-    return vector(0, 0, 0);
+    return math::vector<double>(0, 0, 0);
 }
 
 // utility functions
-void Group::transform(const Matrix &transformation)
+void Group::transform(const math::Matrix4d &transformation)
 {
     m_bounds = m_bounds.transform(transformation);
     Primitive::transform(transformation);

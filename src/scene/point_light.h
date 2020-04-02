@@ -9,17 +9,17 @@ class PointLight : public Light
 {
 private:
     // attributes
-    Tuple m_position;
+    math::Tuple4d m_position;
 
 public:
-    PointLight(const Tuple &intensity, const Tuple &position);
+    PointLight(const math::Tuple3d &intensity, const math::Tuple4d &position);
 
     // accessor methods
-    const Tuple& get_position() const {return m_position;}
-    virtual const Tuple get_direction(const Tuple &t) const override;
+    const math::Tuple4d& get_position() const {return m_position;}
+    virtual const math::Tuple4d get_direction(const math::Tuple4d &t) const override;
     
     // raytrace functions
-    virtual const Tuple lighting(const Computation &comp) const override;
+    virtual const math::Tuple3d lighting(const Computation &comp) const override;
 };
 
 #endif

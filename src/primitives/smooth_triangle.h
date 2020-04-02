@@ -19,17 +19,17 @@ class SmoothTriangle : public Triangle
 {
 private:
     // smooth shading attributes
-    Tuple m_normals[3];
+    math::Tuple4d m_normals[3];
 
 public:
-    SmoothTriangle(const Tuple &point1, const Tuple &point2, const Tuple &point3, const Tuple &normal1, const Tuple &normal2, const Tuple &normal3);
+    SmoothTriangle(const math::Tuple4d &point1, const math::Tuple4d &point2, const math::Tuple4d &point3, const math::Tuple4d &normal1, const math::Tuple4d &normal2, const math::Tuple4d &normal3);
 
     // accessor methods
-    const Tuple& get_normal(int index) const;
+    const math::Tuple4d& get_normal(int index) const;
 
     // ray intersect functions
     using Triangle::local_intersect;
-    virtual Tuple local_normal(const Tuple &t, const Intersection &hit) const override;
+    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const Intersection &hit) const override;
 };
 
 #endif

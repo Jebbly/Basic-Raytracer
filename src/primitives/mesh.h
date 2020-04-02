@@ -25,8 +25,8 @@ class Mesh : public Group
 {
 private:
     // attributes
-    std::vector<Tuple> m_vertices;
-    std::vector<Tuple> m_normals;
+    std::vector<math::Tuple4d> m_vertices;
+    std::vector<math::Tuple4d> m_normals;
     std::vector<std::shared_ptr<Triangle>> m_triangles;
     bool m_smooth;
 
@@ -36,7 +36,7 @@ private:
     void parse_obj_file(const std::string &filepath);
 
 public:
-    Mesh(const std::string &filepath, const Matrix &transformation = identity(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
+    Mesh(const std::string &filepath, const math::Matrix4d &transformation =  math::identity<double, 4>(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
 };
 
 #endif

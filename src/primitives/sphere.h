@@ -18,7 +18,7 @@ public:
 
     // ray intersect functions
     virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
-    virtual Tuple local_normal(const Tuple &t, const Intersection &hit) const override;
+    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const Intersection &hit) const override;
 
     // utility functions
     virtual BoundingBox local_bounds() const override;

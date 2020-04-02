@@ -10,7 +10,7 @@ class Framebuffer
 private:
     // attributes
     int m_width, m_height;
-    Tuple **m_buffer;
+    math::Tuple3d **m_buffer;
     int *m_resources;
 
     // initialize and destroy methods
@@ -28,10 +28,10 @@ public:
     // accessor methods
     int get_width() const {return m_width;}
     int get_height() const {return m_height;}
-    Tuple get_pixel(int x, int y) const;
+    math::Tuple3d get_pixel(int x, int y) const;
 
     // utility functions
-    void write_pixel(int x, int y, const Tuple &color);
+    void write_pixel(int x, int y, const math::Tuple3d &color);
     void save_buffer(const std::string &name);
 };
 

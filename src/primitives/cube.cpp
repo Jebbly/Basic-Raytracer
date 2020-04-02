@@ -3,17 +3,17 @@
 // ray intersect functions
 std::vector<Intersection> Cube::local_intersect(const Ray &r) const
 {
-    Tuple axes[3];
+    math::Tuple2d axes[3];
     for (int i = 0; i < 3; i++)
     {
-	axes[i] = check_axis(r.get_origin().get(i), r.get_direction().get(i));
+	axes[i] = check_axis(r.get_origin()(i), r.get_direction()(i));
     }
     
-    double tmin = axes[0].get(0), tmax = axes[0].get(1);
+    double tmin = axes[0](0), tmax = axes[0](1);
     for (int i = 1; i < 3; i++)
     {
-	if (axes[i].get(0) > tmin) tmin = axes[i].get(0);
-	if (axes[i].get(1) < tmax) tmax = axes[i].get(1);
+	if (axes[i](0) > tmin) tmin = axes[i](0);
+	if (axes[i](1) < tmax) tmax = axes[i](1);
     }
 
     std::vector<Intersection> intersects;
@@ -25,20 +25,20 @@ std::vector<Intersection> Cube::local_intersect(const Ray &r) const
     return intersects;
 }
 
-Tuple Cube::local_normal(const Tuple &t, const Intersection &hit) const
+math::Tuple4d Cube::local_normal(const math::Tuple4d &t, const Intersection &hit) const
 {
     double max = 0;
     for (int i = 0; i < 3; i++)
     {
-	if (abs(t.get(i)) > max)
-	    max = abs(t.get(i));
+	if (abs(t(i)) > max)
+	    max = abs(t(i));
     }
 
-    Tuple ret = vector(0, 0, 0);
+    math::Tuple4d ret = math::vector<double>(0, 0, 0);
     for (int i = 0; i < 3; i++)
     {
-	if (max == abs(t.get(i)))
-	    ret.set(i, t.get(i));
+	if (max == abs(t(i)))
+	    ret(i) = t(i);
     }
     return ret;
 }
@@ -46,5 +46,5 @@ Tuple Cube::local_normal(const Tuple &t, const Intersection &hit) const
 // utility functions
 BoundingBox Cube::local_bounds() const
 {
-    return BoundingBox{point(-1, -1, -1), point(1, 1, 1)};
+    return BoundingBox{math::point<double>(-1, -1, -1), math::point<double>(1, 1, 1)};
 }

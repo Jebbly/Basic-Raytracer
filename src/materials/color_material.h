@@ -8,13 +8,13 @@ class ColorMaterial : public Material
 {
 private:
     // attributes
-    Tuple m_color;
+    math::Tuple3d m_color;
 
 public:
-    ColorMaterial(const Tuple &color = color(0.8, 0.8, 0.8), double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200, double reflective = 0.0, double transparency = 0.0, double IOR = 1.0);
+    ColorMaterial(const math::Tuple3d &color = math::color(0.8, 0.8, 0.8), double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200, double reflective = 0.0, double transparency = 0.0, double IOR = 1.0);
 
     // accessor methods
-    virtual Tuple get_color(const Tuple &pos) const override;
+    virtual math::Tuple3d get_color(const math::Tuple4d &pos) const override;
 };
 
 #endif

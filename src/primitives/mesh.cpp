@@ -1,6 +1,6 @@
 #include "primitives/mesh.h"
 
-Mesh::Mesh(const std::string &filepath, const Matrix &transformation, std::shared_ptr<Material> material) :
+Mesh::Mesh(const std::string &filepath, const math::Matrix4d &transformation, std::shared_ptr<Material> material) :
     Group{transformation, material},
     m_smooth{false}
 {
@@ -53,7 +53,7 @@ void Mesh::parse_obj_file(const std::string &filepath)
 	    double x, y, z;
 	    v >> x >> y >> z;
 
-	    Tuple vertex = point(x, y, z);
+	    math::Tuple4d vertex = math::point<double>(x, y, z);
 	    m_vertices.push_back(vertex);
 	}
 	else if (prefix == "vn")
@@ -64,7 +64,7 @@ void Mesh::parse_obj_file(const std::string &filepath)
 	    double x, y, z;
 	    vn >> x >> y >> z;
 
-	    Tuple normal = vector(x, y, z);
+	    math::Tuple4d normal = math::vector<double>(x, y, z);
 	    m_normals.push_back(normal);
 	}
 	else if (prefix == "f ")

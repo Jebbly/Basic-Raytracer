@@ -7,7 +7,7 @@
 #include "core/ray.h"
 
 // intersection helper functions
-Tuple check_axis(double origin, double direction, double min = -1, double max = 1);
-Tuple intersect_caps(const Ray &r, const double y_bounds[2]);
+math::Tuple2d check_axis(double origin, double direction, double min = -1, double max = 1);
+math::Tuple4d intersect_caps(const Ray &r, const double y_bounds[2]);
 
 #endif

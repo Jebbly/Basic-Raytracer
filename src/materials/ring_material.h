@@ -12,7 +12,7 @@ public:
     using Pattern::Pattern;
 
     // raytrace functions
-    virtual Tuple get_pattern(const Tuple &pos) const override;
+    virtual math::Tuple3d get_pattern(const math::Tuple4d &pos) const override;
 };
 
 #endif

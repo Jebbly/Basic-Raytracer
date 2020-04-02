@@ -21,7 +21,7 @@ protected:
     BoundingBox m_bounds;
 
 public:
-    Group(const Matrix &transformation = identity(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
+    Group(const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
 
     // accessor methods
     void add_child(Primitive *object);
@@ -30,10 +30,10 @@ public:
 
     // ray intersect functions
     virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
-    virtual Tuple local_normal(const Tuple &t, const Intersection &hit) const override;
+    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const Intersection &hit) const override;
 
     // utliity functions
-    virtual void transform(const Matrix &transformation) override;
+    virtual void transform(const math::Matrix4d &transformation) override;
     virtual BoundingBox local_bounds() const override;
 };
 

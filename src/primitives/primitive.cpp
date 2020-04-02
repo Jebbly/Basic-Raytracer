@@ -1,25 +1,25 @@
 #include "primitives/primitive.h"
 
-Primitive::Primitive(const Matrix &transformation, std::shared_ptr<Material> material) :
+Primitive::Primitive(const math::Matrix4d &transformation, std::shared_ptr<Material> material) :
     m_transformation{transformation},
     m_material{material},
     m_parent{nullptr}
 {}
 
 // helper functions
-Tuple Primitive::world_to_object(Tuple point) const
+math::Tuple4d Primitive::world_to_object(math::Tuple4d point) const
 {
     if (m_parent)
 	point = ((Primitive*) m_parent)->world_to_object(point);
 
-    return multiply(m_transformation.inverse(), point);
+    return m_transformation.inverse() * point;
 }
 
-Tuple Primitive::normal_to_world(Tuple normal) const
+math::Tuple4d Primitive::normal_to_world(math::Tuple4d normal) const
 {
-    normal = multiply(m_transformation.inverse().transpose(), normal);
-    normal.set(3, 0);
-    normal = normalize(normal);
+    normal = m_transformation.inverse().transpose() * normal;
+    normal(3) = 0;
+    normal = normal.normalize();
 
     if (m_parent)
 	normal = ((Primitive*) m_parent)->normal_to_world(normal);
@@ -28,7 +28,7 @@ Tuple Primitive::normal_to_world(Tuple normal) const
 }
 
 // accessor methods
-const Matrix& Primitive::get_transformation() const
+const math::Matrix4d& Primitive::get_transformation() const
 {
     return m_transformation;
 }
@@ -43,7 +43,7 @@ const Group* Primitive::get_parent() const
     return m_parent;
 }
 
-void Primitive::set_transform(const Matrix &m)
+void Primitive::set_transform(const math::Matrix4d &m)
 {
     m_transformation = m;
 }
@@ -59,14 +59,14 @@ void Primitive::set_parent(Group *p)
 }
 
 // ray intersect functions
-Tuple Primitive::normal(const Tuple &t, const Intersection &hit) const
+math::Tuple4d Primitive::normal(const math::Tuple4d &t, const Intersection &hit) const
 {
-    Tuple object_point = multiply(m_transformation.inverse(), t);
-    Tuple object_normal = local_normal(object_point, hit);
-    Tuple world_normal = multiply(m_transformation.inverse().transpose(), object_normal);
+    math::Tuple4d object_point = m_transformation.inverse() * t;
+    math::Tuple4d object_normal = local_normal(object_point, hit);
+    math::Tuple4d world_normal = m_transformation.inverse().transpose() * object_normal;
 
-    world_normal.set(3, 0.0);
-    return normalize(world_normal);
+    world_normal(3) = 0;
+    return world_normal.normalize();
 }
 
 std::vector<Intersection> Primitive::intersect(const Ray &r)
@@ -75,16 +75,16 @@ std::vector<Intersection> Primitive::intersect(const Ray &r)
     return local_intersect(transformed_ray);
 }
 
-Tuple Primitive::color(const Tuple &point) const
+math::Tuple3d Primitive::color(const math::Tuple4d &point) const
 {
-    Tuple object_space = world_to_object(point);
+    math::Tuple4d object_space = world_to_object(point);
     return m_material->get_color(object_space);
 }
 
 // utility functions
-void Primitive::transform(const Matrix &transformation)
+void Primitive::transform(const math::Matrix4d &transformation)
 {
-    m_transformation = multiply(m_transformation, transformation);
+    m_transformation = m_transformation * transformation;
 }
 
 BoundingBox Primitive::bounds() const

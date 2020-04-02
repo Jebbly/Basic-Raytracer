@@ -30,7 +30,7 @@ public:
     void set_IOR(double IOR);
 
     // raytrace functions
-    virtual Tuple get_color(const Tuple &pos) const = 0;
+    virtual math::Tuple3d get_color(const math::Tuple4d &pos) const = 0;
 };
 
 #endif

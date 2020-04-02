@@ -9,20 +9,20 @@ class Pattern : public Material
 {
 protected:
     // attributes
-    Tuple m_color_a, m_color_b;
-    Matrix m_transformation;
+    math::Tuple3d m_color_a, m_color_b;
+    math::Matrix4d m_transformation;
 
 public:
-    Pattern(const Tuple &color_a = color(0, 0, 0), const Tuple &color_b = color(1, 1, 1), const Matrix &transformation = identity(), double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200, double reflective = 0.0, double transparency = 0.0, double IOR = 1.0);
+    Pattern(const math::Tuple3d &color_a = math::color<double>(0, 0, 0), const math::Tuple3d &color_b = math::color<double>(1, 1, 1), const math::Matrix4d &transformation = math::identity<double, 4>(), double ambient = 0.1, double diffuse = 0.9, double specular = 0.9, double shininess = 200, double reflective = 0.0, double transparency = 0.0, double IOR = 1.0);
 
     // accessor methods
-    const Matrix& get_transformation() const {return m_transformation;}
+    const math::Matrix4d& get_transformation() const {return m_transformation;}
 
-    void set_transformation(const Matrix &transformation);
+    void set_transformation(const math::Matrix4d &transformation);
 
     // raytrace functions
-    virtual Tuple get_color(const Tuple &pos) const override;
-    virtual Tuple get_pattern(const Tuple &pos) const = 0;
+    virtual math::Tuple3d get_color(const math::Tuple4d &pos) const override;
+    virtual math::Tuple3d get_pattern(const math::Tuple4d &pos) const = 0;
 };
 
 #endif

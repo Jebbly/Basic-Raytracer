@@ -10,20 +10,20 @@ class Light
 {
 protected:
     // attributes
-    Tuple m_intensity;
+    math::Tuple3d m_intensity;
 
-    Light(const Tuple &intensity);
+    Light(const math::Tuple3d &intensity);
     
     // phong shading
-    const Tuple phong_shading(Primitive *object, const Tuple &position, const Tuple &eye, const Tuple &normal) const;
+    const math::Tuple3d phong_shading(Primitive *object, const math::Tuple4d &position, const math::Tuple4d &eye, const math::Tuple4d &normal) const;
 
 public:
     // accessor methods
-    const Tuple& get_intensity() const {return m_intensity;}
-    virtual const Tuple get_direction(const Tuple &t) const = 0;
+    const math::Tuple3d& get_intensity() const {return m_intensity;}
+    virtual const math::Tuple4d get_direction(const math::Tuple4d &t) const = 0;
 
     // raytrace functions
-    virtual const Tuple lighting(const Computation &comp) const = 0;
+    virtual const math::Tuple3d lighting(const Computation &comp) const = 0;
 };
 
 #endif

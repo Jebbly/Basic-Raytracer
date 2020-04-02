@@ -13,7 +13,7 @@ private:
     // attributes
     int m_width, m_height;
     double m_FOV;
-    Matrix m_transformation;
+    math::Matrix4d m_transformation;
     double m_half_width, m_half_height;
 
 public:
@@ -25,7 +25,7 @@ public:
     double get_FOV() const {return m_FOV;}
     double get_pixel_size() const;
 
-    void set_transform(const Matrix &m);
+    void set_transform(const math::Matrix4d &m);
 
     // raytrace functions
     Ray ray(int x, int y) const;

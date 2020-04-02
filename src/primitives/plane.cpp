@@ -5,20 +5,20 @@ std::vector<Intersection> Plane::local_intersect(const Ray &r) const
 {
     std::vector<Intersection> intersects;
 
-    if (abs(r.get_direction().get(1)) < Constants::EPSILON)
+    if (abs(r.get_direction()(1)) < Constants::EPSILON)
 	return intersects;
 
-    intersects.push_back(Intersection{-r.get_origin().get(1) / r.get_direction().get(1), (Primitive*) this});
+    intersects.push_back(Intersection{-r.get_origin()(1) / r.get_direction()(1), (Primitive*) this});
     return intersects;
 }
 
-Tuple Plane::local_normal(const Tuple &t, const Intersection &hit) const
+math::Tuple4d Plane::local_normal(const math::Tuple4d &t, const Intersection &hit) const
 {
-    return vector(0, 1, 0);
+    return math::vector<double>(0, 1, 0);
 }
 
 // utility functions
 BoundingBox Plane::local_bounds() const
 {
-    return BoundingBox{point(-INFINITY, 0, -INFINITY), point(INFINITY, 0, INFINITY)};
+    return BoundingBox{math::point<double>(-INFINITY, 0, -INFINITY), math::point<double>(INFINITY, 0, INFINITY)};
 }

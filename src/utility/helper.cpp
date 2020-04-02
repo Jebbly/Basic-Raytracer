@@ -1,9 +1,9 @@
 #include "utility/helper.h"
 
 // intersection helper functions
-Tuple check_axis(double origin, double direction, double min, double max)
+math::Tuple2d check_axis(double origin, double direction, double min, double max)
 {
-    Tuple ret{2};
+    math::Tuple2d ret{};
 
     double tminmax_numerator[2] = {(min - origin), (max - origin)};
     if (abs(direction) >= Constants::EPSILON)
@@ -11,7 +11,7 @@ Tuple check_axis(double origin, double direction, double min, double max)
 	for (int i = 0; i < 2; i++)
 	{
 	    tminmax_numerator[i] /= direction;
-	    ret.set(i, tminmax_numerator[i]);
+	    ret(i) = tminmax_numerator[i];
 	}
     }
     else
@@ -19,32 +19,32 @@ Tuple check_axis(double origin, double direction, double min, double max)
 	for (int i = 0; i < 2; i++)
 	{
 	    tminmax_numerator[i] *= INFINITY;
-	    ret.set(i, tminmax_numerator[i]);
+	    ret(i) = tminmax_numerator[i];
 	}
     }
 
-    if (ret.get(0) > ret.get(1))
+    if (ret(0) > ret(1))
     {
-	double temp = ret.get(0);
-	ret.set(0, ret.get(1));
-	ret.set(1, temp);
+	double temp = ret(0);
+	ret(0) = ret(1);
+	ret(1) = temp;
     }
 
     return ret;
 }
 
-Tuple intersect_caps(const Ray &r, const double y_bounds[2])
+math::Tuple4d intersect_caps(const Ray &r, const double y_bounds[2])
 {
-    double y_direction = r.get_direction().get(1);
-    double y_origin = r.get_origin().get(1);
+    double y_direction = r.get_direction()(1);
+    double y_origin = r.get_origin()(1);
 
-    Tuple ret{4};
+    math::Tuple4d ret{};
     for (int i = 0; i < 2; i++)
     {
 	double t = (y_bounds[i] - y_origin) / y_direction;
-	Tuple pos = r.position(t);
-	ret.set(2 * i, sqrt(pow(pos.get(0), 2) + pow(pos.get(2), 2)));
-	ret.set(2 * i + 1, t);
+	math::Tuple4d pos = r.position(t);
+	ret(2 * i) = sqrt(pow(pos(0), 2) + pow(pos(2), 2));
+	ret(2 * i + 1) = t;
     }
     return ret;
 }

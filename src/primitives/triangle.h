@@ -18,23 +18,23 @@ class Triangle : public Primitive
 {
 protected:
     // triangle attributes
-    Tuple m_points[3];
-    Tuple m_edges[2];
+    math::Tuple4d m_points[3];
+    math::Tuple4d m_edges[2];
   
 private:
     // flat shading attribute
-    Tuple m_normal;
+    math::Tuple4d m_normal;
 
 public:
-    Triangle(const Tuple &point1, const Tuple &point2, const Tuple &point3);
+    Triangle(const math::Tuple4d &point1, const math::Tuple4d &point2, const math::Tuple4d &point3);
 
     // accessor methods
-    const Tuple& get_point(int index) const;
-    const Tuple& get_edge(int index) const;
+    const math::Tuple4d& get_point(int index) const;
+    const math::Tuple4d& get_edge(int index) const;
 
     // ray intersect functions
     virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
-    virtual Tuple local_normal(const Tuple &t, const Intersection &hit) const override;
+    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const Intersection &hit) const override;
 
     // utility functions
     virtual BoundingBox local_bounds() const override;

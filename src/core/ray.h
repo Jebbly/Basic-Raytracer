@@ -8,18 +8,18 @@ class Ray
 {
 private:
     // attributes
-    Tuple m_origin, m_direction;
+    math::Tuple4d m_origin, m_direction;
 
 public:
-    Ray(const Tuple &origin, const Tuple &direction);
+    Ray(const math::Tuple4d &origin, const math::Tuple4d &direction);
 
     // accessor methods
-    const Tuple& get_origin() const {return m_origin;}
-    const Tuple& get_direction() const {return m_direction;}
+    const math::Tuple4d& get_origin() const {return m_origin;}
+    const math::Tuple4d& get_direction() const {return m_direction;}
 
     // ray operations
-    Tuple position(double t) const;
-    Ray transform(const Matrix &m) const;
+    math::Tuple4d position(double t) const;
+    Ray transform(const math::Matrix4d &m) const;
 };
 
 #endif
