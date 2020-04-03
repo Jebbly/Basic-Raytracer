@@ -106,3 +106,19 @@ void Mesh::parse_obj_file(const std::string &filepath)
 
     input.close();
 }
+
+// accessor methods
+const std::vector<math::Tuple4d>& Mesh::get_vertices() const
+{
+    return m_vertices;
+}
+
+const std::vector<math::Tuple4d>& Mesh::get_normals() const
+{
+    return m_normals;
+}
+
+const std::vector<std::shared_ptr<Triangle>>& Mesh::get_triangles() const
+{
+    return m_triangles;
+}

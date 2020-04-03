@@ -37,6 +37,11 @@ private:
 
 public:
     Mesh(const std::string &filepath, const math::Matrix4d &transformation =  math::identity<double, 4>(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
+
+    // accessor methods
+    const std::vector<math::Tuple4d>& get_vertices() const;
+    const std::vector<math::Tuple4d>& get_normals() const;
+    const std::vector<std::shared_ptr<Triangle>>& get_triangles() const;
 };
 
 #endif
