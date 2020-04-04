@@ -1,12 +1,19 @@
 # Basic-Raytracer
-A basic raytracer implemented with C++
+This is a basic raytracer implemented with C++ and its standard library.
+
+## Features
+
+## Building
 
 ## To-do List
-- Add Consistency to Tuple and Matrix Classes
+- Create Directional and Spot Light
 - Implement CSG
 - Implement Multithreading
 - Create CMake Instructions
-- Create Directional and Spot Light
 - Move All Accessor Methods from Header Files to Source Files
+- Clean Up Tuple and Matrix Classes
+- Add Namespaces
 - Sort Includes in All Headers
 - Comment All Logic
+
+## Additional Resources
