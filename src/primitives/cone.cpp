@@ -18,9 +18,9 @@ std::vector<Intersection> Cone::local_intersect(const Ray &r) const
     double b = 2 * (origin(0) * direction(0) - origin(1) * direction(1) + origin(2) * direction(2));
     double c = pow(origin(0), 2) - pow(origin(1), 2) + pow(origin(2), 2);
 
-    if (a < Constants::EPSILON)
+    if (a < constants::EPSILON)
     {
-	if (b >= Constants::EPSILON)
+	if (b >= constants::EPSILON)
 	    intersects.push_back(Intersection{-c / (2 * b), (Primitive*) this});
 	return intersects;
     }
@@ -37,7 +37,7 @@ std::vector<Intersection> Cone::local_intersect(const Ray &r) const
 	    intersects.push_back(Intersection{t, (Primitive*) this});
     }
 
-    if (m_closed && !(abs(r.get_direction()(1)) < Constants::EPSILON))
+    if (m_closed && !(abs(r.get_direction()(1)) < constants::EPSILON))
     {
 	math::Tuple4d radii = intersect_caps(r,  m_minmax);
 	for (int i = 0; i < 2; i++)
@@ -54,12 +54,12 @@ math::Tuple4d Cone::local_normal(const math::Tuple4d &t, const Intersection &hit
 {
     double distance = pow(t(0), 2) + pow(t(2), 2);
     if (m_closed &&
-	distance + Constants::EPSILON < abs(m_minmax[1]) &&
-	t(1) >= m_minmax[1] - Constants::EPSILON)
+	distance + constants::EPSILON < abs(m_minmax[1]) &&
+	t(1) >= m_minmax[1] - constants::EPSILON)
 	return math::vector<double>(0, 1, 0);
     else if (m_closed &&
-	     distance + Constants::EPSILON < abs(m_minmax[0]) &&
-	     t(1) <= m_minmax[0] + Constants::EPSILON)
+	     distance + constants::EPSILON < abs(m_minmax[0]) &&
+	     t(1) <= m_minmax[0] + constants::EPSILON)
 	return math::vector<double>(0, -1, 0);
 
     double y = sqrt(distance) * (t(1) > 0) ? -1 : 1;

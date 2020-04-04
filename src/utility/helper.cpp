@@ -6,7 +6,7 @@ math::Tuple2d check_axis(double origin, double direction, double min, double max
     math::Tuple2d ret{};
 
     double tminmax_numerator[2] = {(min - origin), (max - origin)};
-    if (abs(direction) >= Constants::EPSILON)
+    if (abs(direction) >= constants::EPSILON)
     {
 	for (int i = 0; i < 2; i++)
 	{

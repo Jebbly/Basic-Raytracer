@@ -5,7 +5,7 @@ std::vector<Intersection> Plane::local_intersect(const Ray &r) const
 {
     std::vector<Intersection> intersects;
 
-    if (abs(r.get_direction()(1)) < Constants::EPSILON)
+    if (abs(r.get_direction()(1)) < constants::EPSILON)
 	return intersects;
 
     intersects.push_back(Intersection{-r.get_origin()(1) / r.get_direction()(1), (Primitive*) this});

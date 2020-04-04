@@ -28,7 +28,7 @@ std::vector<Intersection> Triangle::local_intersect(const Ray &r) const
     double det = dot(m_edges[0], dir_cross_e2);
 
     std::vector<Intersection> intersects;
-    if (abs(det) >= Constants::EPSILON)
+    if (abs(det) >= constants::EPSILON)
     {
 	double f = 1 / det;
 	math::Tuple4d p1_to_origin = r.get_origin() - m_points[0];

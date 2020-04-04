@@ -15,7 +15,7 @@ std::vector<Intersection> Cylinder::local_intersect(const Ray &r) const
     math::Tuple4d direction = r.get_direction();
     
     double a = pow(direction(0), 2) + pow(direction(2), 2);
-    if (a < Constants::EPSILON)
+    if (a < constants::EPSILON)
 	return intersects;
 
     double b = 2 * (origin(0) * direction(0) + origin(2) * direction(2));
@@ -33,7 +33,7 @@ std::vector<Intersection> Cylinder::local_intersect(const Ray &r) const
 	    intersects.push_back(Intersection{t, (Primitive*) this});
     }
 
-    if (m_closed && !(abs(r.get_direction()(1)) < Constants::EPSILON))
+    if (m_closed && !(abs(r.get_direction()(1)) < constants::EPSILON))
     {
 	math::Tuple4d radii = intersect_caps(r, m_minmax);
 	for (int i = 0; i < 2; i++)
@@ -49,9 +49,9 @@ std::vector<Intersection> Cylinder::local_intersect(const Ray &r) const
 math::Tuple4d Cylinder::local_normal(const math::Tuple4d &t, const Intersection &hit) const
 {
     double distance = pow(t(0), 2) + pow(t(2), 2);
-    if (m_closed && distance + Constants::EPSILON < 1)
+    if (m_closed && distance + constants::EPSILON < 1)
     {
-	if (t(1) >= (m_minmax[1] - Constants::EPSILON))
+	if (t(1) >= (m_minmax[1] - constants::EPSILON))
 	    return math::vector<double>(0, 1, 0);
 	else
 	    return math::vector<double>(0, -1, 0);

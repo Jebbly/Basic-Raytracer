@@ -43,6 +43,6 @@ Computation::Computation(const Ray &ray, const Intersection &intersect, const st
     }
 
     m_reflect = reflect(ray.get_direction(), m_normal);
-    m_over_point = m_point + m_normal * Constants::EPSILON;
-    m_under_point = m_point - m_normal * Constants::EPSILON;
+    m_over_point = m_point + m_normal * constants::EPSILON;
+    m_under_point = m_point - m_normal * constants::EPSILON;
 }
