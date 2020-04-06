@@ -22,6 +22,7 @@
 #include "core/intersection.h"
 #include "scene/light.h"
 #include "scene/point_light.h"
+#include "scene/directional_light.h"
 #include "scene/world.h"
 #include "image/camera.h"
 
@@ -51,21 +52,21 @@ int main()
     // Mesh mesh{"astronaut.obj", math::identity<double, 4>().scale(0.05, 0.05, 0.05).rotate_y(constants::PI / 4).translate(0.7, 2.7, 0.2)};
 
     Mesh test{"test.obj", math::identity<double, 4>()};
-    w.add_object(test);
+    // w.add_object(test);
 
     // w.add_object(middle);
     // w.add_object(right);
     // w.add_object(left);
-    // w.add_object(g);
+    w.add_object(g);
     // w.add_object(mesh);
 
     // w.add_object(mainSphere);
     // w.add_object(mainSphere2);
 
     PointLight light{math::color<double>(1, 1, 1), math::point<double>(-5, 5, -5)};
-    PointLight light2{math::color<double>(1, 1, 1), math::point<double>(10, 10, -10)};
+    DirectionalLight light2{math::color<double>(1, 1, 1), math::point<double>(1, 0, 0)};
 
-    w.add_light(light);
+    // w.add_light(light);
     w.add_light(light2);
 
     Camera c{256, 144, constants::PI / 3};
