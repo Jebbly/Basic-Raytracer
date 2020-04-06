@@ -1,6 +1,7 @@
 #ifndef SPOT_LIGHT_H
 #define SPOT_LIGHT_H
 
+#include <algorithm>
 #include "math/tuple.h"
 #include "core/computation.h"
 #include "scene/light.h"
