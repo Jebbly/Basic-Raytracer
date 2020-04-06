@@ -6,7 +6,6 @@ This is a basic raytracer implemented with C++ and its standard library.
 ## Building
 
 ## To-do List
-- Create Directional and Spot Light
 - Implement CSG
 - Implement Multithreading
 - Create CMake Instructions

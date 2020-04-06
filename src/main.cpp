@@ -23,6 +23,7 @@
 #include "scene/light.h"
 #include "scene/point_light.h"
 #include "scene/directional_light.h"
+#include "scene/spot_light.h"
 #include "scene/world.h"
 #include "image/camera.h"
 
@@ -57,17 +58,20 @@ int main()
     // w.add_object(middle);
     // w.add_object(right);
     // w.add_object(left);
-    w.add_object(g);
+   // w.add_object(g);
     // w.add_object(mesh);
 
     // w.add_object(mainSphere);
     // w.add_object(mainSphere2);
 
     PointLight light{math::color<double>(1, 1, 1), math::point<double>(-5, 5, -5)};
-    DirectionalLight light2{math::color<double>(1, 1, 1), math::point<double>(1, 0, 0)};
+    PointLight light2{math::color<double>(1, 1, 1), math::point<double>(10, 10, -10)};
 
     // w.add_light(light);
-    w.add_light(light2);
+    // w.add_light(light2);
+
+    SpotLight testLight{math::color<double>(1, 1, 1), math::point<double>(0, 2, 0), math::point<double>(0, -1, 0), std::cos(constants::PI / 3), std::cos(constants::PI / 4)};
+    w.add_light(testLight);
 
     Camera c{256, 144, constants::PI / 3};
     math::Tuple4d from = math::point<double>(0, 3, -9);
