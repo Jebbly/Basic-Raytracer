@@ -4,6 +4,9 @@
 #include "math/tuple.h"
 #include "materials/material.h"
 
+namespace material
+{
+
 class ColorMaterial : public Material
 {
 private:
@@ -16,5 +19,7 @@ public:
     // accessor methods
     virtual math::Tuple3d get_color(const math::Tuple4d &pos) const override;
 };
+
+} // namespace material
 
 #endif

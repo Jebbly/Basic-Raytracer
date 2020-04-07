@@ -9,7 +9,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "utility/common.h"
+#include "utility/constants.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"
@@ -36,7 +36,7 @@ private:
     void parse_obj_file(const std::string &filepath);
 
 public:
-    Mesh(const std::string &filepath, const math::Matrix4d &transformation =  math::identity<double, 4>(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
+    Mesh(const std::string &filepath, const math::Matrix4d &transformation =  math::identity<double, 4>(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}));
 
     // accessor methods
     const std::vector<math::Tuple4d>& get_vertices() const;

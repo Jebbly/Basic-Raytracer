@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include <vector>
-#include "utility/common.h"
+#include "utility/constants.h"
 #include "utility/helper.h"
 #include "core/ray.h"
 #include "math/tuple.h"

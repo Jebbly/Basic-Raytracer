@@ -5,6 +5,9 @@
 #include "core/computation.h"
 #include "scene/light.h"
 
+namespace scene::light
+{
+
 class PointLight : public Light
 {
 private:
@@ -15,11 +18,13 @@ public:
     PointLight(const math::Tuple3d &intensity, const math::Tuple4d &position);
 
     // accessor methods
-    const math::Tuple4d& get_position() const {return m_position;}
+    const math::Tuple4d& get_position() const { return m_position; }
     virtual const math::Tuple4d get_direction(const math::Tuple4d &t) const override;
-    
+
     // raytrace functions
     virtual const math::Tuple3d lighting(const Computation &comp) const override;
 };
+
+} // namespace scene::light
 
 #endif

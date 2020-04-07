@@ -2,7 +2,7 @@
 #define MATRIX_H
 
 #include <iostream>
-#include "utility/common.h"
+#include "utility/constants.h"
 #include "math/tuple.h"
 
 namespace math

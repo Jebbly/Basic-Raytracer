@@ -1,6 +1,6 @@
 #include "image/camera.h"
 
-Camera::Camera(int width, int height, double FOV) :
+image::Camera::Camera(int width, int height, double FOV) :
     m_width{width},
     m_height{height},
     m_FOV{FOV},
@@ -22,18 +22,18 @@ Camera::Camera(int width, int height, double FOV) :
 }
 
 // accessor methods
-double Camera::get_pixel_size() const
+double image::Camera::get_pixel_size() const
 {
     return (m_half_width * 2) / m_width;
 }
 
-void Camera::set_transform(const math::Matrix4d &m)
+void image::Camera::set_transform(const math::Matrix4d &m)
 {
     m_transformation = m;
 }
 
 // raytrace functions
-Ray Camera::ray(int x, int y) const
+Ray image::Camera::ray(int x, int y) const
 {
     double pixel_size = get_pixel_size();
     double x_offset = (x + 0.5) * pixel_size;
@@ -49,9 +49,9 @@ Ray Camera::ray(int x, int y) const
     return Ray{origin, direction};
 }
 
-Framebuffer Camera::render(const World &w) const
+image::Framebuffer image::Camera::render(const scene::World &w) const
 {
-    Framebuffer ret{m_width, m_height};
+    image::Framebuffer ret{m_width, m_height};
     for (int y = 0; y < m_height; y++)
     {
 	for (int x = 0; x < m_width; x++)

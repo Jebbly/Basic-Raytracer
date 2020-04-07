@@ -1,13 +1,13 @@
 #include "image/framebuffer.h"
 
-Framebuffer::Framebuffer(int width, int height) :
+image::Framebuffer::Framebuffer(int width, int height) :
     m_width{width},
     m_height{height}
 {
     init();
 }
 
-Framebuffer::~Framebuffer()
+image::Framebuffer::~Framebuffer()
 {
     (*m_resources)--;
     if (*m_resources == 0)
@@ -15,7 +15,7 @@ Framebuffer::~Framebuffer()
 }
 
 // initialize and destroy methods
-void Framebuffer::init()
+void image::Framebuffer::init()
 {
     m_buffer = new math::Tuple3d*[m_height];
     for (int i = 0; i < m_height; i++)
@@ -27,7 +27,7 @@ void Framebuffer::init()
     *m_resources = 1;
 }
 
-void Framebuffer::destroy()
+void image::Framebuffer::destroy()
 {
     for (int i = 0; i < m_height; i++)
     {
@@ -39,7 +39,7 @@ void Framebuffer::destroy()
 }
 
 // copy overloads
-Framebuffer::Framebuffer(const Framebuffer &fb) :
+image::Framebuffer::Framebuffer(const Framebuffer &fb) :
     m_width{fb.m_width},
     m_height{fb.m_height},
     m_buffer{fb.m_buffer},
@@ -48,7 +48,7 @@ Framebuffer::Framebuffer(const Framebuffer &fb) :
     (*m_resources)++;
 }
 
-Framebuffer& Framebuffer::operator=(const Framebuffer &fb)
+image::Framebuffer& image::Framebuffer::operator=(const image::Framebuffer &fb)
 {
     if (&fb == this)
 	return *this;
@@ -67,7 +67,7 @@ Framebuffer& Framebuffer::operator=(const Framebuffer &fb)
 }
 
 // accessor methods
-math::Tuple3d Framebuffer::get_pixel(int x, int y) const
+math::Tuple3d image::Framebuffer::get_pixel(int x, int y) const
 {
     assert(x >= 0 && x < get_width() &&
 	   y >= 0 && y < get_height() &&
@@ -77,7 +77,7 @@ math::Tuple3d Framebuffer::get_pixel(int x, int y) const
 }
 
 // utility functions
-void Framebuffer::write_pixel(int x, int y, const math::Tuple3d &color)
+void image::Framebuffer::write_pixel(int x, int y, const math::Tuple3d &color)
 {
     assert(x >= 0 && x < get_width() &&
 	   y >= 0 && y < get_height() &&
@@ -86,7 +86,7 @@ void Framebuffer::write_pixel(int x, int y, const math::Tuple3d &color)
     m_buffer[y][x] = color;
 }
 
-void Framebuffer::save_buffer(const std::string &name)
+void image::Framebuffer::save_buffer(const std::string &name)
 {
     std::ofstream output(name, std::ofstream::trunc);
 

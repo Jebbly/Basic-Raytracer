@@ -6,7 +6,7 @@ std::vector<Intersection> Cube::local_intersect(const Ray &r) const
     math::Tuple2d axes[3];
     for (int i = 0; i < 3; i++)
     {
-	axes[i] = check_axis(r.get_origin()(i), r.get_direction()(i));
+	axes[i] = utility::check_axis(r.get_origin()(i), r.get_direction()(i));
     }
     
     double tmin = axes[0](0), tmax = axes[0](1);

@@ -1,6 +1,6 @@
 #include "primitives/mesh.h"
 
-Mesh::Mesh(const std::string &filepath, const math::Matrix4d &transformation, std::shared_ptr<Material> material) :
+Mesh::Mesh(const std::string &filepath, const math::Matrix4d &transformation, std::shared_ptr<material::Material> material) :
     Group{transformation, material},
     m_smooth{false}
 {

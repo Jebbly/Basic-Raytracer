@@ -6,6 +6,9 @@
 #include "materials/material.h"
 #include "materials/pattern.h"
 
+namespace material::pattern
+{
+
 class RingMaterial : public Pattern
 {
 public:
@@ -14,5 +17,7 @@ public:
     // raytrace functions
     virtual math::Tuple3d get_pattern(const math::Tuple4d &pos) const override;
 };
+
+} // namespace material::pattern
 
 #endif

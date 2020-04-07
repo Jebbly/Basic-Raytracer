@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <vector>
-#include "utility/common.h"
+#include "utility/constants.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"
@@ -19,7 +19,7 @@ class Primitive
 protected:
     // attributes
     math::Matrix4d m_transformation;
-    std::shared_ptr<Material> m_material;
+    std::shared_ptr<material::Material> m_material;
     Group *m_parent;
 
     // helper functions
@@ -27,15 +27,15 @@ protected:
     math::Tuple4d normal_to_world(math::Tuple4d normal) const;
 
 public:
-    Primitive(const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}));
+    Primitive(const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}));
 
     // accessor methods
     const math::Matrix4d& get_transformation() const;
-    std::shared_ptr<Material> get_material();
+    std::shared_ptr<material::Material> get_material();
     const Group* get_parent() const;
 
     void set_transform(const math::Matrix4d &m);
-    void set_material(std::shared_ptr<Material> m);
+    void set_material(std::shared_ptr<material::Material> m);
     void set_parent(Group *p);
 
     // ray intersect functions

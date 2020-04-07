@@ -5,6 +5,9 @@
 #include "core/computation.h"
 #include "scene/light.h"
 
+namespace scene::light
+{
+
 class DirectionalLight : public Light
 {
 private:
@@ -20,5 +23,7 @@ public:
     // raytrace functions
     virtual const math::Tuple3d lighting(const Computation &comp) const override;
 };
+
+}
 
 #endif

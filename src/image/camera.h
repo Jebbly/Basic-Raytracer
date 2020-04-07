@@ -7,6 +7,9 @@
 #include "core/ray.h"
 #include "scene/world.h"
 
+namespace image
+{
+
 class Camera
 {
 private:
@@ -20,16 +23,18 @@ public:
     Camera(int width, int height, double FOV);
 
     // accessor methods
-    int get_height() const {return m_height;}
-    int get_width() const {return m_width;}
-    double get_FOV() const {return m_FOV;}
+    int get_height() const { return m_height; }
+    int get_width() const { return m_width; }
+    double get_FOV() const { return m_FOV; }
     double get_pixel_size() const;
 
     void set_transform(const math::Matrix4d &m);
 
     // raytrace functions
     Ray ray(int x, int y) const;
-    Framebuffer render(const World &w) const;
+    Framebuffer render(const scene::World &w) const;
 };
+
+} // namespace image
 
 #endif

@@ -1,6 +1,6 @@
 #include "primitives/cylinder.h"
 
-Cylinder::Cylinder(const math::Matrix4d &transformation, std::shared_ptr<Material> material, double minimum, double maximum, bool closed) :
+Cylinder::Cylinder(const math::Matrix4d &transformation, std::shared_ptr<material::Material> material, double minimum, double maximum, bool closed) :
     Primitive(transformation, material),
     m_minmax{minimum, maximum},
     m_closed{closed}
@@ -35,7 +35,7 @@ std::vector<Intersection> Cylinder::local_intersect(const Ray &r) const
 
     if (m_closed && !(abs(r.get_direction()(1)) < constants::EPSILON))
     {
-	math::Tuple4d radii = intersect_caps(r, m_minmax);
+	math::Tuple4d radii = utility::intersect_caps(r, m_minmax);
 	for (int i = 0; i < 2; i++)
 	{
 	    if (radii(2 * i) <= 1)

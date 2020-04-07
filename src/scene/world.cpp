@@ -1,22 +1,22 @@
 #include "scene/world.h"
 
-World::World(const math::Tuple3d &ambient) :
+scene::World::World(const math::Tuple3d &ambient) :
     m_ambient{ambient}
 {}
 
 // accessor methods
-void World::add_object(Primitive &object)
+void scene::World::add_object(Primitive &object)
 {
     m_objects.push_back(&object);
 }
 
-void World::add_light(Light &light)
+void scene::World::add_light(light::Light &light)
 {
     m_lights.push_back(&light);
 }
 
 // raytrace functions
-std::vector<Intersection> World::intersects(const Ray &ray) const
+std::vector<Intersection> scene::World::intersects(const Ray &ray) const
 {
     std::vector<Intersection> ret;
     for (int i = 0; i < m_objects.size(); i++)
@@ -28,7 +28,7 @@ std::vector<Intersection> World::intersects(const Ray &ray) const
     return ret;
 }
 
-bool World::shadow(const Light *light, const math::Tuple4d &position) const
+bool scene::World::shadow(const light::Light *light, const math::Tuple4d &position) const
 {
     math::Tuple4d light_dir = light->get_direction(position);
     double distance = light_dir.magnitude();
@@ -42,17 +42,17 @@ bool World::shadow(const Light *light, const math::Tuple4d &position) const
 	return false;
 }
 
-math::Tuple3d World::reflection(const Computation &comp, int recursion_depth) const
+math::Tuple3d scene::World::reflection(const Computation &comp, int recursion_depth) const
 {
-    if (equals(comp.get_object()->get_material()->get_reflective(), 0))
+    if (utility::equals(comp.get_object()->get_material()->get_reflective(), 0))
 	return math::color<double>(0, 0, 0);
 
     return final_color(Ray{comp.get_over_point(), comp.get_reflect()}, recursion_depth + 1) * comp.get_object()->get_material()->get_reflective();
 }
 
-math::Tuple3d World::refraction(const Computation &comp, int recursion_depth) const
+math::Tuple3d scene::World::refraction(const Computation &comp, int recursion_depth) const
 {
-    if (equals(comp.get_object()->get_material()->get_transparency(), 0))
+    if (utility::equals(comp.get_object()->get_material()->get_transparency(), 0))
 	return math::color<double>(0, 0, 0);
 
     double n_ratio = comp.get_n1() / comp.get_n2();
@@ -67,7 +67,7 @@ math::Tuple3d World::refraction(const Computation &comp, int recursion_depth) co
     return final_color(Ray{comp.get_under_point(), refract}, recursion_depth + 1) * comp.get_object()->get_material()->get_transparency();
 }
 
-double World::schlick(const Computation &comp) const
+double scene::World::schlick(const Computation &comp) const
 {
     double cos = dot(comp.get_eye(), comp.get_normal());
 
@@ -86,7 +86,7 @@ double World::schlick(const Computation &comp) const
     return (r0 + (1 - r0) * pow(1 - cos, 5));
 }
 
-math::Tuple3d World::shade(const Computation &comp, int recursion_depth) const
+math::Tuple3d scene::World::shade(const Computation &comp, int recursion_depth) const
 {
     math::Tuple3d ret{math::color<double>(0, 0, 0)};
 
@@ -104,7 +104,7 @@ math::Tuple3d World::shade(const Computation &comp, int recursion_depth) const
 	math::Tuple3d reflected = reflection(comp, recursion_depth);
 	math::Tuple3d refracted = refraction(comp, recursion_depth);
 
-	std::shared_ptr<Material> mat = comp.get_object()->get_material();
+	std::shared_ptr<material::Material> mat = comp.get_object()->get_material();
 	if (mat->get_reflective() > 0 && mat->get_transparency() > 0)
 	{
 	    double reflectance = schlick(comp);
@@ -120,7 +120,7 @@ math::Tuple3d World::shade(const Computation &comp, int recursion_depth) const
     return ret;
 }
 
-math::Tuple3d World::final_color(const Ray &ray, int recursion_depth) const
+math::Tuple3d scene::World::final_color(const Ray &ray, int recursion_depth) const
 {
     std::vector<Intersection> xs = intersects(ray);
     auto intersect = hit(xs);

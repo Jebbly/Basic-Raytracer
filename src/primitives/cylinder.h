@@ -4,7 +4,7 @@
 #include <cmath>
 #include <memory>
 #include <vector>
-#include "utility/common.h"
+#include "utility/constants.h"
 #include "utility/helper.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
@@ -23,7 +23,7 @@ private:
     bool m_closed;
 
 public:
-    Cylinder(const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<Material> material = std::make_shared<ColorMaterial>(ColorMaterial{}), double minimum = -INFINITY, double maximum = INFINITY, bool closed = false);
+    Cylinder(const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}), double minimum = -INFINITY, double maximum = INFINITY, bool closed = false);
 
     // ray intersect functions
     virtual std::vector<Intersection> local_intersect(const Ray &r) const override;

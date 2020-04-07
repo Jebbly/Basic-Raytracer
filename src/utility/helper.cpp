@@ -1,7 +1,16 @@
 #include "utility/helper.h"
 
+// equality comparison
+bool utility::equals(double a, double b)
+{
+    if (abs(a - b) < constants::EPSILON)
+	return true;
+    else
+	return false;
+}
+
 // intersection helper functions
-math::Tuple2d check_axis(double origin, double direction, double min, double max)
+math::Tuple2d utility::check_axis(double origin, double direction, double min, double max)
 {
     math::Tuple2d ret{};
 
@@ -33,7 +42,7 @@ math::Tuple2d check_axis(double origin, double direction, double min, double max
     return ret;
 }
 
-math::Tuple4d intersect_caps(const Ray &r, const double y_bounds[2])
+math::Tuple4d utility::intersect_caps(const Ray &r, const double y_bounds[2])
 {
     double y_direction = r.get_direction()(1);
     double y_origin = r.get_origin()(1);

@@ -2,7 +2,7 @@
 #define SPHERE_H
 
 #include <vector>
-#include "utility/common.h"
+#include "utility/constants.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
 #include "core/ray.h"

@@ -1,6 +1,6 @@
 #include "materials/material.h"
 
-Material::Material(double ambient, double diffuse, double specular, double shininess, double reflective, double transparency, double IOR) : 
+material::Material::Material(double ambient, double diffuse, double specular, double shininess, double reflective, double transparency, double IOR) : 
     m_ambient{ambient},
     m_diffuse{diffuse},
     m_specular{specular},
@@ -11,36 +11,36 @@ Material::Material(double ambient, double diffuse, double specular, double shini
 {}
 
 // accessor methods
-void Material::set_ambient(double ambient)
+void material::Material::set_ambient(double ambient)
 {
     m_ambient = ambient;
 }
 
-void Material::set_diffuse(double diffuse)
+void material::Material::set_diffuse(double diffuse)
 {
     m_diffuse = diffuse;
 }
-void Material::set_specular(double specular)
+void material::Material::set_specular(double specular)
 {
     m_specular = specular;
 }
 
-void Material::set_shininess(double shininess)
+void material::Material::set_shininess(double shininess)
 {
     m_shininess = shininess;
 }
 
-void Material::set_reflective(double reflective)
+void material::Material::set_reflective(double reflective)
 {
     m_reflective = reflective;
 }
 
-void Material::set_transparency(double transparency)
+void material::Material::set_transparency(double transparency)
 {
     m_transparency = transparency;
 }
 
-void Material::set_IOR(double IOR)
+void material::Material::set_IOR(double IOR)
 {
     m_IOR = IOR;
 }

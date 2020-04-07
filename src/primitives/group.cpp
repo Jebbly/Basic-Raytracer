@@ -1,6 +1,6 @@
 #include "primitives/group.h"
 
-Group::Group(const math::Matrix4d &transformation, std::shared_ptr<Material> material) :
+Group::Group(const math::Matrix4d &transformation, std::shared_ptr<material::Material> material) :
     Primitive{transformation, material},
     m_bounds{}
 {}
@@ -16,6 +16,17 @@ void Group::add_child(Primitive *object)
 const std::vector<Primitive*>& Group::get_children() const
 {
     return m_children;
+}
+
+bool Group::includes(Primitive *p) const
+{
+    bool included = false;
+    for (int i = 0; i < m_children.size(); i++)
+    {
+	if (m_children.at(i)->includes(p))
+	    included = true;
+    }
+    return included;
 }
 
 // ray intersect functions

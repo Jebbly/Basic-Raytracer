@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "utility/common.h"
+#include "utility/constants.h"
 
 namespace math
 {

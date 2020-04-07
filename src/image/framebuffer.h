@@ -5,6 +5,9 @@
 #include <string>
 #include "math/tuple.h"
 
+namespace image
+{
+
 class Framebuffer
 {
 private:
@@ -26,13 +29,15 @@ public:
     Framebuffer& operator=(const Framebuffer &fb);
 
     // accessor methods
-    int get_width() const {return m_width;}
-    int get_height() const {return m_height;}
+    int get_width() const { return m_width; }
+    int get_height() const { return m_height; }
     math::Tuple3d get_pixel(int x, int y) const;
 
     // utility functions
     void write_pixel(int x, int y, const math::Tuple3d &color);
     void save_buffer(const std::string &name);
 };
+
+} // namespace image
 
 #endif
