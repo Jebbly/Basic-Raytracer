@@ -38,6 +38,8 @@ public:
     void set_material(std::shared_ptr<material::Material> m);
     void set_parent(Group *p);
 
+    virtual bool includes(Primitive *p) const;
+
     // ray intersect functions
     math::Tuple4d normal(const math::Tuple4d &t, const Intersection &hit) const;
     std::vector<Intersection> intersect(const Ray &r);

@@ -1,6 +1,6 @@
 #include "primitives/primitive.h"
 
-Primitive::Primitive(const math::Matrix4d &transformation, std::shared_ptr<Material> material) :
+Primitive::Primitive(const math::Matrix4d &transformation, std::shared_ptr<material::Material> material) :
     m_transformation{transformation},
     m_material{material},
     m_parent{nullptr}
@@ -33,7 +33,7 @@ const math::Matrix4d& Primitive::get_transformation() const
     return m_transformation;
 }
 
-std::shared_ptr<Material> Primitive::get_material()
+std::shared_ptr<material::Material> Primitive::get_material()
 {
     return m_material;
 }
@@ -48,7 +48,7 @@ void Primitive::set_transform(const math::Matrix4d &m)
     m_transformation = m;
 }
 
-void Primitive::set_material(std::shared_ptr<Material> m)
+void Primitive::set_material(std::shared_ptr<material::Material> m)
 {
     m_material = m;
 }
@@ -56,6 +56,11 @@ void Primitive::set_material(std::shared_ptr<Material> m)
 void Primitive::set_parent(Group *p)
 {
     m_parent = p;
+}
+
+bool Primitive::includes(Primitive *p) const
+{
+    return (this == p);
 }
 
 // ray intersect functions

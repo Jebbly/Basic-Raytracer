@@ -13,6 +13,7 @@
 #include "primitives/mesh.h"
 #include "primitives/group.h"
 #include "primitives/triangle.h"
+#include "primitives/csg.h"
 #include "primitives/smooth_triangle.h"
 #include "materials/color_material.h"
 #include "materials/stripe_material.h"
@@ -39,7 +40,7 @@ int main()
     material::ColorMaterial air{math::color<double>(1, 1, 1), 0, 0, 0.9, 200, 1.0, 1.0, 1.0};
     Plane floor{math::identity<double, 4>(), std::make_shared<material::pattern::CheckerMaterial>(grid)};
 
-    w.add_object(floor);
+    // w.add_object(floor);
 
     Sphere middle{math::identity<double, 4>().translate(-0.5, 1, 0.5), /*Material{math::color<double>(0.1, 1, 0.5), 0.1, 0.7, 1, 200}*/ std::make_shared<material::pattern::GradientMaterial>(gradient)};
     Cone right{math::identity<double, 4>()./*scale(0.3, 0.5, 0.3).*/translate(1.2, 0, -0.5), /*Material{math::color<double>(0.5, 1, 0.1), 0.1, 0.7, 1, 32}*/ std::make_shared<material::pattern::RingMaterial>(ring), 0, 1, true};
@@ -52,8 +53,13 @@ int main()
 
     // Mesh mesh{"astronaut.obj", math::identity<double, 4>().scale(0.05, 0.05, 0.05).rotate_y(constants::PI / 4).translate(0.7, 2.7, 0.2)};
 
-    Mesh test{"test.obj", math::identity<double, 4>()};
+    // Mesh test{"test.obj", math::identity<double, 4>()};
     // w.add_object(test);
+
+    Sphere s{math::identity<double, 4>().scale(1.4, 1.4, 1.4).translate(0, 2, 0)};
+    Cube cy{math::identity<double, 4>().rotate_x(constants::PI / 2).rotate_y(constants::PI / 4).translate(0, 2, 0)};
+    geometry::CSG cs{&s, &cy, &geometry::csg_difference};
+    w.add_object(cs);
 
     // w.add_object(middle);
     // w.add_object(right);
@@ -67,11 +73,8 @@ int main()
     scene::light::PointLight light{math::color<double>(1, 1, 1), math::point<double>(-5, 5, -5)};
     scene::light::PointLight light2{math::color<double>(1, 1, 1), math::point<double>(10, 10, -10)};
 
-    // w.add_light(light);
-    // w.add_light(light2);
-
-    scene::light::SpotLight testLight{math::color<double>(1, 1, 1), math::point<double>(0, 2, 0), math::point<double>(0, -1, 0), std::cos(constants::PI / 3), std::cos(constants::PI / 4)};
-    w.add_light(testLight);
+    w.add_light(light);
+    w.add_light(light2);
 
     image::Camera c{256, 144, constants::PI / 3};
     math::Tuple4d from = math::point<double>(0, 3, -9);
@@ -84,6 +87,6 @@ int main()
     auto stop = std::chrono::high_resolution_clock::now();
     std::cout << "Finished in " << (std::chrono::duration_cast<std::chrono::seconds>(stop - start)).count() << " seconds\n";
     image.save_buffer("teapot.ppm");
-    return 1;
+    return 0;
 }
 
