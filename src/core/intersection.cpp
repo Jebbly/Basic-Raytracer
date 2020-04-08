@@ -1,6 +1,6 @@
 #include "core/intersection.h"
 
-Intersection::Intersection(double t, Primitive *object, std::pair<double, double> uv) :
+Intersection::Intersection(double t, geometry::primitive::Primitive *object, std::pair<double, double> uv) :
     m_t{t},
     m_object{object},
     m_uv{uv}
@@ -12,7 +12,7 @@ double Intersection::get_t() const
     return m_t;
 }
 
-Primitive* Intersection::get_object() const
+geometry::primitive::Primitive* Intersection::get_object() const
 {
     return m_object;
 }

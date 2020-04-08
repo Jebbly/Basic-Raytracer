@@ -4,8 +4,8 @@
 #include <vector>
 #include "core/intersection.h"
 #include "core/computation.h"
-#include "scene/light.h"
-#include "primitives/primitive.h"
+#include "scene/lights/light.h"
+#include "geometry/primitives/primitive.h"
 
 namespace scene
 {
@@ -16,16 +16,16 @@ private:
     // attributes
     math::Tuple3d m_ambient;
     std::vector<light::Light*> m_lights;
-    std::vector<Primitive*> m_objects;
+    std::vector<geometry::primitive::Primitive*> m_objects;
 
 public:
     World(const math::Tuple3d &ambient = math::color<double>(1, 1, 1));
 
     // accessor methods
     std::vector<light::Light*>& get_lights() {return m_lights;}
-    std::vector<Primitive*>& get_objects() {return m_objects;}
+    std::vector<geometry::primitive::Primitive*>& get_objects() {return m_objects;}
 
-    void add_object(Primitive &object);
+    void add_object(geometry::primitive::Primitive &object);
     void add_light(light::Light &light);
 
     // raytrace functions

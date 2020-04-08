@@ -6,13 +6,13 @@
 #include "math/tuple.h"
 #include "core/intersection.h"
 #include "core/ray.h"
-#include "primitives/primitive.h"
+#include "geometry/primitives/primitive.h"
 
 class Computation
 {
 private:
     // attributes
-    Primitive* m_object;
+    geometry::primitive::Primitive* m_object;
     math::Tuple4d m_point, m_eye, m_normal, m_reflect;
     math::Tuple4d m_over_point, m_under_point;
     double m_t;
@@ -23,7 +23,7 @@ public:
     Computation(const Ray &ray, const Intersection &intersect, const std::vector<Intersection> &xs);
     
     // accessor methods
-    Primitive* get_object() const {return m_object;}
+    geometry::primitive::Primitive* get_object() const { return m_object; }
     const math::Tuple4d& get_point() const {return m_point;}
     const math::Tuple4d& get_eye() const {return m_eye;}
     const math::Tuple4d& get_normal() const {return m_normal;}

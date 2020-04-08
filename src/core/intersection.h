@@ -5,24 +5,24 @@
 #include <algorithm>
 #include <optional>
 #include <utility>
-#include "primitives/primitive.h"
+#include "geometry/primitives/primitive.h"
 
-class Primitive;
+namespace geometry::primitive {class Primitive;}
 
 class Intersection
 {
 private:
     // attributes
     double m_t;
-    Primitive* m_object;
+    geometry::primitive::Primitive* m_object;
     std::pair<double, double> m_uv;
 
 public:
-    Intersection(double t, Primitive *object, std::pair<double, double> uv = std::make_pair(0, 0));
+    Intersection(double t, geometry::primitive::Primitive *object, std::pair<double, double> uv = std::make_pair(0, 0));
 
     // accessor methods
     double get_t() const;
-    Primitive* get_object() const;
+    geometry::primitive::Primitive* get_object() const;
     const std::pair<double, double>& get_uv() const;
 
     // comparison overload

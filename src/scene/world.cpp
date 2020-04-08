@@ -5,7 +5,7 @@ scene::World::World(const math::Tuple3d &ambient) :
 {}
 
 // accessor methods
-void scene::World::add_object(Primitive &object)
+void scene::World::add_object(geometry::primitive::Primitive &object)
 {
     m_objects.push_back(&object);
 }
