@@ -42,7 +42,7 @@ math::Tuple2d utility::check_axis(double origin, double direction, double min, d
     return ret;
 }
 
-math::Tuple4d utility::intersect_caps(const Ray &r, const double y_bounds[2])
+math::Tuple4d utility::intersect_caps(const core::Ray &r, const double y_bounds[2])
 {
     double y_direction = r.get_direction()(1);
     double y_origin = r.get_origin()(1);

@@ -1,7 +1,7 @@
 #include "geometry/primitives/cube.h"
 
 // ray intersect functions
-std::vector<Intersection> geometry::primitive::Cube::local_intersect(const Ray &r) const
+std::vector<core::Intersection> geometry::primitive::Cube::local_intersect(const core::Ray &r) const
 {
     math::Tuple2d axes[3];
     for (int i = 0; i < 3; i++)
@@ -16,16 +16,16 @@ std::vector<Intersection> geometry::primitive::Cube::local_intersect(const Ray &
 	if (axes[i](1) < tmax) tmax = axes[i](1);
     }
 
-    std::vector<Intersection> intersects;
+    std::vector<core::Intersection> intersects;
     if (tmin <= tmax)
     {
-	intersects.push_back(Intersection{tmin, (Primitive*) this});
-	intersects.push_back(Intersection{tmax, (Primitive*) this});
+	intersects.push_back(core::Intersection{tmin, (Primitive*) this});
+	intersects.push_back(core::Intersection{tmax, (Primitive*) this});
     }
     return intersects;
 }
 
-math::Tuple4d geometry::primitive::Cube::local_normal(const math::Tuple4d &t, const Intersection &hit) const
+math::Tuple4d geometry::primitive::Cube::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
 {
     double max = 0;
     for (int i = 0; i < 3; i++)
@@ -44,7 +44,7 @@ math::Tuple4d geometry::primitive::Cube::local_normal(const math::Tuple4d &t, co
 }
 
 // utility functions
-BoundingBox geometry::primitive::Cube::local_bounds() const
+core::BoundingBox geometry::primitive::Cube::local_bounds() const
 {
-    return BoundingBox{math::point<double>(-1, -1, -1), math::point<double>(1, 1, 1)};
+    return core::BoundingBox{math::point<double>(-1, -1, -1), math::point<double>(1, 1, 1)};
 }

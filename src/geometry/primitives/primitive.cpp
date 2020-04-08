@@ -64,7 +64,7 @@ bool geometry::primitive::Primitive::includes(Primitive *p) const
 }
 
 // ray intersect functions
-math::Tuple4d geometry::primitive::Primitive::normal(const math::Tuple4d &t, const Intersection &hit) const
+math::Tuple4d geometry::primitive::Primitive::normal(const math::Tuple4d &t, const core::Intersection &hit) const
 {
     math::Tuple4d object_point = m_transformation.inverse() * t;
     math::Tuple4d object_normal = local_normal(object_point, hit);
@@ -74,9 +74,9 @@ math::Tuple4d geometry::primitive::Primitive::normal(const math::Tuple4d &t, con
     return world_normal.normalize();
 }
 
-std::vector<Intersection> geometry::primitive::Primitive::intersect(const Ray &r)
+std::vector<core::Intersection> geometry::primitive::Primitive::intersect(const core::Ray &r)
 {
-    Ray transformed_ray = r.transform(m_transformation.inverse());
+    core::Ray transformed_ray = r.transform(m_transformation.inverse());
     return local_intersect(transformed_ray);
 }
 
@@ -92,7 +92,7 @@ void geometry::primitive::Primitive::transform(const math::Matrix4d &transformat
     m_transformation = m_transformation * transformation;
 }
 
-BoundingBox geometry::primitive::Primitive::bounds() const
+core::BoundingBox geometry::primitive::Primitive::bounds() const
 {
     return local_bounds().transform(m_transformation);
 }

@@ -9,6 +9,9 @@
 
 namespace geometry::primitive {class Primitive;}
 
+namespace core
+{
+
 class Intersection
 {
 private:
@@ -25,12 +28,14 @@ public:
     geometry::primitive::Primitive* get_object() const;
     const std::pair<double, double>& get_uv() const;
 
-    // comparison overload
+    // comparison overloads
     friend bool operator<(const Intersection &i1, const Intersection &i2);
     friend bool operator==(const Intersection &i1, const Intersection &i2);
 };
 
 // utility function
 std::optional<const Intersection> hit(const std::vector<Intersection> &intersections);
+
+} // namespace core
 
 #endif

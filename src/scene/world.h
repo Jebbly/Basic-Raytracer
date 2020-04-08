@@ -29,13 +29,13 @@ public:
     void add_light(light::Light &light);
 
     // raytrace functions
-    std::vector<Intersection> intersects(const Ray &ray) const;
+    std::vector<core::Intersection> intersects(const core::Ray &ray) const;
     bool shadow(const light::Light *light, const math::Tuple4d &position) const;
-    math::Tuple3d reflection(const Computation &comp, int recursion_depth) const;
-    math::Tuple3d refraction(const Computation &comp, int recursion_depth) const;
-    double schlick(const Computation &comp) const;
-    math::Tuple3d shade(const Computation &comp, int recursion_depth) const;
-    math::Tuple3d final_color(const Ray &ray, int recursion_depth) const;
+    math::Tuple3d reflection(const core::Computation &comp, int recursion_depth) const;
+    math::Tuple3d refraction(const core::Computation &comp, int recursion_depth) const;
+    double schlick(const core::Computation &comp) const;
+    math::Tuple3d shade(const core::Computation &comp, int recursion_depth) const;
+    math::Tuple3d final_color(const core::Ray &ray, int recursion_depth) const;
 };
 
 } // namespace scene

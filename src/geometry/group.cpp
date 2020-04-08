@@ -30,21 +30,21 @@ bool geometry::Group::includes(geometry::primitive::Primitive *p) const
 }
 
 // ray intersect functions
-std::vector<Intersection> geometry::Group::local_intersect(const Ray &r) const
+std::vector<core::Intersection> geometry::Group::local_intersect(const core::Ray &r) const
 {
-    std::vector<Intersection> ret;
+    std::vector<core::Intersection> ret;
     if (m_bounds.intersect(r))
     {
 	for (int i = 0; i < m_children.size(); i++)
 	{
-	    std::vector<Intersection> object_intersects = m_children.at(i)->intersect(r);
+	    std::vector<core::Intersection> object_intersects = m_children.at(i)->intersect(r);
 	    ret.insert(ret.end(), object_intersects.begin(), object_intersects.end());
 	}
     }
     return ret;
 }
 
-math::Tuple4d geometry::Group::local_normal(const math::Tuple4d &t, const Intersection &hit) const
+math::Tuple4d geometry::Group::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
 {
     assert(!"cannot find local_normal of Group");
     return math::vector<double>(0, 0, 0);
@@ -57,7 +57,7 @@ void geometry::Group::transform(const math::Matrix4d &transformation)
     Primitive::transform(transformation);
 }
 
-BoundingBox geometry::Group::local_bounds() const
+core::BoundingBox geometry::Group::local_bounds() const
 {
     return m_bounds;
 }

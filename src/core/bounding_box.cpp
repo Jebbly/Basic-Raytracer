@@ -1,32 +1,32 @@
 #include "core/bounding_box.h"
 
-BoundingBox::BoundingBox(const math::Tuple4d &minimum, const math::Tuple4d &maximum) :
+core::BoundingBox::BoundingBox(const math::Tuple4d &minimum, const math::Tuple4d &maximum) :
     m_minmax{minimum, maximum}
 {}
 
 // accessor methods
-const math::Tuple4d& BoundingBox::get_minimum() const
+const math::Tuple4d& core::BoundingBox::get_minimum() const
 {
     return m_minmax[0];
 }
 
-const math::Tuple4d& BoundingBox::get_maximum() const
+const math::Tuple4d& core::BoundingBox::get_maximum() const
 {
     return m_minmax[1];
 }
 
-void BoundingBox::set_minimum(const math::Tuple4d &t)
+void core::BoundingBox::set_minimum(const math::Tuple4d &t)
 {
     m_minmax[0] = t;
 }
 
-void BoundingBox::set_maximum(const math::Tuple4d &t)
+void core::BoundingBox::set_maximum(const math::Tuple4d &t)
 {
     m_minmax[1] = t;
 }
 
 // utility functions
-void BoundingBox::add_point(const math::Tuple4d &point)
+void core::BoundingBox::add_point(const math::Tuple4d &point)
 {
     // test for minimums
     for (int i = 0; i < 3; i++)
@@ -43,7 +43,7 @@ void BoundingBox::add_point(const math::Tuple4d &point)
     }
 }
 
-bool BoundingBox::contains_point(const math::Tuple4d &point) const
+bool core::BoundingBox::contains_point(const math::Tuple4d &point) const
 {
     for (int i = 0; i < 3; i++)
     {
@@ -54,18 +54,18 @@ bool BoundingBox::contains_point(const math::Tuple4d &point) const
     return true;
 }
 
-void BoundingBox::add_bounds(const BoundingBox &box)
+void core::BoundingBox::add_bounds(const BoundingBox &box)
 {
     add_point(box.get_minimum());
     add_point(box.get_maximum());
 }
 
-bool BoundingBox::contains_bounds(const BoundingBox &box) const
+bool core::BoundingBox::contains_bounds(const BoundingBox &box) const
 {
     return (contains_point(box.get_minimum()) && contains_point(box.get_maximum()));;
 }
 
-BoundingBox BoundingBox::transform(const math::Matrix4d &transformation)
+core::BoundingBox core::BoundingBox::transform(const math::Matrix4d &transformation)
 {
     math::Tuple4d original_points[8];
 
@@ -89,7 +89,7 @@ BoundingBox BoundingBox::transform(const math::Matrix4d &transformation)
     return ret;
 }
 
-bool BoundingBox::intersect(const Ray &r) const
+bool core::BoundingBox::intersect(const Ray &r) const
 {
     math::Tuple2d axes[3];
     for (int i = 0; i < 3; i++)

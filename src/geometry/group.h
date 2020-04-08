@@ -21,7 +21,7 @@ class Group : public primitive::Primitive
 protected:
     // attributes
     std::vector<Primitive*> m_children;
-    BoundingBox m_bounds;
+    core::BoundingBox m_bounds;
 
 public:
     Group(const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}));
@@ -33,12 +33,12 @@ public:
     virtual bool includes(primitive::Primitive *p) const override;
 
     // ray intersect functions
-    virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
-    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const Intersection &hit) const override;
+    virtual std::vector<core::Intersection> local_intersect(const core::Ray &r) const override;
+    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const core::Intersection &hit) const override;
 
     // utliity functions
     virtual void transform(const math::Matrix4d &transformation) override;
-    virtual BoundingBox local_bounds() const override;
+    virtual core::BoundingBox local_bounds() const override;
 };
 
 } // namespace geometry

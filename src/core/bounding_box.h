@@ -9,6 +9,9 @@
 #include "math/tuple.h"
 #include "math/matrix.h"
 
+namespace core
+{
+
 class BoundingBox
 {
 private:
@@ -36,5 +39,7 @@ public:
 
     bool intersect(const Ray &r) const;
 };
+
+} // namespace core
 
 #endif

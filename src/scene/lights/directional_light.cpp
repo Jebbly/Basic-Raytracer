@@ -12,7 +12,7 @@ const math::Tuple4d scene::light::DirectionalLight::get_direction(const math::Tu
 }
 
 // raytrace functions
-const math::Tuple3d scene::light::DirectionalLight::lighting(const Computation &comp) const
+const math::Tuple3d scene::light::DirectionalLight::lighting(const core::Computation &comp) const
 {
     return phong_shading(comp.get_object(), comp.get_point(), comp.get_eye(), comp.get_normal());
 }

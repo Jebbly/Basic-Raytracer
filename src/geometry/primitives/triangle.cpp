@@ -22,12 +22,12 @@ const math::Tuple4d& geometry::primitive::Triangle::get_edge(int index) const
 }
 
 // ray intersect functions
-std::vector<Intersection> geometry::primitive::Triangle::local_intersect(const Ray &r) const
+std::vector<core::Intersection> geometry::primitive::Triangle::local_intersect(const core::Ray &r) const
 {
     math::Tuple4d dir_cross_e2 = cross(r.get_direction(), m_edges[1]);
     double det = dot(m_edges[0], dir_cross_e2);
 
-    std::vector<Intersection> intersects;
+    std::vector<core::Intersection> intersects;
     if (abs(det) >= constants::EPSILON)
     {
 	double f = 1 / det;
@@ -40,22 +40,22 @@ std::vector<Intersection> geometry::primitive::Triangle::local_intersect(const R
 	    if (v >= 0 && (u + v) <= 1)
 	    {
 		double t = f * dot(m_edges[1], origin_cross_e1);
-		intersects.push_back(Intersection{t, (Primitive*) this, std::make_pair(u, v)});
+		intersects.push_back(core::Intersection{t, (Primitive*) this, std::make_pair(u, v)});
 	    }
 	}
     }
     return intersects;
 }
 
-math::Tuple4d geometry::primitive::Triangle::local_normal(const math::Tuple4d &t, const Intersection &hit) const
+math::Tuple4d geometry::primitive::Triangle::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
 {
     return m_normal;
 }
 
 // utility functions
-BoundingBox geometry::primitive::Triangle::local_bounds() const
+core::BoundingBox geometry::primitive::Triangle::local_bounds() const
 {
-    BoundingBox ret{};
+    core::BoundingBox ret{};
     for (int i = 0; i < 3; i++)
     {
 	ret.add_point(m_points[i]);

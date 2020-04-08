@@ -13,7 +13,7 @@ const math::Tuple4d& geometry::primitive::SmoothTriangle::get_normal(int index) 
 }
 
 // ray intersect functions
-math::Tuple4d geometry::primitive::SmoothTriangle::local_normal(const math::Tuple4d &t, const Intersection &hit) const
+math::Tuple4d geometry::primitive::SmoothTriangle::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
 {
     double u = hit.get_uv().first, v = hit.get_uv().second;
     return m_normals[1] * u + m_normals[2] * v + m_normals[0] * (1 - u - v);

@@ -32,7 +32,7 @@ public:
 
     // ray intersect functions
     using Triangle::local_intersect;
-    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const Intersection &hit) const override;
+    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const core::Intersection &hit) const override;
 };
 
 } // namespace geometry::primitive

@@ -8,6 +8,9 @@
 #include "core/ray.h"
 #include "geometry/primitives/primitive.h"
 
+namespace core
+{
+
 class Computation
 {
 private:
@@ -21,19 +24,21 @@ private:
 
 public:
     Computation(const Ray &ray, const Intersection &intersect, const std::vector<Intersection> &xs);
-    
+
     // accessor methods
     geometry::primitive::Primitive* get_object() const { return m_object; }
-    const math::Tuple4d& get_point() const {return m_point;}
-    const math::Tuple4d& get_eye() const {return m_eye;}
-    const math::Tuple4d& get_normal() const {return m_normal;}
-    const math::Tuple4d& get_reflect() const {return m_reflect;}
-    const math::Tuple4d& get_over_point() const {return m_over_point;}
-    const math::Tuple4d& get_under_point() const {return m_under_point;}
-    double get_t() const {return m_t;}
-    double get_n1() const {return m_n1;}
-    double get_n2() const {return m_n2;}
-    bool get_inside() const {return m_inside;}
+    const math::Tuple4d& get_point() const { return m_point; }
+    const math::Tuple4d& get_eye() const { return m_eye; }
+    const math::Tuple4d& get_normal() const { return m_normal; }
+    const math::Tuple4d& get_reflect() const { return m_reflect; }
+    const math::Tuple4d& get_over_point() const { return m_over_point; }
+    const math::Tuple4d& get_under_point() const { return m_under_point; }
+    double get_t() const { return m_t; }
+    double get_n1() const { return m_n1; }
+    double get_n2() const { return m_n2; }
+    bool get_inside() const { return m_inside; }
 };
+
+} // namespace core
 
 #endif

@@ -7,9 +7,9 @@ geometry::primitive::Cone::Cone(const math::Matrix4d &transformation, std::share
 {}
 
 // ray intersect functions
-std::vector<Intersection> geometry::primitive::Cone::local_intersect(const Ray &r) const
+std::vector<core::Intersection> geometry::primitive::Cone::local_intersect(const core::Ray &r) const
 {
-    std::vector<Intersection> intersects;
+    std::vector<core::Intersection> intersects;
 
     math::Tuple4d origin = r.get_origin();
     math::Tuple4d direction = r.get_direction();
@@ -21,7 +21,7 @@ std::vector<Intersection> geometry::primitive::Cone::local_intersect(const Ray &
     if (a < constants::EPSILON)
     {
 	if (b >= constants::EPSILON)
-	    intersects.push_back(Intersection{-c / (2 * b), (Primitive*) this});
+	    intersects.push_back(core::Intersection{-c / (2 * b), (Primitive*) this});
 	return intersects;
     }
 
@@ -34,7 +34,7 @@ std::vector<Intersection> geometry::primitive::Cone::local_intersect(const Ray &
 	double t = (-b + (2 * i - 1) * sqrt(discriminant)) / (2 * a);
 	double y = origin(1) + direction(1) * t;
 	if (y > m_minmax[0] && y < m_minmax[1])
-	    intersects.push_back(Intersection{t, (Primitive*) this});
+	    intersects.push_back(core::Intersection{t, (Primitive*) this});
     }
 
     if (m_closed && !(abs(r.get_direction()(1)) < constants::EPSILON))
@@ -43,14 +43,14 @@ std::vector<Intersection> geometry::primitive::Cone::local_intersect(const Ray &
 	for (int i = 0; i < 2; i++)
 	{
 	    if (radii(2 * i) <= abs(m_minmax[i]))
-		intersects.push_back(Intersection{radii(2 * i + 1), (Primitive*) this});
+		intersects.push_back(core::Intersection{radii(2 * i + 1), (Primitive*) this});
 	}
     }
 
     return intersects;
 }
 
-math::Tuple4d geometry::primitive::Cone::local_normal(const math::Tuple4d &t, const Intersection &hit) const
+math::Tuple4d geometry::primitive::Cone::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
 {
     double distance = pow(t(0), 2) + pow(t(2), 2);
     if (m_closed &&
@@ -67,11 +67,11 @@ math::Tuple4d geometry::primitive::Cone::local_normal(const math::Tuple4d &t, co
 }
 
 // utility functions
-BoundingBox geometry::primitive::Cone::local_bounds() const
+core::BoundingBox geometry::primitive::Cone::local_bounds() const
 {
     double a = abs(m_minmax[0]);
     double b = abs(m_minmax[1]);
     double limit = std::max(a, b);
 
-    return BoundingBox{math::point<double>(-limit, m_minmax[0], -limit), math::point<double>(limit, m_minmax[1], limit)};
+    return core::BoundingBox{math::point<double>(-limit, m_minmax[0], -limit), math::point<double>(limit, m_minmax[1], limit)};
 }

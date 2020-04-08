@@ -33,7 +33,7 @@ void image::Camera::set_transform(const math::Matrix4d &m)
 }
 
 // raytrace functions
-Ray image::Camera::ray(int x, int y) const
+core::Ray image::Camera::ray(int x, int y) const
 {
     double pixel_size = get_pixel_size();
     double x_offset = (x + 0.5) * pixel_size;
@@ -46,7 +46,7 @@ Ray image::Camera::ray(int x, int y) const
     math::Tuple4d origin = m_transformation.inverse() * math::point<double>(0, 0, 0);
     math::Tuple4d direction = (pixel - origin).normalize();
 
-    return Ray{origin, direction};
+    return core::Ray{origin, direction};
 }
 
 image::Framebuffer image::Camera::render(const scene::World &w) const
@@ -56,7 +56,7 @@ image::Framebuffer image::Camera::render(const scene::World &w) const
     {
 	for (int x = 0; x < m_width; x++)
 	{
-	    Ray shoot_ray = ray(x, y);
+	    core::Ray shoot_ray = ray(x, y);
 	    math::Tuple3d color = w.final_color(shoot_ray, 0);
 	    ret.write_pixel(x, y, color);
 	}

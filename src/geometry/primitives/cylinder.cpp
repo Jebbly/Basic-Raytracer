@@ -7,9 +7,9 @@ geometry::primitive::Cylinder::Cylinder(const math::Matrix4d &transformation, st
 {}
 
 // ray intersect functions
-std::vector<Intersection> geometry::primitive::Cylinder::local_intersect(const Ray &r) const
+std::vector<core::Intersection> geometry::primitive::Cylinder::local_intersect(const core::Ray &r) const
 {
-    std::vector<Intersection> intersects;
+    std::vector<core::Intersection> intersects;
 
     math::Tuple4d origin = r.get_origin();
     math::Tuple4d direction = r.get_direction();
@@ -30,7 +30,7 @@ std::vector<Intersection> geometry::primitive::Cylinder::local_intersect(const R
 	double t = (-b + (2 * i - 1) * sqrt(discriminant)) / (2 * a);
 	double y = origin(1) + direction(1) * t;
 	if (y > m_minmax[0] && y < m_minmax[1])
-	    intersects.push_back(Intersection{t, (Primitive*) this});
+	    intersects.push_back(core::Intersection{t, (Primitive*) this});
     }
 
     if (m_closed && !(abs(r.get_direction()(1)) < constants::EPSILON))
@@ -39,14 +39,14 @@ std::vector<Intersection> geometry::primitive::Cylinder::local_intersect(const R
 	for (int i = 0; i < 2; i++)
 	{
 	    if (radii(2 * i) <= 1)
-		intersects.push_back(Intersection{radii(2 * i + 1), (Primitive*) this});
+		intersects.push_back(core::Intersection{radii(2 * i + 1), (Primitive*) this});
 	}
     }
 
     return intersects;
 }
 
-math::Tuple4d geometry::primitive::Cylinder::local_normal(const math::Tuple4d &t, const Intersection &hit) const
+math::Tuple4d geometry::primitive::Cylinder::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
 {
     double distance = pow(t(0), 2) + pow(t(2), 2);
     if (m_closed && distance + constants::EPSILON < 1)
@@ -60,7 +60,7 @@ math::Tuple4d geometry::primitive::Cylinder::local_normal(const math::Tuple4d &t
 }
 
 // utility functions
-BoundingBox geometry::primitive::Cylinder::local_bounds() const
+core::BoundingBox geometry::primitive::Cylinder::local_bounds() const
 {
-    return BoundingBox{math::point<double>(-1, m_minmax[0], -1), math::point<double>(1, m_minmax[1], 1)};
+    return core::BoundingBox{math::point<double>(-1, m_minmax[0], -1), math::point<double>(1, m_minmax[1], 1)};
 }

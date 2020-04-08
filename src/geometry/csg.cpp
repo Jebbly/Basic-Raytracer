@@ -9,11 +9,11 @@ geometry::CSG::CSG(geometry::primitive::Primitive *left, geometry::primitive::Pr
 }
 
 // helper functions
-std::vector<Intersection> geometry::CSG::filter_intersections(std::vector<Intersection> &xs) const
+std::vector<core::Intersection> geometry::CSG::filter_intersections(std::vector<core::Intersection> &xs) const
 {
     bool left_hit, in_left = false, in_right = false;
 
-    std::vector<Intersection> ret;
+    std::vector<core::Intersection> ret;
     for (int i = 0; i < xs.size(); i++)
     {
 	left_hit = m_children.at(0)->includes(xs.at(i).get_object());
@@ -29,9 +29,9 @@ std::vector<Intersection> geometry::CSG::filter_intersections(std::vector<Inters
 }
 
 // ray intersect functions
-std::vector<Intersection> geometry::CSG::local_intersect(const Ray &r) const
+std::vector<core::Intersection> geometry::CSG::local_intersect(const core::Ray &r) const
 {
-    std::vector<Intersection> ret = Group::local_intersect(r);
+    std::vector<core::Intersection> ret = Group::local_intersect(r);
     std::sort(ret.begin(), ret.end());
     return filter_intersections(ret);
 }

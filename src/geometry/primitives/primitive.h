@@ -12,7 +12,7 @@
 #include "materials/material.h"
 #include "materials/color_material.h"
 
-class Intersection;
+namespace core {class Intersection;}
 namespace geometry {class Group;}
 
 namespace geometry::primitive
@@ -45,17 +45,17 @@ public:
     virtual bool includes(Primitive *p) const;
 
     // ray intersect functions
-    math::Tuple4d normal(const math::Tuple4d &t, const Intersection &hit) const;
-    std::vector<Intersection> intersect(const Ray &r);
+    math::Tuple4d normal(const math::Tuple4d &t, const core::Intersection &hit) const;
+    std::vector<core::Intersection> intersect(const core::Ray &r);
     math::Tuple3d color(const math::Tuple4d &point) const;
 
-    virtual std::vector<Intersection> local_intersect(const Ray &r) const = 0;
-    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const Intersection &hit) const = 0;
+    virtual std::vector<core::Intersection> local_intersect(const core::Ray &r) const = 0;
+    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const core::Intersection &hit) const = 0;
 
     // utility functions
     virtual void transform(const math::Matrix4d &transformation);
-    BoundingBox bounds() const;
-    virtual BoundingBox local_bounds() const = 0;
+    core::BoundingBox bounds() const;
+    virtual core::BoundingBox local_bounds() const = 0;
 };
 
 } // namespace geometry::primitive

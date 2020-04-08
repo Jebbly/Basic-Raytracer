@@ -1,6 +1,6 @@
 #include "core/computation.h"
 
-Computation::Computation(const Ray &ray, const Intersection &intersect, const std::vector<Intersection> &xs) :
+core::Computation::Computation(const Ray &ray, const Intersection &intersect, const std::vector<Intersection> &xs) :
     m_t{intersect.get_t()},
     m_object{intersect.get_object()},
     m_eye{-ray.get_direction()}

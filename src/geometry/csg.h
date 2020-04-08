@@ -24,13 +24,13 @@ private:
 
     // helper functions
     using Group::add_child;
-    std::vector<Intersection> filter_intersections(std::vector<Intersection> &xs) const;
+    std::vector<core::Intersection> filter_intersections(std::vector<core::Intersection> &xs) const;
 
 public:
     CSG(primitive::Primitive *left, primitive::Primitive *right, bool (*intersection_allowed)(bool, bool, bool));
 
     // ray intersect functions
-    virtual std::vector<Intersection> local_intersect(const Ray &r) const override;
+    virtual std::vector<core::Intersection> local_intersect(const core::Ray &r) const override;
 };
 
 // CSG boolean operations

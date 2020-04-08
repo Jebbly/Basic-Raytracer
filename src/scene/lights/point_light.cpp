@@ -12,7 +12,7 @@ const math::Tuple4d scene::light::PointLight::get_direction(const math::Tuple4d 
 }
 
 // raytrace functions
-const math::Tuple3d scene::light::PointLight::lighting(const Computation &comp) const
+const math::Tuple3d scene::light::PointLight::lighting(const core::Computation &comp) const
 {
     math::Tuple3d color_value = phong_shading(comp.get_object(), comp.get_point(), comp.get_eye(), comp.get_normal());
     double distance = (comp.get_point() - m_position).magnitude();

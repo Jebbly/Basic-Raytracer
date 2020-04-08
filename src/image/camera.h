@@ -31,7 +31,7 @@ public:
     void set_transform(const math::Matrix4d &m);
 
     // raytrace functions
-    Ray ray(int x, int y) const;
+    core::Ray ray(int x, int y) const;
     Framebuffer render(const scene::World &w) const;
 };
 
