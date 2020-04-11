@@ -1,4 +1,4 @@
-#include "materials/patterns/ring_material.h"
+#include "material/patterns/ring_material.h"
 
 // raytrace functions
 math::Tuple3d material::pattern::RingMaterial::get_pattern(const math::Tuple4d &pos) const

@@ -1,4 +1,4 @@
-#include "materials/material.h"
+#include "material/material.h"
 
 material::Material::Material(double ambient, double diffuse, double specular, double shininess, double reflective, double transparency, double IOR) : 
     m_ambient{ambient},

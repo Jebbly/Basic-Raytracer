@@ -4,7 +4,7 @@
 #include <cmath>
 #include "math/tuple.h"
 #include "core/computation.h"
-#include "materials/material.h"
+#include "material/material.h"
 
 namespace scene::light
 {

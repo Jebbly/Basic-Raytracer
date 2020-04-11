@@ -1,4 +1,4 @@
-#include "materials/patterns/pattern.h"
+#include "material/patterns/pattern.h"
 
 material::pattern::Pattern::Pattern(const math::Tuple3d &color_a, const math::Tuple3d &color_b, const math::Matrix4d &transformation, double ambient, double diffuse, double specular, double shininess, double reflective, double transparency, double IOR) :
     Material{ambient, diffuse, specular, shininess, reflective, transparency, IOR},

@@ -1,4 +1,4 @@
-#include "materials/patterns/gradient_material.h"
+#include "material/patterns/gradient_material.h"
 
 // raytrace functions
 math::Tuple3d material::pattern::GradientMaterial::get_pattern(const math::Tuple4d &pos) const

@@ -1,14 +1,15 @@
-#ifndef CHECKER_MATERIAL_H
-#define CHECKER_MATERIAL_H
+#ifndef RING_MATERIAL_H
+#define RING_MATERIAL_H
 
+#include <cmath>
 #include "math/tuple.h"
-#include "materials/material.h"
-#include "materials/patterns/pattern.h"
+#include "material/material.h"
+#include "material/patterns/pattern.h"
 
 namespace material::pattern
 {
 
-class CheckerMaterial : public Pattern
+class RingMaterial : public Pattern
 {
 public:
     using Pattern::Pattern;

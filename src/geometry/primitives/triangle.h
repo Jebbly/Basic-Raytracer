@@ -10,8 +10,8 @@
 #include "core/ray.h"
 #include "core/intersection.h"
 #include "core/bounding_box.h"
-#include "materials/material.h"
-#include "materials/color_material.h"
+#include "material/material.h"
+#include "material/color_material.h"
 #include "geometry/primitives/primitive.h"
 
 namespace geometry::primitive

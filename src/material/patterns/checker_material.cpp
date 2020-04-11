@@ -1,4 +1,4 @@
-#include "materials/patterns/checker_material.h"
+#include "material/patterns/checker_material.h"
 
 // raytrace functions
 math::Tuple3d material::pattern::CheckerMaterial::get_pattern(const math::Tuple4d &pos) const

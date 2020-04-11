@@ -3,7 +3,7 @@
 
 #include "math/tuple.h"
 #include "math/matrix.h"
-#include "materials/material.h"
+#include "material/material.h"
 
 namespace material::pattern
 {

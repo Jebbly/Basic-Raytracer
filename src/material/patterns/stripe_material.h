@@ -2,8 +2,8 @@
 #define STRIPE_MATERIAL_H
 
 #include "math/tuple.h"
-#include "materials/material.h"
-#include "materials/patterns/pattern.h"
+#include "material/material.h"
+#include "material/patterns/pattern.h"
 
 namespace material::pattern
 {

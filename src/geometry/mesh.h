@@ -15,7 +15,7 @@
 #include "core/ray.h"
 #include "core/intersection.h"
 #include "core/bounding_box.h"
-#include "materials/material.h"
+#include "material/material.h"
 #include "geometry/primitives/primitive.h"
 #include "geometry/primitives/triangle.h"
 #include "geometry/primitives/smooth_triangle.h"

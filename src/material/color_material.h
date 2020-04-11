@@ -2,7 +2,7 @@
 #define COLOR_MATERIAL_H
 
 #include "math/tuple.h"
-#include "materials/material.h"
+#include "material/material.h"
 
 namespace material
 {

@@ -1,4 +1,4 @@
-#include "materials/patterns/stripe_material.h"
+#include "material/patterns/stripe_material.h"
 
 // raytrace functions
 math::Tuple3d material::pattern::StripeMaterial::get_pattern(const math::Tuple4d& pos) const
