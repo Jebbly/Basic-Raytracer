@@ -39,6 +39,9 @@ cmake ..
 
 ## Additional Resources
 [Fast, Minimum Storage Ray/Triangle Intersection](https://cadxfem.org/inf/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf)
+
 [Ray-Primitive Intersections](https://www.iquilezles.org/www/articles/intersectors/intersectors.htm)
+
 [Raytracer Challenge by Jamis Buck](http://raytracerchallenge.com/)
+
 [Reflections and Refractions in Ray Tracing](https://graphics.stanford.edu/courses/cs148-10-summer/docs/2006--degreve--reflection_refraction.pdf)
