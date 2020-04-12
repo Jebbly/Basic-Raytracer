@@ -1,4 +1,4 @@
-# A Basic Raytracer using the Standard Library
+# A Basic Raytracer using C++ and the Standard Library
 This is a basic offline raytracer written in C++ with only the use of the standard library. It was primarily developed as a learning experience to practice C++ development and understand the fundamentals of raytracing.
 
 ## Features
