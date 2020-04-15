@@ -76,7 +76,7 @@ core::BoundingBox core::BoundingBox::transform(const math::Matrix4d &transformat
 	{
 	    for (int k = 0; k < 2; k++)
 	    {
-		original_points[idx++] = math::point<double>(m_minmax[i](0), m_minmax[j](1), m_minmax[k](2));
+		original_points[idx++] = math::point(m_minmax[i](0), m_minmax[j](1), m_minmax[k](2));
 	    }
 	}
     }

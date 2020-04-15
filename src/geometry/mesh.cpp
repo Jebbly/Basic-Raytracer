@@ -53,7 +53,7 @@ void geometry::Mesh::parse_obj_file(const std::string &filepath)
 	    double x, y, z;
 	    v >> x >> y >> z;
 
-	    math::Tuple4d vertex = math::point<double>(x, y, z);
+	    math::Tuple4d vertex = math::point(x, y, z);
 	    m_vertices.push_back(vertex);
 	}
 	else if (prefix == "vn")
@@ -64,7 +64,7 @@ void geometry::Mesh::parse_obj_file(const std::string &filepath)
 	    double x, y, z;
 	    vn >> x >> y >> z;
 
-	    math::Tuple4d normal = math::vector<double>(x, y, z);
+	    math::Tuple4d normal = math::vector(x, y, z);
 	    m_normals.push_back(normal);
 	}
 	else if (prefix == "f ")

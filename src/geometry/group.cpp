@@ -47,7 +47,7 @@ std::vector<core::Intersection> geometry::Group::local_intersect(const core::Ray
 math::Tuple4d geometry::Group::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
 {
     assert(!"cannot find local_normal of Group");
-    return math::vector<double>(0, 0, 0);
+    return math::vector(0, 0, 0);
 }
 
 // utility functions

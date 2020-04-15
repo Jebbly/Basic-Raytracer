@@ -19,7 +19,7 @@ private:
     math::Tuple4d m_minmax[2];
 
 public:
-    BoundingBox(const math::Tuple4d &minimum = math::point<double>(INFINITY, INFINITY, INFINITY), const math::Tuple4d &maximum = math::point<double>(-INFINITY, -INFINITY, -INFINITY));
+    BoundingBox(const math::Tuple4d &minimum = math::point(INFINITY, INFINITY, INFINITY), const math::Tuple4d &maximum = math::point(-INFINITY, -INFINITY, -INFINITY));
 
     // accessor methods
     const math::Tuple4d& get_minimum() const;
