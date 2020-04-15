@@ -31,7 +31,7 @@ protected:
     math::Tuple4d normal_to_world(math::Tuple4d normal) const;
 
 public:
-    Primitive(const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}));
+    Primitive(const math::Matrix4d &transformation = math::identity(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}));
 
     // accessor methods
     const math::Matrix4d& get_transformation() const;
@@ -47,7 +47,7 @@ public:
     // ray intersect functions
     math::Tuple4d normal(const math::Tuple4d &t, const core::Intersection &hit) const;
     std::vector<core::Intersection> intersect(const core::Ray &r);
-    math::Tuple3d color(const math::Tuple4d &point) const;
+    image::Color color(const math::Tuple4d &point) const;
 
     virtual std::vector<core::Intersection> local_intersect(const core::Ray &r) const = 0;
     virtual math::Tuple4d local_normal(const math::Tuple4d &t, const core::Intersection &hit) const = 0;

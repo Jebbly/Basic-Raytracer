@@ -1,6 +1,6 @@
 #include "scene/lights/spot_light.h"
 
-scene::light::SpotLight::SpotLight(const math::Tuple3d &intensity, const math::Tuple4d &position, const math::Tuple4d &direction, double outer_cutoff, double inner_cutoff) :
+scene::light::SpotLight::SpotLight(const image::Color &intensity, const math::Tuple4d &position, const math::Tuple4d &direction, double outer_cutoff, double inner_cutoff) :
     Light{intensity},
     m_position{position},
     m_direction{direction.normalize()},
@@ -15,7 +15,7 @@ const math::Tuple4d scene::light::SpotLight::get_direction(const math::Tuple4d &
 }
 
 // raytrace functions
-const math::Tuple3d scene::light::SpotLight::lighting(const core::Computation &comp) const
+const image::Color scene::light::SpotLight::lighting(const core::Computation &comp) const
 {
     double theta = dot(-m_direction, get_direction(comp.get_point()));
     double intensity = std::clamp((theta - m_outer_cutoff) / (m_inner_cutoff - m_outer_cutoff), 0.0, 1.0);

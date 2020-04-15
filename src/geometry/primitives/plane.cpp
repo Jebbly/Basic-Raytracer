@@ -14,11 +14,11 @@ std::vector<core::Intersection> geometry::primitive::Plane::local_intersect(cons
 
 math::Tuple4d geometry::primitive::Plane::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
 {
-    return math::vector<double>(0, 1, 0);
+    return math::vector(0, 1, 0);
 }
 
 // utility functions
 core::BoundingBox geometry::primitive::Plane::local_bounds() const
 {
-    return core::BoundingBox{math::point<double>(-INFINITY, 0, -INFINITY), math::point<double>(INFINITY, 0, INFINITY)};
+    return core::BoundingBox{math::point(-INFINITY, 0, -INFINITY), math::point(INFINITY, 0, INFINITY)};
 }

@@ -15,14 +15,14 @@ private:
     math::Tuple4d m_position;
 
 public:
-    PointLight(const math::Tuple3d &intensity, const math::Tuple4d &position);
+    PointLight(const image::Color &intensity, const math::Tuple4d &position);
 
     // accessor methods
     const math::Tuple4d& get_position() const {return m_position;}
     virtual const math::Tuple4d get_direction(const math::Tuple4d &t) const override;
 
     // raytrace functions
-    virtual const math::Tuple3d lighting(const core::Computation &comp) const override;
+    virtual const image::Color lighting(const core::Computation &comp) const override;
 };
 
 } // namespace scene::light

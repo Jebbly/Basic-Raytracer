@@ -80,7 +80,7 @@ std::vector<core::Intersection> geometry::primitive::Primitive::intersect(const 
     return local_intersect(transformed_ray);
 }
 
-math::Tuple3d geometry::primitive::Primitive::color(const math::Tuple4d &point) const
+image::Color geometry::primitive::Primitive::color(const math::Tuple4d &point) const
 {
     math::Tuple4d object_space = world_to_object(point);
     return m_material->get_color(object_space);

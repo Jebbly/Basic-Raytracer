@@ -18,7 +18,7 @@ const image::Color scene::light::Light::phong_shading(geometry::primitive::Primi
 
 	image::Color diffuse = effective_color * mat->get_diffuse() * light_dot_normal;
 
-	math::Tuple4d reflect_direction = math::reflect<double>(-light_direction, normal);
+	math::Tuple4d reflect_direction = math::reflect(-light_direction, normal);
 	double reflect_dot_eye = dot(reflect_direction, eye);
 	if (reflect_dot_eye <= 0)
 	    return diffuse;

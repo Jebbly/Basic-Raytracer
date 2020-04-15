@@ -1,6 +1,7 @@
 #ifndef CUBE_H
 #define CUBE_H
 
+#include <array>
 #include <cmath>
 #include <vector>
 #include "utility/constants.h"

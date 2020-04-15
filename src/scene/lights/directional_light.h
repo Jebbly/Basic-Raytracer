@@ -15,13 +15,13 @@ private:
     math::Tuple4d m_direction;
 
 public:
-    DirectionalLight(const math::Tuple3d &intensity, const math::Tuple4d &direction);
+    DirectionalLight(const image::Color &intensity, const math::Tuple4d &direction);
 
     // accessor methods
     virtual const math::Tuple4d get_direction(const math::Tuple4d &t) const override;
 
     // raytrace functions
-    virtual const math::Tuple3d lighting(const core::Computation &comp) const override;
+    virtual const image::Color lighting(const core::Computation &comp) const override;
 };
 
 }

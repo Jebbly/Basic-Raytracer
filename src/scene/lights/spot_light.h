@@ -17,7 +17,7 @@ private:
     double m_outer_cutoff, m_inner_cutoff;
 
 public:
-    SpotLight(const math::Tuple3d &intensity, const math::Tuple4d &position, const math::Tuple4d &direction, double outer_cutoff, double inner_cutoff);
+    SpotLight(const image::Color &intensity, const math::Tuple4d &position, const math::Tuple4d &direction, double outer_cutoff, double inner_cutoff);
 
     // accessor methods
     const math::Tuple4d& get_position() const {return m_position;}
@@ -26,7 +26,7 @@ public:
     virtual const math::Tuple4d get_direction(const math::Tuple4d &t) const override;
 
     // raytrace functions
-    virtual const math::Tuple3d lighting(const core::Computation &comp) const override;
+    virtual const image::Color lighting(const core::Computation &comp) const override;
 };
 
 }

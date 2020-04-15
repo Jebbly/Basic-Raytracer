@@ -1,8 +1,10 @@
 #ifndef CONE_H
 #define CONE_H
 
+#include <array>
 #include <cmath>
 #include <memory>
+#include <utility>
 #include <vector>
 #include "utility/constants.h"
 #include "utility/helper.h"
@@ -26,7 +28,7 @@ private:
     bool m_closed;
 
 public:
-    Cone(const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}), double minimum = -INFINITY, double maximum = INFINITY, bool closed = false);
+    Cone(const math::Matrix4d &transformation = math::identity(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}), double minimum = -INFINITY, double maximum = INFINITY, bool closed = false);
 
     // ray intersect functions
     virtual std::vector<core::Intersection> local_intersect(const core::Ray &r) const override;

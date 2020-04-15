@@ -1,6 +1,7 @@
 #ifndef BOUNDING_BOX_H
 #define BOUNDING_BOX_H
 
+#include <array>
 #include <cmath>
 #include <vector>
 #include "utility/constants.h"

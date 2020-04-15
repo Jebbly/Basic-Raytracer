@@ -2,6 +2,7 @@
 #define MATERIAL_H
 
 #include "image/color.h"
+#include "math/tuple.h"
 
 namespace material
 {

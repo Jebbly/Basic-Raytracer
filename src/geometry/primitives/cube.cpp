@@ -3,17 +3,17 @@
 // ray intersect functions
 std::vector<core::Intersection> geometry::primitive::Cube::local_intersect(const core::Ray &r) const
 {
-    math::Tuple2d axes[3];
+    std::array<double, 2> axes[3];
     for (int i = 0; i < 3; i++)
     {
 	axes[i] = utility::check_axis(r.get_origin()(i), r.get_direction()(i));
     }
     
-    double tmin = axes[0](0), tmax = axes[0](1);
+    double tmin = axes[0][0], tmax = axes[0][1];
     for (int i = 1; i < 3; i++)
     {
-	if (axes[i](0) > tmin) tmin = axes[i](0);
-	if (axes[i](1) < tmax) tmax = axes[i](1);
+	if (axes[i][0] > tmin) tmin = axes[i][0];
+	if (axes[i][1] < tmax) tmax = axes[i][1];
     }
 
     std::vector<core::Intersection> intersects;
@@ -34,7 +34,7 @@ math::Tuple4d geometry::primitive::Cube::local_normal(const math::Tuple4d &t, co
 	    max = abs(t(i));
     }
 
-    math::Tuple4d ret = math::vector<double>(0, 0, 0);
+    math::Tuple4d ret = math::vector(0, 0, 0);
     for (int i = 0; i < 3; i++)
     {
 	if (max == abs(t(i)))
@@ -46,5 +46,5 @@ math::Tuple4d geometry::primitive::Cube::local_normal(const math::Tuple4d &t, co
 // utility functions
 core::BoundingBox geometry::primitive::Cube::local_bounds() const
 {
-    return core::BoundingBox{math::point<double>(-1, -1, -1), math::point<double>(1, 1, 1)};
+    return core::BoundingBox{math::point(-1, -1, -1), math::point(1, 1, 1)};
 }

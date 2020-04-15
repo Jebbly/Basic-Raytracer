@@ -1,8 +1,9 @@
 #ifndef TUPLE_H
 #define TUPLE_H
 
-#include <iostream>
+#include <cassert>
 #include <cmath>
+#include <iostream>
 #include "utility/constants.h"
 
 namespace math
@@ -11,6 +12,7 @@ namespace math
 class Tuple4d
 {
 private:
+    // attributes
     double m_buffer[4];
 
 public:
@@ -24,18 +26,18 @@ public:
     double& operator()(const size_t idx);
     const double& operator()(const size_t idx) const;
 
-    // arithmetic overloads
-    friend Tuple4d operator-(const Tuple4d &rhs);
-    friend Tuple4d operator+(const Tuple4d &lhs, const Tuple4d &rhs);
-    friend Tuple4d operator-(const Tuple4d &lhs, const Tuple4d &rhs);
-    friend Tuple4d operator*(const Tuple4d &lhs, double s);
-    friend Tuple4d operator/(const Tuple4d &lhs, double s);
-    friend Tuple4d& operator+=(Tuple4d &lhs, const Tuple4d &rhs);
-
     // tuple logic
     double magnitude() const;
     Tuple4d normalize() const;
 };
+
+// arithmetic overloads
+Tuple4d operator-(const Tuple4d &rhs);
+Tuple4d operator+(const Tuple4d &lhs, const Tuple4d &rhs);
+Tuple4d operator-(const Tuple4d &lhs, const Tuple4d &rhs);
+Tuple4d operator*(const Tuple4d &lhs, double s);
+Tuple4d operator/(const Tuple4d &lhs, double s);
+Tuple4d& operator+=(Tuple4d &lhs, const Tuple4d &rhs);
 
 // utility functions
 Tuple4d reflect(const Tuple4d &in, const Tuple4d &normal);

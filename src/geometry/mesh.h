@@ -39,7 +39,7 @@ private:
     void parse_obj_file(const std::string &filepath);
 
 public:
-    Mesh(const std::string &filepath, const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}));
+    Mesh(const std::string &filepath, const math::Matrix4d &transformation = math::identity(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}));
 
     // accessor methods
     const std::vector<math::Tuple4d>& get_vertices() const;

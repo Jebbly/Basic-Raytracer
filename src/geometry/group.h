@@ -24,7 +24,7 @@ protected:
     core::BoundingBox m_bounds;
 
 public:
-    Group(const math::Matrix4d &transformation = math::identity<double, 4>(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}));
+    Group(const math::Matrix4d &transformation = math::identity(), std::shared_ptr<material::Material> material = std::make_shared<material::ColorMaterial>(material::ColorMaterial{}));
 
     // accessor methods
     void add_child(primitive::Primitive *object);

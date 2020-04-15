@@ -39,11 +39,11 @@ std::vector<core::Intersection> geometry::primitive::Cone::local_intersect(const
 
     if (m_closed && !(abs(r.get_direction()(1)) < constants::EPSILON))
     {
-	math::Tuple4d radii = utility::intersect_caps(r,  m_minmax);
+	std::array<std::pair<double, double>, 2> radii = utility::intersect_caps(r,  m_minmax);
 	for (int i = 0; i < 2; i++)
 	{
-	    if (radii(2 * i) <= abs(m_minmax[i]))
-		intersects.push_back(core::Intersection{radii(2 * i + 1), (Primitive*) this});
+	    if (radii[i].first <= abs(m_minmax[i]))
+		intersects.push_back(core::Intersection{radii[i].second, (Primitive*) this});
 	}
     }
 
@@ -56,14 +56,14 @@ math::Tuple4d geometry::primitive::Cone::local_normal(const math::Tuple4d &t, co
     if (m_closed &&
 	distance + constants::EPSILON < abs(m_minmax[1]) &&
 	t(1) >= m_minmax[1] - constants::EPSILON)
-	return math::vector<double>(0, 1, 0);
+	return math::vector(0, 1, 0);
     else if (m_closed &&
 	     distance + constants::EPSILON < abs(m_minmax[0]) &&
 	     t(1) <= m_minmax[0] + constants::EPSILON)
-	return math::vector<double>(0, -1, 0);
+	return math::vector(0, -1, 0);
 
     double y = sqrt(distance) * (t(1) > 0) ? -1 : 1;
-    return math::vector<double>(t(0), y, t(2));
+    return math::vector(t(0), y, t(2));
 }
 
 // utility functions
@@ -73,5 +73,5 @@ core::BoundingBox geometry::primitive::Cone::local_bounds() const
     double b = abs(m_minmax[1]);
     double limit = std::max(a, b);
 
-    return core::BoundingBox{math::point<double>(-limit, m_minmax[0], -limit), math::point<double>(limit, m_minmax[1], limit)};
+    return core::BoundingBox{math::point(-limit, m_minmax[0], -limit), math::point(limit, m_minmax[1], limit)};
 }

@@ -91,17 +91,17 @@ core::BoundingBox core::BoundingBox::transform(const math::Matrix4d &transformat
 
 bool core::BoundingBox::intersect(const Ray &r) const
 {
-    math::Tuple2d axes[3];
+    std::array<double, 2> axes[3];
     for (int i = 0; i < 3; i++)
     {
 	axes[i] = utility::check_axis(r.get_origin()(i), r.get_direction()(i), m_minmax[0](i), m_minmax[1](i));
     }
 
-    double tmin = axes[0](0), tmax = axes[0](1);
+    double tmin = axes[0][0], tmax = axes[0][1];
     for (int i = 1; i < 3; i++)
     {
-	if (axes[i](0) > tmin) tmin = axes[i](0);
-	if (axes[i](1) < tmax) tmax = axes[i](1);
+	if (axes[i][0] > tmin) tmin = axes[i][0];
+	if (axes[i][1] < tmax) tmax = axes[i][1];
     }
 
     return (tmin <= tmax);
