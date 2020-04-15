@@ -17,10 +17,10 @@ image::Framebuffer::~Framebuffer()
 // initialize and destroy methods
 void image::Framebuffer::init()
 {
-    m_buffer = new math::Tuple3d*[m_height];
+    m_buffer = new image::Color*[m_height];
     for (int i = 0; i < m_height; i++)
     {
-	m_buffer[i] = new math::Tuple3d[m_width];
+	m_buffer[i] = new image::Color[m_width];
     }
 
     m_resources = new int;
@@ -67,7 +67,7 @@ image::Framebuffer& image::Framebuffer::operator=(const image::Framebuffer &fb)
 }
 
 // accessor methods
-math::Tuple3d image::Framebuffer::get_pixel(int x, int y) const
+image::Color image::Framebuffer::get_pixel(int x, int y) const
 {
     assert(x >= 0 && x < get_width() &&
 	   y >= 0 && y < get_height() &&
@@ -77,7 +77,7 @@ math::Tuple3d image::Framebuffer::get_pixel(int x, int y) const
 }
 
 // utility functions
-void image::Framebuffer::write_pixel(int x, int y, const math::Tuple3d &color)
+void image::Framebuffer::write_pixel(int x, int y, const image::Color &color)
 {
     assert(x >= 0 && x < get_width() &&
 	   y >= 0 && y < get_height() &&
@@ -98,14 +98,7 @@ void image::Framebuffer::save_buffer(const std::string &name)
     {
 	for (int x = 0; x < get_width(); x++)
 	{
-	    math::Tuple3d pixel = m_buffer[y][x];
-	    for (int i = 0; i < 3; i++)
-	    {
-		if (pixel(i) >= 1)
-		    output << 255 << ' ';
-		else
-		    output << (int) (pixel(i) * 256) << ' ';
-	    }
+	    output << m_buffer[y][x];
 	}
 	output << '\n';
     }

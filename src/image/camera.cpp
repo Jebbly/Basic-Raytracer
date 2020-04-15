@@ -57,7 +57,7 @@ image::Framebuffer image::Camera::render(const scene::World &w) const
 	for (int x = 0; x < m_width; x++)
 	{
 	    core::Ray shoot_ray = ray(x, y);
-	    math::Tuple3d color = w.final_color(shoot_ray, 0);
+	    image::Color color = w.final_color(shoot_ray, 0);
 	    ret.write_pixel(x, y, color);
 	}
     }

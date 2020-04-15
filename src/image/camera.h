@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include "math/matrix.h"
+#include "image/color.h"
 #include "image/framebuffer.h"
 #include "core/ray.h"
 #include "scene/world.h"

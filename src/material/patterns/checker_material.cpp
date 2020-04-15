@@ -1,7 +1,7 @@
 #include "material/patterns/checker_material.h"
 
 // raytrace functions
-math::Tuple3d material::pattern::CheckerMaterial::get_pattern(const math::Tuple4d &pos) const
+image::Color material::pattern::CheckerMaterial::get_pattern(const math::Tuple4d &pos) const
 {
     if ((((int) floor(pos(0) + constants::EPSILON) + (int) floor(pos(1) + constants::EPSILON) + (int) floor(pos(2) + constants::EPSILON)) % 2) == 0)
 	return m_color_a;

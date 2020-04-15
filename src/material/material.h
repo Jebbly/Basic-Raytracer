@@ -1,7 +1,7 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "math/tuple.h"
+#include "image/color.h"
 
 namespace material
 {
@@ -33,7 +33,7 @@ public:
     void set_IOR(double IOR);
 
     // raytrace functions
-    virtual math::Tuple3d get_color(const math::Tuple4d &pos) const = 0;
+    virtual image::Color get_color(const math::Tuple4d &pos) const = 0;
 };
 
 } // namespace material

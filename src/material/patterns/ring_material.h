@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include "math/tuple.h"
+#include "image/color.h"
 #include "material/material.h"
 #include "material/patterns/pattern.h"
 
@@ -15,7 +16,7 @@ public:
     using Pattern::Pattern;
 
     // raytrace functions
-    virtual math::Tuple3d get_pattern(const math::Tuple4d &pos) const override;
+    virtual image::Color get_pattern(const math::Tuple4d &pos) const override;
 };
 
 } // namespace material::pattern
