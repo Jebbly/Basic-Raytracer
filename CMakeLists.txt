@@ -3,7 +3,7 @@ project(basic_raytracer LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(
-    src/
+    include/
 )
 
 add_subdirectory(src)
