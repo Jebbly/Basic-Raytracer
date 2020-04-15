@@ -4,27 +4,6 @@ core::BoundingBox::BoundingBox(const math::Tuple4d &minimum, const math::Tuple4d
     m_minmax{minimum, maximum}
 {}
 
-// accessor methods
-const math::Tuple4d& core::BoundingBox::get_minimum() const
-{
-    return m_minmax[0];
-}
-
-const math::Tuple4d& core::BoundingBox::get_maximum() const
-{
-    return m_minmax[1];
-}
-
-void core::BoundingBox::set_minimum(const math::Tuple4d &t)
-{
-    m_minmax[0] = t;
-}
-
-void core::BoundingBox::set_maximum(const math::Tuple4d &t)
-{
-    m_minmax[1] = t;
-}
-
 // utility functions
 void core::BoundingBox::add_point(const math::Tuple4d &point)
 {
@@ -56,13 +35,13 @@ bool core::BoundingBox::contains_point(const math::Tuple4d &point) const
 
 void core::BoundingBox::add_bounds(const BoundingBox &box)
 {
-    add_point(box.get_minimum());
-    add_point(box.get_maximum());
+    add_point(box.minimum());
+    add_point(box.maximum());
 }
 
 bool core::BoundingBox::contains_bounds(const BoundingBox &box) const
 {
-    return (contains_point(box.get_minimum()) && contains_point(box.get_maximum()));;
+    return (contains_point(box.minimum()) && contains_point(box.maximum()));;
 }
 
 core::BoundingBox core::BoundingBox::transform(const math::Matrix4d &transformation)
@@ -89,12 +68,12 @@ core::BoundingBox core::BoundingBox::transform(const math::Matrix4d &transformat
     return ret;
 }
 
-bool core::BoundingBox::intersect(const Ray &r) const
+bool core::BoundingBox::intersect(const Ray &ray) const
 {
     std::array<double, 2> axes[3];
     for (int i = 0; i < 3; i++)
     {
-	axes[i] = utility::check_axis(r.get_origin()(i), r.get_direction()(i), m_minmax[0](i), m_minmax[1](i));
+	axes[i] = utility::check_axis(ray.origin()(i), ray.direction()(i), m_minmax[0](i), m_minmax[1](i));
     }
 
     double tmin = axes[0][0], tmax = axes[0][1];

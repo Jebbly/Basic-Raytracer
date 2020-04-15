@@ -2,7 +2,7 @@
 #define COLOR_H
 
 #include <algorithm>
-#include <iostream>
+#include <ostream>
 
 namespace image
 {
@@ -13,7 +13,7 @@ public:
     // attributes
     double r, g, b;
 
-    Color(double red = 0, double green = 0, double blue = 0);
+    Color(double r = 0, double g = 0, double b = 0);
 };
 
 // arithmetic overloads

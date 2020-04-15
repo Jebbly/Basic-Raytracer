@@ -8,35 +8,22 @@ geometry::primitive::Triangle::Triangle(const math::Tuple4d &point1, const math:
     m_normal = cross(m_edges[0], m_edges[1]).normalize();
 }
 
-// accessor methods
-const math::Tuple4d& geometry::primitive::Triangle::get_point(int index) const
-{
-    assert(index < 3 && "index out of bounds");
-    return m_points[index];
-}
-
-const math::Tuple4d& geometry::primitive::Triangle::get_edge(int index) const
-{
-    assert(index < 2 && "index out of bounds");
-    return m_edges[index];
-}
-
 // ray intersect functions
-std::vector<core::Intersection> geometry::primitive::Triangle::local_intersect(const core::Ray &r) const
+std::vector<core::Intersection> geometry::primitive::Triangle::local_intersect(const core::Ray &ray) const
 {
-    math::Tuple4d dir_cross_e2 = cross(r.get_direction(), m_edges[1]);
+    math::Tuple4d dir_cross_e2 = cross(ray.direction(), m_edges[1]);
     double det = dot(m_edges[0], dir_cross_e2);
 
     std::vector<core::Intersection> intersects;
-    if (abs(det) >= constants::EPSILON)
+    if (std::abs(det) >= constants::EPSILON)
     {
 	double f = 1 / det;
-	math::Tuple4d p1_to_origin = r.get_origin() - m_points[0];
+	math::Tuple4d p1_to_origin = ray.origin() - m_points[0];
 	double u = f * dot(p1_to_origin, dir_cross_e2);
 	if (u >= 0 && u <= 1)
 	{
 	    math::Tuple4d origin_cross_e1 = cross(p1_to_origin, m_edges[0]);
-	    double v = f * dot(r.get_direction(), origin_cross_e1);
+	    double v = f * dot(ray.direction(), origin_cross_e1);
 	    if (v >= 0 && (u + v) <= 1)
 	    {
 		double t = f * dot(m_edges[1], origin_cross_e1);
@@ -47,7 +34,7 @@ std::vector<core::Intersection> geometry::primitive::Triangle::local_intersect(c
     return intersects;
 }
 
-math::Tuple4d geometry::primitive::Triangle::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
+math::Tuple4d geometry::primitive::Triangle::local_normal(const math::Tuple4d &point, const core::Intersection &hit) const
 {
     return m_normal;
 }

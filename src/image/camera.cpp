@@ -8,7 +8,7 @@ image::Camera::Camera(int width, int height, double FOV) :
 {
     double half_view = tan(m_FOV / 2);
 
-    double aspect_ratio = (double) m_width / m_height;
+    double aspect_ratio = (double) width / height;
     if (aspect_ratio >= 1)
     {
 	m_half_width = half_view;
@@ -21,23 +21,24 @@ image::Camera::Camera(int width, int height, double FOV) :
     }
 }
 
-// accessor methods
-double image::Camera::get_pixel_size() const
+// helper function
+double image::Camera::pixel_size() const
 {
     return (m_half_width * 2) / m_width;
 }
 
-void image::Camera::set_transform(const math::Matrix4d &m)
+// accessor method
+void image::Camera::transform(const math::Matrix4d &transformation)
 {
-    m_transformation = m;
+    m_transformation = transformation * m_transformation;
 }
 
 // raytrace functions
 core::Ray image::Camera::ray(int x, int y) const
 {
-    double pixel_size = get_pixel_size();
-    double x_offset = (x + 0.5) * pixel_size;
-    double y_offset = (y + 0.5) * pixel_size;
+    double pix_size = pixel_size();
+    double x_offset = (x + 0.5) * pix_size;
+    double y_offset = (y + 0.5) * pix_size;
 
     double world_x = m_half_width - x_offset;
     double world_y = m_half_height - y_offset;
@@ -49,7 +50,7 @@ core::Ray image::Camera::ray(int x, int y) const
     return core::Ray{origin, direction};
 }
 
-image::Framebuffer image::Camera::render(const scene::World &w) const
+image::Framebuffer image::Camera::render(const scene::World &world) const
 {
     image::Framebuffer ret{m_width, m_height};
     for (int y = 0; y < m_height; y++)
@@ -57,7 +58,7 @@ image::Framebuffer image::Camera::render(const scene::World &w) const
 	for (int x = 0; x < m_width; x++)
 	{
 	    core::Ray shoot_ray = ray(x, y);
-	    image::Color color = w.final_color(shoot_ray, 0);
+	    image::Color color = world.final_color(shoot_ray, 0);
 	    ret.write_pixel(x, y, color);
 	}
     }

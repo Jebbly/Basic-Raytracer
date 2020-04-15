@@ -16,7 +16,7 @@ public:
     using Pattern::Pattern;
 
     // raytrace functions
-    virtual image::Color get_pattern(const math::Tuple4d &pos) const override;
+    virtual image::Color pattern(const math::Tuple4d &point) const override;
 };
 
 } // namespace material::pattern

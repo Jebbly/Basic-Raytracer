@@ -4,14 +4,10 @@
 #include <cassert>
 #include <cmath>
 #include <vector>
-#include "utility/constants.h"
 #include "math/tuple.h"
-#include "math/matrix.h"
-#include "core/ray.h"
-#include "core/intersection.h"
 #include "core/bounding_box.h"
-#include "material/material.h"
-#include "material/color_material.h"
+#include "core/intersection.h"
+#include "core/ray.h"
 #include "geometry/primitives/primitive.h"
 #include "geometry/primitives/triangle.h"
 
@@ -27,12 +23,9 @@ private:
 public:
     SmoothTriangle(const math::Tuple4d &point1, const math::Tuple4d &point2, const math::Tuple4d &point3, const math::Tuple4d &normal1, const math::Tuple4d &normal2, const math::Tuple4d &normal3);
 
-    // accessor methods
-    const math::Tuple4d& get_normal(int index) const;
-
     // ray intersect functions
     using Triangle::local_intersect;
-    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const core::Intersection &hit) const override;
+    virtual math::Tuple4d local_normal(const math::Tuple4d &point, const core::Intersection &hit) const override;
 };
 
 } // namespace geometry::primitive

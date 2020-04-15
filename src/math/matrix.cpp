@@ -119,86 +119,86 @@ math::Matrix4d math::Matrix4d::inverse() const
     Matrix4d ret{};
     
     ret(0, 0) = m_buffer[1][1] * m_buffer[2][2] * m_buffer[3][3] -
-		m_buffer[1][1]  * m_buffer[2][3] * m_buffer[3][2] - 
-		m_buffer[2][1]  * m_buffer[1][2]  * m_buffer[3][3] + 
-		m_buffer[2][1]  * m_buffer[1][3]  * m_buffer[3][2] +
+		m_buffer[1][1] * m_buffer[2][3] * m_buffer[3][2] - 
+		m_buffer[2][1] * m_buffer[1][2]  * m_buffer[3][3] + 
+		m_buffer[2][1] * m_buffer[1][3]  * m_buffer[3][2] +
 		m_buffer[3][1] * m_buffer[1][2]  * m_buffer[2][3] - 
 		m_buffer[3][1] * m_buffer[1][3]  * m_buffer[2][2];
 
-    ret(1, 0) = -m_buffer[1][0]  * m_buffer[2][2] * m_buffer[3][3] + 
-		m_buffer[1][0]  * m_buffer[2][3] * m_buffer[3][2] + 
-		m_buffer[2][0]  * m_buffer[1][2]  * m_buffer[3][3] - 
-		m_buffer[2][0]  * m_buffer[1][3]  * m_buffer[3][2] - 
-		m_buffer[3][0] * m_buffer[1][2]  * m_buffer[2][3] + 
-		m_buffer[3][0] * m_buffer[1][3]  * m_buffer[2][2];
+    ret(1, 0) = -m_buffer[1][0] * m_buffer[2][2] * m_buffer[3][3] + 
+		m_buffer[1][0] * m_buffer[2][3] * m_buffer[3][2] + 
+		m_buffer[2][0] * m_buffer[1][2] * m_buffer[3][3] - 
+		m_buffer[2][0] * m_buffer[1][3] * m_buffer[3][2] - 
+		m_buffer[3][0] * m_buffer[1][2] * m_buffer[2][3] + 
+		m_buffer[3][0] * m_buffer[1][3] * m_buffer[2][2];
 
-    ret(2, 0) = m_buffer[1][0]  * m_buffer[2][1] * m_buffer[3][3] - 
-		m_buffer[1][0]  * m_buffer[2][3] * m_buffer[3][1] - 
-		m_buffer[2][0]  * m_buffer[1][1] * m_buffer[3][3] + 
-		m_buffer[2][0]  * m_buffer[1][3] * m_buffer[3][1] + 
+    ret(2, 0) = m_buffer[1][0] * m_buffer[2][1] * m_buffer[3][3] - 
+		m_buffer[1][0] * m_buffer[2][3] * m_buffer[3][1] - 
+		m_buffer[2][0] * m_buffer[1][1] * m_buffer[3][3] + 
+		m_buffer[2][0] * m_buffer[1][3] * m_buffer[3][1] + 
 		m_buffer[3][0] * m_buffer[1][1] * m_buffer[2][3] - 
 		m_buffer[3][0] * m_buffer[1][3] * m_buffer[2][1];
 
-    ret(3, 0) = -m_buffer[1][0]  * m_buffer[2][1] * m_buffer[3][2] + 
-		m_buffer[1][0]  * m_buffer[2][2] * m_buffer[3][1] +
-		m_buffer[2][0]  * m_buffer[1][1] * m_buffer[3][2] - 
-		m_buffer[2][0]  * m_buffer[1][2] * m_buffer[3][1] - 
+    ret(3, 0) = -m_buffer[1][0] * m_buffer[2][1] * m_buffer[3][2] + 
+		m_buffer[1][0] * m_buffer[2][2] * m_buffer[3][1] +
+		m_buffer[2][0] * m_buffer[1][1] * m_buffer[3][2] - 
+		m_buffer[2][0] * m_buffer[1][2] * m_buffer[3][1] - 
 		m_buffer[3][0] * m_buffer[1][1] * m_buffer[2][2] + 
 		m_buffer[3][0] * m_buffer[1][2] * m_buffer[2][1];
 
     ret(0, 1) = -m_buffer[0][1] * m_buffer[2][2] * m_buffer[3][3] +
-		m_buffer[0][1]  * m_buffer[2][3] * m_buffer[3][2] + 
-		m_buffer[2][1]  * m_buffer[0][2] * m_buffer[3][3] - 
-		m_buffer[2][1]  * m_buffer[0][3] * m_buffer[3][2] - 
+		m_buffer[0][1] * m_buffer[2][3] * m_buffer[3][2] + 
+		m_buffer[2][1] * m_buffer[0][2] * m_buffer[3][3] - 
+		m_buffer[2][1] * m_buffer[0][3] * m_buffer[3][2] - 
 		m_buffer[3][1] * m_buffer[0][2] * m_buffer[2][3] + 
 		m_buffer[3][1] * m_buffer[0][3] * m_buffer[2][2];
 
-    ret(1, 1) = m_buffer[0][0]  * m_buffer[2][2] * m_buffer[3][3] - 
-		m_buffer[0][0]  * m_buffer[2][3] * m_buffer[3][2] - 
-		m_buffer[2][0]  * m_buffer[0][2] * m_buffer[3][3] + 
-		m_buffer[2][0]  * m_buffer[0][3] * m_buffer[3][2] + 
+    ret(1, 1) = m_buffer[0][0] * m_buffer[2][2] * m_buffer[3][3] - 
+		m_buffer[0][0] * m_buffer[2][3] * m_buffer[3][2] - 
+		m_buffer[2][0] * m_buffer[0][2] * m_buffer[3][3] + 
+		m_buffer[2][0] * m_buffer[0][3] * m_buffer[3][2] + 
 		m_buffer[3][0] * m_buffer[0][2] * m_buffer[2][3] - 
 		m_buffer[3][0] * m_buffer[0][3] * m_buffer[2][2];
 
-    ret(2, 1) = -m_buffer[0][0]  * m_buffer[2][1] * m_buffer[3][3] + 
-		m_buffer[0][0]  * m_buffer[2][3] * m_buffer[3][1] + 
-		m_buffer[2][0]  * m_buffer[0][1] * m_buffer[3][3] - 
-		m_buffer[2][0]  * m_buffer[0][3] * m_buffer[3][1] - 
+    ret(2, 1) = -m_buffer[0][0] * m_buffer[2][1] * m_buffer[3][3] + 
+		m_buffer[0][0] * m_buffer[2][3] * m_buffer[3][1] + 
+		m_buffer[2][0] * m_buffer[0][1] * m_buffer[3][3] - 
+		m_buffer[2][0] * m_buffer[0][3] * m_buffer[3][1] - 
 		m_buffer[3][0] * m_buffer[0][1] * m_buffer[2][3] + 
 		m_buffer[3][0] * m_buffer[0][3] * m_buffer[2][1];
 
-    ret(3, 1) = m_buffer[0][0]  * m_buffer[2][1] * m_buffer[3][2] - 
-		m_buffer[0][0]  * m_buffer[2][2] * m_buffer[3][1] - 
-		m_buffer[2][0]  * m_buffer[0][1] * m_buffer[3][2] + 
-		m_buffer[2][0]  * m_buffer[0][2] * m_buffer[3][1] + 
+    ret(3, 1) = m_buffer[0][0] * m_buffer[2][1] * m_buffer[3][2] - 
+		m_buffer[0][0] * m_buffer[2][2] * m_buffer[3][1] - 
+		m_buffer[2][0] * m_buffer[0][1] * m_buffer[3][2] + 
+		m_buffer[2][0] * m_buffer[0][2] * m_buffer[3][1] + 
 		m_buffer[3][0] * m_buffer[0][1] * m_buffer[2][2] - 
 		m_buffer[3][0] * m_buffer[0][2] * m_buffer[2][1];
 
-    ret(0, 2) = m_buffer[0][1]  * m_buffer[1][2] * m_buffer[3][3] - 
-		m_buffer[0][1]  * m_buffer[1][3] * m_buffer[3][2] - 
-		m_buffer[1][1]  * m_buffer[0][2] * m_buffer[3][3] + 
-		m_buffer[1][1]  * m_buffer[0][3] * m_buffer[3][2] + 
+    ret(0, 2) = m_buffer[0][1] * m_buffer[1][2] * m_buffer[3][3] - 
+		m_buffer[0][1] * m_buffer[1][3] * m_buffer[3][2] - 
+		m_buffer[1][1] * m_buffer[0][2] * m_buffer[3][3] + 
+		m_buffer[1][1] * m_buffer[0][3] * m_buffer[3][2] + 
 		m_buffer[3][1] * m_buffer[0][2] * m_buffer[1][3] - 
 		m_buffer[3][1] * m_buffer[0][3] * m_buffer[1][2];
 
-    ret(1, 2) = -m_buffer[0][0]  * m_buffer[1][2] * m_buffer[3][3] + 
-		m_buffer[0][0]  * m_buffer[1][3] * m_buffer[3][2] + 
-		m_buffer[1][0]  * m_buffer[0][2] * m_buffer[3][3] - 
-		m_buffer[1][0]  * m_buffer[0][3] * m_buffer[3][2] - 
+    ret(1, 2) = -m_buffer[0][0] * m_buffer[1][2] * m_buffer[3][3] + 
+		m_buffer[0][0] * m_buffer[1][3] * m_buffer[3][2] + 
+		m_buffer[1][0] * m_buffer[0][2] * m_buffer[3][3] - 
+		m_buffer[1][0] * m_buffer[0][3] * m_buffer[3][2] - 
 		m_buffer[3][0] * m_buffer[0][2] * m_buffer[1][3] + 
 		m_buffer[3][0] * m_buffer[0][3] * m_buffer[1][2];
 
-    ret(2, 2) = m_buffer[0][0]  * m_buffer[1][1] * m_buffer[3][3] - 
-		m_buffer[0][0]  * m_buffer[1][3] * m_buffer[3][1] - 
-		m_buffer[1][0]  * m_buffer[0][1] * m_buffer[3][3] + 
-		m_buffer[1][0]  * m_buffer[0][3] * m_buffer[3][1] + 
+    ret(2, 2) = m_buffer[0][0] * m_buffer[1][1] * m_buffer[3][3] - 
+		m_buffer[0][0] * m_buffer[1][3] * m_buffer[3][1] - 
+		m_buffer[1][0] * m_buffer[0][1] * m_buffer[3][3] + 
+		m_buffer[1][0] * m_buffer[0][3] * m_buffer[3][1] + 
 		m_buffer[3][0] * m_buffer[0][1] * m_buffer[1][3] - 
 		m_buffer[3][0] * m_buffer[0][3] * m_buffer[1][1];
 
-    ret(3, 2) = -m_buffer[0][0]  * m_buffer[1][1] * m_buffer[3][2] + 
-		m_buffer[0][0]  * m_buffer[1][2] * m_buffer[3][1] + 
-		m_buffer[1][0]  * m_buffer[0][1] * m_buffer[3][2] - 
-		m_buffer[1][0]  * m_buffer[0][2] * m_buffer[3][1] - 
+    ret(3, 2) = -m_buffer[0][0] * m_buffer[1][1] * m_buffer[3][2] + 
+		m_buffer[0][0] * m_buffer[1][2] * m_buffer[3][1] + 
+		m_buffer[1][0] * m_buffer[0][1] * m_buffer[3][2] - 
+		m_buffer[1][0] * m_buffer[0][2] * m_buffer[3][1] - 
 		m_buffer[3][0] * m_buffer[0][1] * m_buffer[1][2] + 
 		m_buffer[3][0] * m_buffer[0][2] * m_buffer[1][1];
 

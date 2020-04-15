@@ -7,12 +7,12 @@ geometry::primitive::Cylinder::Cylinder(const math::Matrix4d &transformation, st
 {}
 
 // ray intersect functions
-std::vector<core::Intersection> geometry::primitive::Cylinder::local_intersect(const core::Ray &r) const
+std::vector<core::Intersection> geometry::primitive::Cylinder::local_intersect(const core::Ray &ray) const
 {
     std::vector<core::Intersection> intersects;
 
-    math::Tuple4d origin = r.get_origin();
-    math::Tuple4d direction = r.get_direction();
+    math::Tuple4d origin = ray.origin();
+    math::Tuple4d direction = ray.direction();
     
     double a = pow(direction(0), 2) + pow(direction(2), 2);
     if (a < constants::EPSILON)
@@ -33,9 +33,9 @@ std::vector<core::Intersection> geometry::primitive::Cylinder::local_intersect(c
 	    intersects.push_back(core::Intersection{t, (Primitive*) this});
     }
 
-    if (m_closed && !(abs(r.get_direction()(1)) < constants::EPSILON))
+    if (m_closed && !(std::abs(ray.direction()(1)) < constants::EPSILON))
     {
-	std::array<std::pair<double, double>, 2> radii = utility::intersect_caps(r, m_minmax);
+	std::array<std::pair<double, double>, 2> radii = utility::intersect_caps(ray, m_minmax);
 	for (int i = 0; i < 2; i++)
 	{
 	    if (radii[i].first <= 1)
@@ -46,17 +46,17 @@ std::vector<core::Intersection> geometry::primitive::Cylinder::local_intersect(c
     return intersects;
 }
 
-math::Tuple4d geometry::primitive::Cylinder::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
+math::Tuple4d geometry::primitive::Cylinder::local_normal(const math::Tuple4d &point, const core::Intersection &hit) const
 {
-    double distance = pow(t(0), 2) + pow(t(2), 2);
+    double distance = pow(point(0), 2) + pow(point(2), 2);
     if (m_closed && distance + constants::EPSILON < 1)
     {
-	if (t(1) >= (m_minmax[1] - constants::EPSILON))
+	if (point(1) >= (m_minmax[1] - constants::EPSILON))
 	    return math::vector(0, 1, 0);
 	else
 	    return math::vector(0, -1, 0);
     }
-    return math::vector(t(0), 0, t(2));
+    return math::vector(point(0), 0, point(2));
 }
 
 // utility functions

@@ -1,8 +1,8 @@
 #ifndef RAY_H
 #define RAY_H
 
-#include "math/tuple.h"
 #include "math/matrix.h"
+#include "math/tuple.h"
 
 namespace core
 {
@@ -17,12 +17,12 @@ public:
     Ray(const math::Tuple4d &origin, const math::Tuple4d &direction);
 
     // accessor methods
-    const math::Tuple4d& get_origin() const { return m_origin; }
-    const math::Tuple4d& get_direction() const { return m_direction; }
+    inline const math::Tuple4d& origin() const {return m_origin;}
+    inline const math::Tuple4d& direction() const {return m_direction;}
 
     // ray operations
     math::Tuple4d position(double t) const;
-    Ray transform(const math::Matrix4d &m) const;
+    Ray transform(const math::Matrix4d &transformation) const;
 };
 
 } // namespace core

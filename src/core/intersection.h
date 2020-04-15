@@ -1,10 +1,10 @@
 #ifndef INTERSECTION_H
 #define INTERSECTION_H
 
-#include <vector>
 #include <algorithm>
 #include <optional>
 #include <utility>
+#include <vector>
 #include "geometry/primitives/primitive.h"
 
 namespace geometry::primitive {class Primitive;}
@@ -24,9 +24,9 @@ public:
     Intersection(double t, geometry::primitive::Primitive *object, std::pair<double, double> uv = std::make_pair(0, 0));
 
     // accessor methods
-    double get_t() const;
-    geometry::primitive::Primitive* get_object() const;
-    const std::pair<double, double>& get_uv() const;
+    inline double t() const {return m_t;}
+    inline geometry::primitive::Primitive* object() const {return m_object;}
+    inline const std::pair<double, double>& uv() const {return m_uv;}
 
     // comparison overloads
     friend bool operator<(const Intersection &i1, const Intersection &i2);

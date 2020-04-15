@@ -1,17 +1,13 @@
 #ifndef CSG_H
 #define CSG_H
 
-#include <memory>
 #include <vector>
-#include "utility/constants.h"
 #include "math/tuple.h"
 #include "math/matrix.h"
-#include "core/ray.h"
 #include "core/intersection.h"
-#include "core/bounding_box.h"
-#include "material/material.h"
-#include "geometry/primitives/primitive.h"
 #include "geometry/group.h"
+#include "geometry/primitives/primitive.h"
+#include "material/material.h"
 
 namespace geometry
 {
@@ -30,7 +26,7 @@ public:
     CSG(primitive::Primitive *left, primitive::Primitive *right, bool (*intersection_allowed)(bool, bool, bool));
 
     // ray intersect functions
-    virtual std::vector<core::Intersection> local_intersect(const core::Ray &r) const override;
+    virtual std::vector<core::Intersection> local_intersect(const core::Ray &ray) const override;
 };
 
 // CSG boolean operations

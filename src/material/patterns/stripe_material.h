@@ -1,6 +1,8 @@
 #ifndef STRIPE_MATERIAL_H
 #define STRIPE_MATERIAL_H
 
+#include <cmath>
+#include "utility/constants.h"
 #include "math/tuple.h"
 #include "image/color.h"
 #include "material/material.h"
@@ -15,7 +17,7 @@ public:
     using Pattern::Pattern;
 
     // raytrace functions
-    virtual image::Color get_pattern(const math::Tuple4d &pos) const override;
+    virtual image::Color pattern(const math::Tuple4d &point) const override;
 };
 
 } // namespace material::pattern

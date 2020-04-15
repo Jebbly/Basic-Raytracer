@@ -6,7 +6,7 @@ scene::light::DirectionalLight::DirectionalLight(const image::Color &intensity, 
 {}
 
 // accessor methods
-const math::Tuple4d scene::light::DirectionalLight::get_direction(const math::Tuple4d &t) const
+const math::Tuple4d scene::light::DirectionalLight::direction(const math::Tuple4d &point) const
 {
     return m_direction;
 }
@@ -14,5 +14,5 @@ const math::Tuple4d scene::light::DirectionalLight::get_direction(const math::Tu
 // raytrace functions
 const image::Color scene::light::DirectionalLight::lighting(const core::Computation &comp) const
 {
-    return phong_shading(comp.get_object(), comp.get_point(), comp.get_eye(), comp.get_normal());
+    return phong_shading(comp.object(), comp.point(), comp.eye(), comp.normal());
 }

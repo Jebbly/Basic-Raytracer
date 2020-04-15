@@ -80,7 +80,7 @@ int main()
     math::Tuple4d from = math::point(0, 3, -9);
     math::Tuple4d to = math::point(0, 2, 0);
     math::Tuple4d up = math::vector(0, 1, 0);
-    c.set_transform(math::view(from, to, up));
+    c.transform(math::view(from, to, up));
     auto start = std::chrono::high_resolution_clock::now();
     std::cout << "Rendering...\n";
     image::Framebuffer image = c.render(w);

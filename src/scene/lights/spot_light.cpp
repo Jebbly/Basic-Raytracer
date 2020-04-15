@@ -9,15 +9,15 @@ scene::light::SpotLight::SpotLight(const image::Color &intensity, const math::Tu
 {}
 
 // accessor methods
-const math::Tuple4d scene::light::SpotLight::get_direction(const math::Tuple4d &t) const
+const math::Tuple4d scene::light::SpotLight::direction(const math::Tuple4d &point) const
 {
-    return (m_position - t).normalize();
+    return (m_position - point).normalize();
 }
 
 // raytrace functions
 const image::Color scene::light::SpotLight::lighting(const core::Computation &comp) const
 {
-    double theta = dot(-m_direction, get_direction(comp.get_point()));
+    double theta = dot(-m_direction, direction(comp.point()));
     double intensity = std::clamp((theta - m_outer_cutoff) / (m_inner_cutoff - m_outer_cutoff), 0.0, 1.0);
-    return phong_shading(comp.get_object(), comp.get_point(), comp.get_eye(), comp.get_normal()) * intensity;
+    return phong_shading(comp.object(), comp.point(), comp.eye(), comp.normal()) * intensity;
 }

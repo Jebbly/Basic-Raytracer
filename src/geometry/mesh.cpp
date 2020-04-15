@@ -8,7 +8,7 @@ geometry::Mesh::Mesh(const std::string &filepath, const math::Matrix4d &transfor
    
     for (int i = 0; i < m_triangles.size(); i++)
     {
-	m_triangles.at(i)->set_material(m_material);
+	m_triangles.at(i)->material = this->material;
 	add_child((primitive::Primitive*) m_triangles.at(i).get());
     }
 }
@@ -105,20 +105,4 @@ void geometry::Mesh::parse_obj_file(const std::string &filepath)
     }
 
     input.close();
-}
-
-// accessor methods
-const std::vector<math::Tuple4d>& geometry::Mesh::get_vertices() const
-{
-    return m_vertices;
-}
-
-const std::vector<math::Tuple4d>& geometry::Mesh::get_normals() const
-{
-    return m_normals;
-}
-
-const std::vector<std::shared_ptr<geometry::primitive::Triangle>>& geometry::Mesh::get_triangles() const
-{
-    return m_triangles;
 }

@@ -3,9 +3,9 @@
 
 #include <cmath>
 #include "math/matrix.h"
+#include "core/ray.h"
 #include "image/color.h"
 #include "image/framebuffer.h"
-#include "core/ray.h"
 #include "scene/world.h"
 
 namespace image
@@ -20,20 +20,18 @@ private:
     math::Matrix4d m_transformation;
     double m_half_width, m_half_height;
 
+    // helper function
+    double pixel_size() const;
+
 public:
     Camera(int width, int height, double FOV);
 
-    // accessor methods
-    int get_height() const { return m_height; }
-    int get_width() const { return m_width; }
-    double get_FOV() const { return m_FOV; }
-    double get_pixel_size() const;
-
-    void set_transform(const math::Matrix4d &m);
+    // accessor method
+    void transform(const math::Matrix4d &transformation);
 
     // raytrace functions
     core::Ray ray(int x, int y) const;
-    Framebuffer render(const scene::World &w) const;
+    Framebuffer render(const scene::World &world) const;
 };
 
 } // namespace image

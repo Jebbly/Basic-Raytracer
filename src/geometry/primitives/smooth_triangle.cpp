@@ -5,16 +5,9 @@ geometry::primitive::SmoothTriangle::SmoothTriangle(const math::Tuple4d &point1,
     m_normals{normal1, normal2, normal3}
 {}
 
-// accessor methods
-const math::Tuple4d& geometry::primitive::SmoothTriangle::get_normal(int index) const
-{
-    assert(index < 3 && "index out of bounds");
-    return m_normals[index];
-}
-
 // ray intersect functions
-math::Tuple4d geometry::primitive::SmoothTriangle::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
+math::Tuple4d geometry::primitive::SmoothTriangle::local_normal(const math::Tuple4d &point, const core::Intersection &hit) const
 {
-    double u = hit.get_uv().first, v = hit.get_uv().second;
+    double u = hit.uv().first, v = hit.uv().second;
     return m_normals[1] * u + m_normals[2] * v + m_normals[0] * (1 - u - v);
 }

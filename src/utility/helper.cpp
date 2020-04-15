@@ -3,7 +3,7 @@
 // equality comparison
 bool utility::equals(double a, double b)
 {
-    if (abs(a - b) < constants::EPSILON)
+    if (std::abs(a - b) < constants::EPSILON)
 	return true;
     else
 	return false;
@@ -15,7 +15,7 @@ std::array<double, 2> utility::check_axis(double origin, double direction, doubl
     std::array<double, 2> ret{};
 
     double tminmax_numerator[2] = {(min - origin), (max - origin)};
-    if (abs(direction) >= constants::EPSILON)
+    if (std::abs(direction) >= constants::EPSILON)
     {
 	for (int i = 0; i < 2; i++)
 	{
@@ -42,16 +42,16 @@ std::array<double, 2> utility::check_axis(double origin, double direction, doubl
     return ret;
 }
 
-std::array<std::pair<double, double>, 2> utility::intersect_caps(const core::Ray &r, const double y_bounds[2])
+std::array<std::pair<double, double>, 2> utility::intersect_caps(const core::Ray &ray, const double y_bounds[2])
 {
-    double y_direction = r.get_direction()(1);
-    double y_origin = r.get_origin()(1);
+    double y_direction = ray.direction()(1);
+    double y_origin = ray.origin()(1);
 
     std::array<std::pair<double, double>, 2> ret{};
     for (int i = 0; i < 2; i++)
     {
 	double t = (y_bounds[i] - y_origin) / y_direction;
-	math::Tuple4d pos = r.position(t);
+	math::Tuple4d pos = ray.position(t);
 	ret[i] = std::make_pair(sqrt(pow(pos(0), 2) + pow(pos(2), 2)), t);
     }
     return ret;

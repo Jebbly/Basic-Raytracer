@@ -1,9 +1,9 @@
 #include "material/patterns/ring_material.h"
 
 // raytrace functions
-image::Color material::pattern::RingMaterial::get_pattern(const math::Tuple4d &pos) const
+image::Color material::pattern::RingMaterial::pattern(const math::Tuple4d &point) const
 {
-    if (((int) floor(sqrt(pow(pos(0), 2) + pow(pos(2), 2))) % 2) == 0)
+    if (((int) floor(sqrt(pow(point(0), 2) + pow(point(2), 2))) % 2) == 0)
 	return m_color_a;
     else
 	return m_color_b;

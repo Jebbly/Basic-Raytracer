@@ -39,48 +39,38 @@ void image::Framebuffer::destroy()
 }
 
 // copy overloads
-image::Framebuffer::Framebuffer(const Framebuffer &fb) :
-    m_width{fb.m_width},
-    m_height{fb.m_height},
-    m_buffer{fb.m_buffer},
-    m_resources{fb.m_resources}
+image::Framebuffer::Framebuffer(const Framebuffer &rhs) :
+    m_width{rhs.m_width},
+    m_height{rhs.m_height},
+    m_buffer{rhs.m_buffer},
+    m_resources{rhs.m_resources}
 {
     (*m_resources)++;
 }
 
-image::Framebuffer& image::Framebuffer::operator=(const image::Framebuffer &fb)
+image::Framebuffer& image::Framebuffer::operator=(const image::Framebuffer &rhs)
 {
-    if (&fb == this)
+    if (&rhs == this)
 	return *this;
 
     (*m_resources)--;
     if (*m_resources == 0)
 	destroy();
 
-    m_width = fb.m_width;
-    m_height = fb.m_height;
-    m_buffer = fb.m_buffer;
-    m_resources = fb.m_resources;
+    m_width = rhs.m_width;
+    m_height = rhs.m_height;
+    m_buffer = rhs.m_buffer;
+    m_resources = rhs.m_resources;
     (*m_resources)++;
 
     return *this;
 }
 
-// accessor methods
-image::Color image::Framebuffer::get_pixel(int x, int y) const
-{
-    assert(x >= 0 && x < get_width() &&
-	   y >= 0 && y < get_height() &&
-	   "index outside of buffer");
-
-    return m_buffer[y][x];
-}
-
 // utility functions
 void image::Framebuffer::write_pixel(int x, int y, const image::Color &color)
 {
-    assert(x >= 0 && x < get_width() &&
-	   y >= 0 && y < get_height() &&
+    assert(x >= 0 && x < m_width &&
+	   y >= 0 && y < m_height &&
 	   "pixel outside of buffer");
     
     m_buffer[y][x] = color;
@@ -92,11 +82,11 @@ void image::Framebuffer::save_buffer(const std::string &name)
 
     // standard P3 output
     output << "P3" << '\n' 
-	   << get_width() << ' ' << get_height() << '\n' 
+	   << m_width << ' ' << m_height << '\n' 
 	   << 255 << '\n';
-    for (int y = 0; y < get_height(); y++)
+    for (int y = 0; y < m_height; y++)
     {
-	for (int x = 0; x < get_width(); x++)
+	for (int x = 0; x < m_width; x++)
 	{
 	    output << m_buffer[y][x];
 	}

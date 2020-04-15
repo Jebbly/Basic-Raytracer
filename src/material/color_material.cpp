@@ -6,7 +6,7 @@ material::ColorMaterial::ColorMaterial(const image::Color &color, double ambient
 {}
 
 // accessor methods
-image::Color material::ColorMaterial::get_color(const math::Tuple4d &pos) const
+image::Color material::ColorMaterial::color(const math::Tuple4d &point) const
 {
     return m_color;
 }

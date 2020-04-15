@@ -2,9 +2,11 @@
 #define LIGHTING_H
 
 #include <cmath>
+#include <memory>
 #include "math/tuple.h"
 #include "core/computation.h"
 #include "image/color.h"
+#include "geometry/primitives/primitive.h"
 #include "material/material.h"
 
 namespace scene::light
@@ -23,8 +25,7 @@ protected:
 
 public:
     // accessor methods
-    const image::Color& get_intensity() const {return m_intensity;}
-    virtual const math::Tuple4d get_direction(const math::Tuple4d &t) const = 0;
+    virtual const math::Tuple4d direction(const math::Tuple4d &point) const = 0;
 
     // raytrace functions
     virtual const image::Color lighting(const core::Computation &comp) const = 0;

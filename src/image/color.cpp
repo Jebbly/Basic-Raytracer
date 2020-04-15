@@ -1,9 +1,9 @@
 #include "image/color.h"
 
-image::Color::Color(double red, double green, double blue) :
-    r{red},
-    g{green},
-    b{blue}
+image::Color::Color(double r, double g, double b) :
+    r{r},
+    g{g},
+    b{b}
 {}
 
 // arithmetic overloads

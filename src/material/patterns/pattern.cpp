@@ -14,7 +14,7 @@ void material::pattern::Pattern::set_transformation(const math::Matrix4d &transf
 }
 
 // raytrace functions
-image::Color material::pattern::Pattern::get_color(const math::Tuple4d &pos) const
+image::Color material::pattern::Pattern::color(const math::Tuple4d &point) const
 {
-    return get_pattern(m_transformation.inverse() * pos);
+    return pattern(m_transformation.inverse() * point);
 }

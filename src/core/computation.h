@@ -1,8 +1,8 @@
 #ifndef COMPUTATION_H
 #define COMPUTATION_H
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 #include "math/tuple.h"
 #include "core/intersection.h"
 #include "core/ray.h"
@@ -20,23 +20,21 @@ private:
     math::Tuple4d m_over_point, m_under_point;
     double m_t;
     double m_n1, m_n2;
-    bool m_inside;
 
 public:
     Computation(const Ray &ray, const Intersection &intersect, const std::vector<Intersection> &xs);
 
     // accessor methods
-    geometry::primitive::Primitive* get_object() const { return m_object; }
-    const math::Tuple4d& get_point() const { return m_point; }
-    const math::Tuple4d& get_eye() const { return m_eye; }
-    const math::Tuple4d& get_normal() const { return m_normal; }
-    const math::Tuple4d& get_reflect() const { return m_reflect; }
-    const math::Tuple4d& get_over_point() const { return m_over_point; }
-    const math::Tuple4d& get_under_point() const { return m_under_point; }
-    double get_t() const { return m_t; }
-    double get_n1() const { return m_n1; }
-    double get_n2() const { return m_n2; }
-    bool get_inside() const { return m_inside; }
+    inline geometry::primitive::Primitive* object() const {return m_object;}
+    inline const math::Tuple4d& point() const {return m_point;}
+    inline const math::Tuple4d& eye() const {return m_eye;}
+    inline const math::Tuple4d& normal() const {return m_normal;}
+    inline const math::Tuple4d& reflect() const {return m_reflect;}
+    inline const math::Tuple4d& over_point() const {return m_over_point;}
+    inline const math::Tuple4d& under_point() const {return m_under_point;}
+    inline double t() const {return m_t;}
+    inline double n1() const {return m_n1;}
+    inline double n2() const {return m_n2;}
 };
 
 } // namespace core

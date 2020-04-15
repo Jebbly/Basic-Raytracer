@@ -6,22 +6,6 @@ core::Intersection::Intersection(double t, geometry::primitive::Primitive *objec
     m_uv{uv}
 {}
 
-// accessor methods
-double core::Intersection::get_t() const
-{
-    return m_t;
-}
-
-geometry::primitive::Primitive* core::Intersection::get_object() const
-{
-    return m_object;
-}
-
-const std::pair<double, double>& core::Intersection::get_uv() const
-{
-    return m_uv;
-}
-
 // comparison overloads
 bool core::operator<(const core::Intersection &i1, const core::Intersection &i2)
 {
@@ -38,7 +22,7 @@ std::optional<const core::Intersection> core::hit(const std::vector<core::Inters
 {
     for (int i = 0; i < intersections.size(); i++)
     {
-	if (intersections.at(i).get_t() > 0)
+	if (intersections.at(i).t() > 0)
 	    return intersections.at(i);
     }
 

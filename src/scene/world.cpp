@@ -30,48 +30,48 @@ std::vector<core::Intersection> scene::World::intersects(const core::Ray &ray) c
 
 bool scene::World::shadow(const light::Light *light, const math::Tuple4d &position) const
 {
-    math::Tuple4d light_dir = light->get_direction(position);
+    math::Tuple4d light_dir = light->direction(position);
     double distance = light_dir.magnitude();
     math::Tuple4d normalized_light_dir = light_dir.normalize();
 
     std::vector<core::Intersection> xs = intersects(core::Ray{position, normalized_light_dir});
     auto i = hit(xs);
     if (i)
-	return (i.value().get_t() < distance);
+	return (i.value().t() < distance);
     else
 	return false;
 }
 
 image::Color scene::World::reflection(const core::Computation &comp, int recursion_depth) const
 {
-    if (utility::equals(comp.get_object()->get_material()->get_reflective(), 0))
+    if (utility::equals(comp.object()->material->reflective, 0))
 	return image::Color{0, 0, 0};
 
-    return final_color(core::Ray{comp.get_over_point(), comp.get_reflect()}, recursion_depth + 1) * comp.get_object()->get_material()->get_reflective();
+    return final_color(core::Ray{comp.over_point(), comp.reflect()}, recursion_depth + 1) * comp.object()->material->reflective;
 }
 
 image::Color scene::World::refraction(const core::Computation &comp, int recursion_depth) const
 {
-    if (utility::equals(comp.get_object()->get_material()->get_transparency(), 0))
+    if (utility::equals(comp.object()->material->transparency, 0))
 	return image::Color{0, 0, 0};
 
-    double n_ratio = comp.get_n1() / comp.get_n2();
-    double cos_i = dot(comp.get_eye(), comp.get_normal());
+    double n_ratio = comp.n1() / comp.n2();
+    double cos_i = dot(comp.eye(), comp.normal());
     double sin2_t = pow(n_ratio, 2) * (1 - pow(cos_i, 2));
 
     if (sin2_t > 1)
 	return image::Color{0, 0, 0};
 
     double cos_t = sqrt(1 - sin2_t);
-    math::Tuple4d refract = comp.get_normal() * (n_ratio * cos_i - cos_t) - comp.get_eye() * n_ratio;
-    return final_color(core::Ray{comp.get_under_point(), refract}, recursion_depth + 1) * comp.get_object()->get_material()->get_transparency();
+    math::Tuple4d refract = comp.normal() * (n_ratio * cos_i - cos_t) - comp.eye() * n_ratio;
+    return final_color(core::Ray{comp.under_point(), refract}, recursion_depth + 1) * comp.object()->material->transparency;
 }
 
 double scene::World::schlick(const core::Computation &comp) const
 {
-    double cos = dot(comp.get_eye(), comp.get_normal());
+    double cos = dot(comp.eye(), comp.normal());
 
-    double n1 = comp.get_n1(), n2 = comp.get_n2();
+    double n1 = comp.n1(), n2 = comp.n2();
     if (n1 > n2)
     {
 	double n = n1 / n2;
@@ -93,7 +93,7 @@ image::Color scene::World::shade(const core::Computation &comp, int recursion_de
     // surface
     for (int i = 0; i < m_lights.size(); i++)
     {
-	bool shadowed = shadow(m_lights.at(i), comp.get_over_point());
+	bool shadowed = shadow(m_lights.at(i), comp.over_point());
 	if (!shadowed)
 	    ret += m_lights.at(i)->lighting(comp);
     }
@@ -104,8 +104,8 @@ image::Color scene::World::shade(const core::Computation &comp, int recursion_de
 	image::Color reflected = reflection(comp, recursion_depth);
 	image::Color refracted = refraction(comp, recursion_depth);
 
-	std::shared_ptr<material::Material> mat = comp.get_object()->get_material();
-	if (mat->get_reflective() > 0 && mat->get_transparency() > 0)
+	std::shared_ptr<material::Material> mat = comp.object()->material;
+	if (mat->reflective > 0 && mat->transparency > 0)
 	{
 	    double reflectance = schlick(comp);
 	    ret += reflected * reflectance + refracted * (1 - reflectance);
@@ -115,7 +115,7 @@ image::Color scene::World::shade(const core::Computation &comp, int recursion_de
     }
 
     // ambient
-    ret += image::hadamard_product(m_ambient, comp.get_object()->color(comp.get_point())) * comp.get_object()->get_material()->get_ambient();
+    ret += image::hadamard_product(m_ambient, comp.object()->color(comp.point())) * comp.object()->material->ambient;
 
     return ret;
 }

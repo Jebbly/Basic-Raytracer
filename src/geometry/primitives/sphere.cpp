@@ -1,11 +1,11 @@
 #include "geometry/primitives/sphere.h"
 
 // ray intersect functions
-std::vector<core::Intersection> geometry::primitive::Sphere::local_intersect(const core::Ray &r) const
+std::vector<core::Intersection> geometry::primitive::Sphere::local_intersect(const core::Ray &ray) const
 {
-    math::Tuple4d sphere_to_ray = r.get_origin() - math::point(0, 0, 0);
-    double a = dot(r.get_direction(), r.get_direction());
-    double b = 2 * dot(r.get_direction(), sphere_to_ray);
+    math::Tuple4d sphere_to_ray = ray.origin() - math::point(0, 0, 0);
+    double a = dot(ray.direction(), ray.direction());
+    double b = 2 * dot(ray.direction(), sphere_to_ray);
     double c = dot(sphere_to_ray, sphere_to_ray) - 1;
     double discriminant = pow(b, 2) - 4 * a * c;
 
@@ -18,9 +18,9 @@ std::vector<core::Intersection> geometry::primitive::Sphere::local_intersect(con
     return intersects;
 }
 
-math::Tuple4d geometry::primitive::Sphere::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
+math::Tuple4d geometry::primitive::Sphere::local_normal(const math::Tuple4d &point, const core::Intersection &hit) const
 {
-    return (t - math::point(0, 0, 0));
+    return (point - math::point(0, 0, 0));
 }
 
 // utility functions

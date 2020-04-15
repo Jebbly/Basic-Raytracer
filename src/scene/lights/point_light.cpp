@@ -6,15 +6,15 @@ scene::light::PointLight::PointLight(const image::Color &intensity, const math::
 {}
 
 // accessor methods
-const math::Tuple4d scene::light::PointLight::get_direction(const math::Tuple4d &t) const
+const math::Tuple4d scene::light::PointLight::direction(const math::Tuple4d &point) const
 {
-    return (m_position - t).normalize();
+    return (m_position - point).normalize();
 }
 
 // raytrace functions
 const image::Color scene::light::PointLight::lighting(const core::Computation &comp) const
 {
-    image::Color color_value = phong_shading(comp.get_object(), comp.get_point(), comp.get_eye(), comp.get_normal());
-    double distance = (comp.get_point() - m_position).magnitude();
-    return color_value / (1 + 0.01 * pow(distance, 2));
+    image::Color m_color_value = phong_shading(comp.object(), comp.point(), comp.eye(), comp.normal());
+    double distance = (comp.point() - m_position).magnitude();
+    return m_color_value / (1 + 0.01 * pow(distance, 2));
 }

@@ -1,12 +1,12 @@
 #include "geometry/primitives/cube.h"
 
 // ray intersect functions
-std::vector<core::Intersection> geometry::primitive::Cube::local_intersect(const core::Ray &r) const
+std::vector<core::Intersection> geometry::primitive::Cube::local_intersect(const core::Ray &ray) const
 {
     std::array<double, 2> axes[3];
     for (int i = 0; i < 3; i++)
     {
-	axes[i] = utility::check_axis(r.get_origin()(i), r.get_direction()(i));
+	axes[i] = utility::check_axis(ray.origin()(i), ray.direction()(i));
     }
     
     double tmin = axes[0][0], tmax = axes[0][1];
@@ -25,20 +25,20 @@ std::vector<core::Intersection> geometry::primitive::Cube::local_intersect(const
     return intersects;
 }
 
-math::Tuple4d geometry::primitive::Cube::local_normal(const math::Tuple4d &t, const core::Intersection &hit) const
+math::Tuple4d geometry::primitive::Cube::local_normal(const math::Tuple4d &point, const core::Intersection &hit) const
 {
     double max = 0;
     for (int i = 0; i < 3; i++)
     {
-	if (abs(t(i)) > max)
-	    max = abs(t(i));
+	if (std::abs(point(i)) > max)
+	    max = std::abs(point(i));
     }
 
     math::Tuple4d ret = math::vector(0, 0, 0);
     for (int i = 0; i < 3; i++)
     {
-	if (max == abs(t(i)))
-	    ret(i) = t(i);
+	if (max == std::abs(point(i)))
+	    ret(i) = point(i);
     }
     return ret;
 }

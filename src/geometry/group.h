@@ -4,14 +4,12 @@
 #include <cassert>
 #include <memory>
 #include <vector>
-#include "utility/constants.h"
-#include "math/tuple.h"
 #include "math/matrix.h"
-#include "core/ray.h"
-#include "core/intersection.h"
+#include "math/tuple.h"
 #include "core/bounding_box.h"
-#include "material/material.h"
+#include "core/intersection.h"
 #include "geometry/primitives/primitive.h"
+#include "material/material.h"
 
 namespace geometry
 {
@@ -28,16 +26,14 @@ public:
 
     // accessor methods
     void add_child(primitive::Primitive *object);
-
-    const std::vector<primitive::Primitive*>& get_children() const;
-    virtual bool includes(primitive::Primitive *p) const override;
+    virtual void transform(const math::Matrix4d &transformation) override;
+    virtual bool includes(primitive::Primitive *object) const override;
 
     // ray intersect functions
-    virtual std::vector<core::Intersection> local_intersect(const core::Ray &r) const override;
-    virtual math::Tuple4d local_normal(const math::Tuple4d &t, const core::Intersection &hit) const override;
+    virtual std::vector<core::Intersection> local_intersect(const core::Ray &ray) const override;
+    virtual math::Tuple4d local_normal(const math::Tuple4d &point, const core::Intersection &hit) const override;
 
     // utliity functions
-    virtual void transform(const math::Matrix4d &transformation) override;
     virtual core::BoundingBox local_bounds() const override;
 };
 

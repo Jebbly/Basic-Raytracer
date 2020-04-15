@@ -1,9 +1,6 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <cassert>
-#include <cmath>
-
 namespace constants
 {
 

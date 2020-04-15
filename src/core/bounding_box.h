@@ -6,9 +6,9 @@
 #include <vector>
 #include "utility/constants.h"
 #include "utility/helper.h"
-#include "core/ray.h"
-#include "math/tuple.h"
 #include "math/matrix.h"
+#include "math/tuple.h"
+#include "core/ray.h"
 
 namespace core
 {
@@ -23,11 +23,8 @@ public:
     BoundingBox(const math::Tuple4d &minimum = math::point(INFINITY, INFINITY, INFINITY), const math::Tuple4d &maximum = math::point(-INFINITY, -INFINITY, -INFINITY));
 
     // accessor methods
-    const math::Tuple4d& get_minimum() const;
-    const math::Tuple4d& get_maximum() const;
-
-    void set_minimum(const math::Tuple4d &t);
-    void set_maximum(const math::Tuple4d &t);
+    inline const math::Tuple4d& minimum() const {return m_minmax[0];}
+    inline const math::Tuple4d& maximum() const {return m_minmax[1];}
 
     // utility functions
     void add_point(const math::Tuple4d &point);
@@ -38,7 +35,7 @@ public:
 
     BoundingBox transform(const math::Matrix4d &transformation);
 
-    bool intersect(const Ray &r) const;
+    bool intersect(const Ray &ray) const;
 };
 
 } // namespace core
