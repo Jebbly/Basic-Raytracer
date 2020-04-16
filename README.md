@@ -29,14 +29,6 @@ cd build
 cmake ..
 ```
 
-## To-do List
-- Implement Multithreading
-- Move All Accessor Methods from Header Files to Source Files
-- Clean Up Tuple and Matrix Classes
-- Sort Includes in All Headers
-- Comment All Logic
-- Implement Commands
-
 ## Additional Resources
 [Fast, Minimum Storage Ray/Triangle Intersection](https://cadxfem.org/inf/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf)
 
