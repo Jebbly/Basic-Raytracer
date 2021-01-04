@@ -1,5 +1,4 @@
 #include <chrono>
-#include <conio.h>
 #include <iostream>
 #include <memory>
 #include "math/tuple.h"
@@ -72,7 +71,6 @@ int main()
     // write buffer to file
     image.save_buffer("example.ppm");
     std::cout << "Press any key to exit.\n";
-    getch();
 
     return 0;
 }
